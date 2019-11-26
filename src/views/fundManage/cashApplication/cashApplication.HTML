@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>申请提现</title>
+    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi"
+    />
+    <link rel="stylesheet" href="../../../layuiadmin/layui/css/layui.css">
+    <script type="text/javascript" src="../../../layuiadmin/layui/layui.js" charset="utf-8"></script>
+    <!-- 引入vue -->
+    <script type="text/javascript" src="../../../layuiadmin/plugin/vue.js"></script>
+    <script type="text/javascript" src="../../../layuiadmin/plugin/axios.js"></script>
+    <script src="../../../layuiadmin/js/baseUrlConfig.js"></script>
+    <style>
+        .btn-box {
+            text-align: center;
+        }
+        .btn-box button {
+            /* margin-right: 30px; */
+            margin-bottom: 10px;
+        }
+        .layui-form-label {
+            width: 130px;
+
+        }
+        .layui-form-item .layui-input-inline {
+            width: 460px;
+        }
+        .layui-form {
+            padding-top: 20px;
+        }
+        .plist {
+            padding: 10px;
+            margin-top: 10px;
+            border-top: 1px solid #317AB7;
+            border-bottom: 1px solid #317AB7;
+        }
+        .plist span:nth-child(1),
+        .plist span:nth-child(3),
+        .plist span:nth-child(5),
+        .plist span:nth-child(7) {
+            font-size: 16px;
+            color: gray;
+            font-weight: 700;
+        }
+        .plist span:nth-child(2),
+        .plist span:nth-child(4),
+        .plist span:nth-child(6),
+        .plist span:nth-child(8) {
+            margin-right: 20px;
+            font-size: 16px;
+            color: #f00;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="vm">
+        <div class="layui-fluid">
+            <div class="layui-row">
+                <p class="plist">
+                    <span>总佣金：</span>
+                    <span>0</span>
+                    <span>待提现佣金：</span>
+                    <span>0.04</span>
+                    <span>已提现佣金：</span>
+                    <span>0</span>
+                    <span>提现中佣金：</span>
+                    <span>0</span>
+                </p>
+                <form class="layui-form">
+                    <div class="layui-form-item">
+                        <label for="bitian" class="layui-form-label">
+                            提现金额
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="enterpriseName" class="layui-input" placeholder="请输入提现金额" />
+                        </div>
+                    </div>
+                    <div class="btn-box">
+                        <button class="layui-btn" lay-submit lay-filter="warnForm">提交</button>
+                        <button type="reset" class="layui-btn layui-btn-danger">取消</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+        layui.config({
+            base: '../../../layuiadmin/' //静态资源所在路径
+        }).extend({
+            index: 'lib/index' //主入口模块
+        }).use(['index', "jquery", 'form'], function () {
+            var form = layui.form,
+                $ = layui.jquery;
+            form.on('submit(warnForm)', function (data) {
+                axios({
+                    method: "post",
+                    url: layui.setter.BASEURL + 'environmental_intelligent_monitoring/twarnsubscribe/batchSave',
+                    data: data.field,
+                    headers: {
+                        "Content-Type": "application/json;charset=UTF-8"
+                    }
+                }).then(function (res) {
+                    if (res.data.code == 0) {
+                        // console.log(res)
+                        layer.msg('保存成功！', {
+                            time: 500
+                        });
+                    } else {
+                        vm.$notify.error({
+                            title: '错误',
+                            message: '保存失败'
+                        });
+                    }
+                }).catch(function (err) {
+                    // console.log(err);
+                });
+                return false;
+            })
+        })
+        var vm = new Vue({
+            el: "#vm",
+            data: {
+            },
+            methods: {
+            },
+
+        });
+    </script>
+
+</body>
+
+</html>

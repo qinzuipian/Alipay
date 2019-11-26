@@ -1,17 +1,18 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<title>XXXXXX管理系统</title>
-		<meta name="renderer" content="webkit">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
-		<link rel="stylesheet" href="../layuiadmin/layui/css/layui.css" media="all">
-		<link rel="stylesheet" href="../layuiadmin/style/admin.css" media="all">
 
-	</head>
-	<body class="layui-layout-body">
+<head>
+	<meta charset="utf-8">
+	<title>刷脸支付管理系统</title>
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<link rel="stylesheet" href="../layuiadmin/layui/css/layui.css" media="all">
+	<link rel="stylesheet" href="../layuiadmin/style/admin.css" media="all">
+</head>
 
+<body class="layui-layout-body">
+	<div id="vm">
 		<div id="LAY_app">
 			<div class="layui-layout layui-layout-admin">
 				<div class="layui-header">
@@ -32,31 +33,29 @@
 								<i class="layui-icon layui-icon-refresh-3"></i>
 							</a>
 						</li>
-						<!--<li class="layui-nav-item layui-hide-xs" lay-unselect>-->
-						<!--<input type="text" placeholder="搜索..." autocomplete="off" class="layui-input layui-input-search"-->
-						<!--layadmin-event="serach" lay-action="template/search.html?keywords=">-->
-						<!--</li>-->
+						<!-- <li class="layui-nav-item layui-hide-xs" lay-unselect>
+						<input type="text" placeholder="搜索..." autocomplete="off" class="layui-input layui-input-search"
+						layadmin-event="serach" lay-action="template/search.html?keywords=">
+						</li> -->
 					</ul>
 					<ul class="layui-nav layui-layout-right" lay-filter="layadmin-layout-right">
-
-						<li class="layui-nav-item" lay-unselect>
-							<a lay-href="app/message/index.html" layadmin-event="message" lay-text="消息中心">
-								<i class="layui-icon layui-icon-notice"></i>
-
-								<!-- 如果有新消息，则显示小圆点 -->
-								<span class="layui-badge-dot"></span>
-							</a>
-						</li>
+						<!-- <li class="layui-nav-item" lay-unselect>
+										<a lay-href="app/message/index.html" layadmin-event="message" lay-text="消息中心">
+											<i class="layui-icon layui-icon-notice"></i> -->
+						<!-- 如果有新消息，则显示小圆点 -->
+						<!-- <span class="layui-badge-dot"></span>
+										</a>
+									</li> -->
 						<li class="layui-nav-item layui-hide-xs" lay-unselect>
 							<a href="javascript:;" layadmin-event="theme">
 								<i class="layui-icon layui-icon-theme"></i>
 							</a>
 						</li>
 						<!-- <li class="layui-nav-item layui-hide-xs" lay-unselect>
-							<a href="javascript:;" layadmin-event="note">
-								<i class="layui-icon layui-icon-note"></i>
-							</a>
-						</li> -->
+										<a href="javascript:;" layadmin-event="note">
+											<i class="layui-icon layui-icon-note"></i>
+										</a>
+									</li> -->
 						<li class="layui-nav-item layui-hide-xs" lay-unselect>
 							<a href="javascript:;" layadmin-event="fullscreen">
 								<i class="layui-icon layui-icon-screen-full"></i>
@@ -64,16 +63,17 @@
 						</li>
 						<li class="layui-nav-item" lay-unselect style="margin-right: 20px;">
 							<a href="javascript:;">
-								<cite>贤心</cite>
+								<cite>管理员</cite>
 							</a>
 							<dl class="layui-nav-child">
-								<dd><a lay-href="set/user/info.html">基本资料</a></dd>
-								<dd><a lay-href="set/user/password.html">修改密码</a></dd>
-								<hr>
-								<dd layadmin-event="logout" style="text-align: center;"><a>退出</a></dd>
+								<!-- 	<dd><a lay-href="set/user/info.html">基本资料</a></dd>
+											<dd><a lay-href="set/user/password.html">修改密码</a></dd>
+											<hr> -->
+								<dd @click="logout" style="text-align: center;">
+									<a>退出</a>
+								</dd>
 							</dl>
 						</li>
-
 						<!--<li class="layui-nav-item layui-hide-xs" lay-unselect>-->
 						<!--<a href="javascript:;" layadmin-event="about"><i-->
 						<!--class="layui-icon layui-icon-more-vertical"></i></a>-->
@@ -87,38 +87,201 @@
 				<!-- 侧边菜单 -->
 				<div class="layui-side layui-side-menu">
 					<div class="layui-side-scroll">
-						<div class="layui-logo" lay-href="home/console.html">
-							<span>XXXXX管理系统</span>
+						<div class="layui-logo">
+							<span>刷脸支付管理系统</span>
 						</div>
-
 						<ul class="layui-nav layui-nav-tree" lay-shrink="all" id="LAY-system-side-menu" lay-filter="layadmin-system-side-menu">
 
 							<li data-name="app" class="layui-nav-item">
-								<a href="javascript:;" lay-tips="应用" lay-direction="2">
+								<a href="javascript:;" lay-tips="站点管理" lay-direction="2">
 									<i class="layui-icon layui-icon-app"></i>
-									<cite>应用</cite>
+									<cite>站点管理</cite>
 								</a>
 								<dl class="layui-nav-child">
-									<dd data-name="content">
-										<a href="javascript:;">内容系统</a>
-										<dl class="layui-nav-child">
-											<dd data-name="list"><a lay-href="app/content/list.html">文章列表</a></dd>
-										</dl>
+									<dd>
+										<a lay-href="siteManage/siteSetup/siteSetup.html">站点设置</a>
+									</dd>
+								</dl>
+								<dl class="layui-nav-child">
+									<dd>
+										<a lay-href="siteManage/WeChat/WeChatpayment.html">微信支付服务商</a>
+									</dd>
+								</dl>
+								<dl class="layui-nav-child">
+									<dd>
+										<a lay-href="siteManage/Alipay/alipayISA.html">支付宝ISV服务商</a>
+									</dd>
+								</dl>
+								<dl class="layui-nav-child">
+									<dd>
+										<a lay-href="siteManage/Cash/withdrawal.html">提现设置</a>
+									</dd>
+								</dl>
+								<dl class="layui-nav-child">
+									<dd>
+										<a lay-href="siteManage/Stationmaster/Stationmaster.html">站长管理</a>
+									</dd>
+								</dl>
+								<dl class="layui-nav-child">
+									<dd>
+										<a lay-href="siteManage/note/note.html">短信配置</a>
+									</dd>
+								</dl>
+								<dl class="layui-nav-child">
+									<dd>
+										<a lay-href="siteManage/helpSetup/helpSetup.html">帮助中心设置</a>
+									</dd>
+								</dl>
+								<dl class="layui-nav-child">
+									<dd>
+										<a lay-href="siteManage/Alicloud/Alicloud.html">阿里云OSS设置</a>
+									</dd>
+								</dl>
+								<dl class="layui-nav-child">
+									<dd>
+										<a lay-href="siteManage/Sevenoxen/Sevenoxen.html">七牛设置</a>
+									</dd>
+								</dl>
+								<dl class="layui-nav-child">
+									<dd>
+										<a lay-href="siteManage/frame/frame.html">框架设置</a>
 									</dd>
 								</dl>
 							</li>
 							<li data-name="senior" class="layui-nav-item">
-								<a href="javascript:;" lay-tips="高级" lay-direction="2">
-									<i class="layui-icon layui-icon-senior"></i>
-									<cite>高级</cite>
+								<a href="javascript:;" lay-tips="预约用户管理" lay-direction="2">
+									<i class="layui-icon layui-icon-user"></i>
+									<cite>预约用户管理</cite>
 								</a>
 								<dl class="layui-nav-child">
-									<dd data-name="echarts">
-										<a href="javascript:;">Echarts集成</a>
-										<dl class="layui-nav-child">
-											<dd><a lay-href="senior/echarts/line.html">折线图</a></dd>
-											<dd><a lay-href="senior/echarts/bar.html">柱状图</a></dd>
-										</dl>
+									<dd>
+										<a lay-href="userManage/user.html">预约用户</a>
+									</dd>
+								</dl>
+							</li>
+							<li data-name="senior" class="layui-nav-item">
+								<a href="javascript:;" lay-tips="套餐管理" lay-direction="2">
+									<i class="layui-icon layui-icon-star"></i>
+									<cite>套餐管理</cite>
+								</a>
+								<dl class="layui-nav-child">
+									<dd>
+										<a lay-href="Setmeal/mealLevel.html">商户套餐级别</a>
+									</dd>
+								</dl>
+								<dl class="layui-nav-child">
+									<dd>
+										<a lay-href="Setmeal/mealPrice.html">商户套餐价格</a>
+									</dd>
+								</dl>
+								<dl class="layui-nav-child">
+									<dd>
+										<a lay-href="Setmeal/Jurisdiction.html">商户权限设置</a>
+									</dd>
+								</dl>
+							</li>
+							<li data-name="senior" class="layui-nav-item">
+								<a href="javascript:;" lay-tips="商户管理" lay-direction="2">
+									<i class="layui-icon layui-icon-username"></i>
+									<cite>商户管理</cite>
+								</a>
+								<dl class="layui-nav-child">
+									<dd>
+										<a lay-href="MerchantManage/myMerchant/myMerchant.html">我的商户</a>
+									</dd>
+								</dl>
+								<dl class="layui-nav-child">
+									<dd>
+										<a lay-href="MerchantManage/Payment/channel.html">支付渠道</a>
+									</dd>
+								</dl>
+								<dl class="layui-nav-child">
+									<dd>
+										<a lay-href="MerchantManage/notify/merchantNotify.html">商户通知</a>
+									</dd>
+								</dl>
+
+								<dl class="layui-nav-child">
+									<dd>
+										<a lay-href="MerchantManage/Merchantsign/Merchantsign.html">商户签约审核</a>
+									</dd>
+								</dl>
+							</li>
+							<li data-name="senior" class="layui-nav-item">
+								<a href="javascript:;" lay-tips="充值记录" lay-direction="2">
+									<i class="layui-icon layui-icon-rmb"></i>
+									<cite>充值记录</cite>
+								</a>
+								<dl class="layui-nav-child">
+									<dd>
+										<a lay-href="Recharge/CurrentAccount.html">当前账户充值记录</a>
+									</dd>
+								</dl>
+								<dl class="layui-nav-child">
+									<dd>
+										<a lay-href="Recharge/OfflineAccount.html">下线代理充值记录</a>
+									</dd>
+								</dl>
+								<dl class="layui-nav-child">
+									<dd>
+										<a lay-href="Recharge/renewAccount.html">商户续费记录</a>
+									</dd>
+								</dl>
+							</li>
+							<li data-name="senior" class="layui-nav-item">
+								<a href="javascript:;" lay-tips="交易管理" lay-direction="2">
+									<i class="layui-icon layui-icon-senior"></i>
+									<cite>交易管理</cite>
+								</a>
+								<dl class="layui-nav-child">
+									<dd>
+										<a lay-href="transaceManage/orderList/payment/payOrder.html">支付订单</a>
+									</dd>
+								</dl>
+								<dl class="layui-nav-child">
+									<dd>
+										<a lay-href="transaceManage/orderList/Transfer/transferOrder.html">转账订单</a>
+									</dd>
+								</dl>
+								<dl class="layui-nav-child">
+									<dd>
+										<a lay-href="transaceManage/orderList/refund/refundOrder.html">退款订单</a>
+									</dd>
+								</dl>
+								<dl class="layui-nav-child">
+									<dd>
+										<a lay-href="transaceManage/deal/statistics.html">交易统计</a>
+									</dd>
+								</dl>
+							</li>
+							<li data-name="senior" class="layui-nav-item">
+								<a href="javascript:;" lay-tips="资金管理" lay-direction="2">
+									<i class="layui-icon layui-icon-dollar"></i>
+									<cite>资金管理</cite>
+								</a>
+								<dl class="layui-nav-child">
+									<dd>
+										<a lay-href="fundManage/benefit/detail.html">分润详细</a>
+									</dd>
+								</dl>
+								<dl class="layui-nav-child">
+									<dd>
+										<a lay-href="fundManage/cashAccount/cashAccount.html">提现账号</a>
+									</dd>
+								</dl>
+								<dl class="layui-nav-child">
+									<dd>
+										<a lay-href="fundManage/cashApplication/cashApplication.html">申请提现</a>
+									</dd>
+								</dl>
+								<dl class="layui-nav-child">
+									<dd>
+										<a lay-href="fundManage/cashRecord/cashRecord.html">提现记录</a>
+									</dd>
+								</dl>
+								<dl class="layui-nav-child">
+									<dd>
+										<a lay-href="fundManage/lowerCash/lowerCash.html">下级提现管理</a>
 									</dd>
 								</dl>
 							</li>
@@ -135,21 +298,27 @@
 							<li class="layui-nav-item" lay-unselect>
 								<a href="javascript:;"></a>
 								<dl class="layui-nav-child layui-anim-fadein">
-									<dd layadmin-event="closeThisTabs"><a href="javascript:;">关闭当前标签页</a></dd>
-									<dd layadmin-event="closeOtherTabs"><a href="javascript:;">关闭其它标签页</a></dd>
-									<dd layadmin-event="closeAllTabs"><a href="javascript:;">关闭全部标签页</a></dd>
+									<dd layadmin-event="closeThisTabs">
+										<a href="javascript:;">关闭当前标签页</a>
+									</dd>
+									<dd layadmin-event="closeOtherTabs">
+										<a href="javascript:;">关闭其它标签页</a>
+									</dd>
+									<dd layadmin-event="closeAllTabs">
+										<a href="javascript:;">关闭全部标签页</a>
+									</dd>
 								</dl>
 							</li>
 						</ul>
 					</div>
 					<div class="layui-tab" lay-unauto lay-allowClose="true" lay-filter="layadmin-layout-tabs">
 						<ul class="layui-tab-title" id="LAY_app_tabsheader">
-							<li lay-id="home/homepage.html" lay-attr="home/homepage.html" class="layui-this"><i class="layui-icon layui-icon-home"></i></li>
+							<li lay-id="home/homepage.html" lay-attr="home/homepage.html" class="layui-this">
+								<i class="layui-icon layui-icon-home"></i>
+							</li>
 						</ul>
 					</div>
 				</div>
-
-
 				<!-- 主体内容 -->
 				<div class="layui-body" id="LAY_app_body">
 					<div class="layadmin-tabsbody-item layui-show">
@@ -161,14 +330,38 @@
 				<div class="layadmin-body-shade" layadmin-event="shade"></div>
 			</div>
 		</div>
+	</div>
+	<script src="../layuiadmin/layui/layui.js"></script>
+	<script src="../layuiadmin/plugin/vue.js"></script>
+	<script src="../layuiadmin/plugin/axios.js"></script>
+	<script>
+		layui.config({
+			base: '../layuiadmin/' //静态资源所在路径
+		}).extend({
+			index: 'lib/index' //主入口模块
+		}).use('index');
 
-		<script src="../layuiadmin/layui/layui.js"></script>
-		<script>
-			layui.config({
-				base: '../layuiadmin/' //静态资源所在路径
-			}).extend({
-				index: 'lib/index' //主入口模块
-			}).use('index');
-		</script>
-	</body>
+		var vm = new Vue({
+			el: "#vm",
+			data: {},
+			methods: {
+				pageInit: function () {
+					var userId = window.localStorage.getItem("userId");
+					var token = window.localStorage.getItem("token");
+					if (!userId || !token) {
+						window.location.href = "./user/login.html"
+					}
+				},
+				logout: function () {
+					// console.log('ok');
+				}
+			},
+			created() {
+				// this.pageInit();
+				// document.title = 'hello world!'
+			}
+		});
+	</script>
+</body>
+
 </html>

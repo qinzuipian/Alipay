@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html class="x-admin-sm">
+
+<head>
+    <meta charset="UTF-8">
+    <title>提现设置</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi"
+    />
+    <link rel="stylesheet" href="../../../layuiadmin/layui/css/layui.css">
+    <script type="text/javascript" src="../../../layuiadmin/layui/layui.js" charset="utf-8"></script>
+    <!-- 引入vue -->
+    <script type="text/javascript" src="../../../layuiadmin/plugin/vue.js"></script>
+    <script type="text/javascript" src="../../../layuiadmin/plugin/axios.js"></script>
+    <script src="../../../layuiadmin/js/baseUrlConfig.js"></script>
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    
+    <![endif]-->
+    <style>
+        .btn-box {
+            text-align: center;
+        }
+
+        .btn-box button {
+            /* margin-right: 30px; */
+            margin-bottom: 10px;
+        }
+
+        .layui-form-label {
+            width: 130px;
+
+        }
+
+        .layui-form-item .layui-input-inline {
+            width: 460px;
+        }
+
+        .red {
+            color: #f00;
+            font-size: 22px;
+        }
+
+        .layui-form {
+            padding-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="vm">
+        <div class="layui-fluid">
+            <div class="layui-row">
+                <form class="layui-form">
+                    <input type="hidden" name="enterpriseId">
+                    <div class="layui-form-item">
+                        <label for="bitian" class="layui-form-label">
+                                最低提现金额
+                            <span class="red">*</span>
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="enterpriseName" class="layui-input" placeholder="最低提现金额" />
+                            <span>(最低提现金额不填写为不限制,单位：元)</span>
+                        </div>
+
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label for="bitian" class="layui-form-label">
+                                提现费率
+                            <span class="red">*</span>
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="enterpriseName" class="layui-input" placeholder="提现费率" />
+                            <span>(商户申请提现时，每笔申请提现扣除的费用，默认为空，即提现不扣费，单位：%)</span>
+                        </div>
+
+                    </div>
+
+                    <div class="btn-box">
+                        <button class="layui-btn" lay-submit lay-filter="warnForm">提交</button>
+                        <button type="reset" class="layui-btn layui-btn-danger">取消</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+    <script>
+        layui.config({
+            base: '../../../layuiadmin/' //静态资源所在路径
+        }).extend({
+            index: 'lib/index' //主入口模块
+        }).use(['index', "jquery", 'form'], function () {
+            var form = layui.form,
+                $ = layui.jquery;
+
+
+
+            form.on('submit(warnForm)', function (data) {
+                // console.log(data);
+                data.field.enterpriseName = vm.enterpriseName;
+                data.field.eventTypeListStr = vm.eventTypeList.join();
+                data.field.eventTypeIdListStr = vm.eventTypeIdList.join();
+                data.field.userId = window.localStorage.getItem("userId");
+                // console.log(data.field);
+                axios({
+                    method: "post",
+                    // url: layui.setter.BASEURL + 'environmental_intelligent_monitoring/twarnsubscribe/save',
+                    url: layui.setter.BASEURL + 'environmental_intelligent_monitoring/twarnsubscribe/batchSave',
+                    data: data.field,
+                    headers: {
+                        "Content-Type": "application/json;charset=UTF-8"
+                    }
+                }).then(function (res) {
+                    if (res.data.code == 0) {
+                        // console.log(res)
+                        layer.msg('保存成功！', {
+                            time: 500
+                        }, function () {
+                            window.parent.location.reload();
+                            parent.layer.close('iframe');
+                        }
+                        );
+                    } else {
+                        vm.$notify.error({
+                            title: '错误',
+                            message: '保存失败'
+                        });
+                    }
+                }).catch(function (err) {
+                    // console.log(err);
+                });
+                return false;
+            })
+        })
+        var vm = new Vue({
+            el: "#vm",
+            data: {
+            },
+            methods: {
+            },
+
+        });
+    </script>
+</body>
+
+</html>

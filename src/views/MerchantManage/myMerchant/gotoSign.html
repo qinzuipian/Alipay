@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>去签约</title>
+    <link rel="stylesheet" href="../../../layuiadmin/layui/css/layui.css">
+    <script type="text/javascript" src="../../../layuiadmin/layui/layui.js" charset="utf-8"></script>
+    <!-- 引入vue -->
+    <script type="text/javascript" src="../../../layuiadmin/plugin/vue.js"></script>
+    <script type="text/javascript" src="../../../layuiadmin/plugin/axios.js"></script>
+    <script src="../../../layuiadmin/js/baseUrlConfig.js"></script>
+    <style>
+        .btn-box {
+            text-align: center;
+            padding: 10px;
+        }
+
+        .btn-box button {
+            /* margin-right: 30px; */
+            margin-bottom: 10px;
+        }
+
+        .layui-form-label {
+            width: 140px;
+
+        }
+
+        .layui-form-item .layui-input-inline {
+            width: 460px;
+        }
+
+        /*  .layui-form {
+            padding-top: 20px;
+        } */
+
+        .red {
+            color: #f00;
+            font-size: 22px;
+        }
+
+        .layui-form .layui-form-item .layuiIcon {
+            width: 10px;
+            height: 24px;
+            background-color: #1188F6;
+            display: inline-block;
+            margin-bottom: -6px;
+            margin-right: 10px;
+        }
+
+        .layui-upload-img {
+            width: 80px;
+            height: 80px;
+        }
+
+        .layui-id-img {
+            width: 180px;
+            height: 180px;
+        }
+
+        .test {
+            display: inline;
+            width: 80%;
+        }
+
+        .noteStyle {
+            /* text-align: center; */
+            font-size: 16px;
+            font-weight: 700;
+            border-bottom: 1px solid #317AB7;
+            padding: 10px;
+        }
+
+        .layui-tab-card>.layui-tab-title {
+            background-color: #0C7D9D;
+            color: #fff;
+        }
+
+        .playui {
+            padding: 10px;
+            background-color: #f1f1f1;
+            margin-bottom: 10px;
+            height: 40px;
+            line-height: 40px;
+            font-size: 16px;
+        }
+
+        .playui .layuiIcon {
+            width: 10px;
+            height: 24px;
+            background-color: #1188F6;
+            display: inline-block;
+            margin-bottom: -6px;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="vm">
+        <div class="layui-tab layui-tab-card">
+            <p class="playui">
+                <i class="layuiIcon"></i>
+                <span>填写商户签约信息</span>
+            </p>
+            <ul class="layui-tab-title">
+                <li class="layui-this">商家基本资料</li>
+                <li>商家营业执照</li>
+                <li>商家法人信息</li>
+                <li>结算资金账号</li>
+                <li>证件资料</li>
+            </ul>
+            <div class="layui-tab-content">
+                <div class="layui-tab-item layui-show">
+                    <form class="layui-form" action="">
+                        <div class="layui-form-item">
+                            <label for="bitian" class="layui-form-label">
+                                <i class="layuiIcon"></i>
+                                <span>商家基本资料</span>
+                            </label>
+                        </div>
+                        <div class="layui-form-item">
+                            <label for="bitian" class="layui-form-label">
+                                商户全称
+                                <span class="red">*</span>
+                            </label>
+                            <div class="layui-input-inline">
+                                <input type="text" lay-verify="required" name="limitValue" class="layui-input" placeholder="请输入营业执照上的全称" />
+                            </div>
+
+                        </div>
+                        <div class="layui-form-item">
+                            <label for="bitian" class="layui-form-label">
+                                商户简称
+                                <span class="red">*</span>
+                            </label>
+                            <div class="layui-input-inline">
+                                <input type="text" lay-verify="required" name="limitValue" class="layui-input" placeholder="商户简称" />
+                            </div>
+
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">行业类目</label>
+                            <div class="layui-input-inline" style="width: 140px;">
+                                <select name="quiz1">
+                                    <option value="">请选择</option>
+                                </select>
+                            </div>
+                            <div class="layui-input-inline" style="width: 150px;">
+                                <select name="quiz2">
+                                    <option value="">请选择</option>
+                                </select>
+                            </div>
+                            <div class="layui-input-inline" style="width: 150px;">
+                                <select name="quiz3">
+                                    <option value="">请选择</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label for="bitian" class="layui-form-label">
+                                经营地址
+                                <span class="red">*</span>
+                            </label>
+                            <div class="layui-input-inline">
+                                <input type="text" lay-verify="required" name="limitValue" class="layui-input" placeholder="请详细填写经营地址，精确到门牌号" />
+                            </div>
+
+                        </div>
+                        <div class="layui-form-item">
+                            <label for="bitian" class="layui-form-label">
+                                客服电话
+                                <span class="red">*</span>
+                            </label>
+                            <div class="layui-input-inline">
+                                <input type="text" lay-verify="required" name="limitValue" class="layui-input" placeholder="客服电话" />
+                            </div>
+
+                        </div>
+                        <div class="layui-form-item">
+                            <label for="bitian" class="layui-form-label">
+                                支付宝账号
+                                <span class="red">*</span>
+                            </label>
+                            <div class="layui-input-inline">
+                                <input type="text" lay-verify="required" name="limitValue" class="layui-input" placeholder="如需申请支付宝通道，此项必填" />
+                            </div>
+
+                        </div>
+                        <div class="layui-form-item">
+                            <label for="bitian" class="layui-form-label">
+                                微信号
+                                <span class="red">*</span>
+                            </label>
+                            <div class="layui-input-inline">
+                                <input type="text" lay-verify="required" name="limitValue" class="layui-input" placeholder="用来验证用的" />
+                            </div>
+
+                        </div>
+                        <div class="btn-box">
+                            <button class="layui-btn" lay-submit lay-filter="formDemo">提交</button>
+                            <button type="reset" class="layui-btn layui-btn-danger">取消</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="layui-tab-item">
+                    <form class="layui-form" action="">
+                        <div class="layui-form-item">
+                            <label for="bitian" class="layui-form-label">
+                                <i class="layuiIcon"></i>
+                                <span>商家营业执照</span>
+                            </label>
+                        </div>
+                        <div class="layui-form-item">
+                            <label for="bitian" class="layui-form-label">
+                                营业执照
+                                <span class="red">*</span>
+                            </label>
+                            <div class="layui-input-inline">
+                                <img class="layui-upload-img">
+                                <button type="button" class="layui-btn">上传图片</button>
+                                <!-- <span>建议上传170*30像素的图片</span> -->
+                            </div>
+
+                        </div>
+                        <div class="layui-form-item">
+                            <label for="bitian" class="layui-form-label">
+                                营业执照注册号
+                                <span class="red">*</span>
+                            </label>
+                            <div class="layui-input-inline">
+                                <input type="text" lay-verify="required" name="limitValue" class="layui-input" placeholder="商户类型为个体工商户/企业必填" />
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label for="bitian" class="layui-form-label">
+                                营业期限
+                                <span class="red">*</span>
+                            </label>
+                            <div class="layui-input-inline" style="width: 180px;">
+                                <input type="text" class="layui-input" id="startTime">
+                            </div>
+                            <div class="layui-input-inline" style="width: 180px;">
+                                <input type="text" class="layui-input" id="endTime">
+                            </div>
+                            <input type="checkbox" name="like" lay-skin="primary" title="长期">
+                        </div>
+                        <div class="layui-form-item">
+                            <label for="bitian" class="layui-form-label">
+                                经营范围</label>
+                            <div class="layui-input-inline">
+                                <textarea placeholder="与企业公司公司营业执照上一致" class="layui-textarea" name="remark"></textarea>
+                            </div>
+                        </div>
+                        <div class="btn-box">
+                            <button class="layui-btn" lay-submit lay-filter="formDemo">提交</button>
+                            <button type="reset" class="layui-btn layui-btn-danger">取消</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="layui-tab-item">
+                    <form class="layui-form" action="">
+                        <div class="layui-form-item">
+                            <label for="bitian" class="layui-form-label">
+                                <i class="layuiIcon"></i>
+                                <span>商家法人信息</span>
+                            </label>
+                        </div>
+                        <div class="layui-form-item">
+                            <label for="bitian" class="layui-form-label">
+                                身份证反面-人像面
+                                <span class="red">*</span>
+                            </label>
+                            <div class="layui-input-inline">
+                                <img class="layui-upload-img">
+                                <button type="button" class="layui-btn">上传图片</button>
+                                <!-- <span>建议上传170*30像素的图片</span> -->
+                            </div>
+
+                        </div>
+                        <div class="layui-form-item">
+                            <label for="bitian" class="layui-form-label">
+                                身份证正面-国徽面
+                                <span class="red">*</span>
+                            </label>
+                            <div class="layui-input-inline">
+                                <img class="layui-upload-img">
+                                <button type="button" class="layui-btn">上传图片</button>
+                                <!-- <span>建议上传170*30像素的图片</span> -->
+                            </div>
+
+                        </div>
+
+                        <div class="layui-form-item">
+                            <label for="bitian" class="layui-form-label">
+                                身份证有效期限
+                                <span class="red">*</span>
+                            </label>
+                            <div class="layui-input-inline" style="width: 180px;">
+                                <input type="text" class="layui-input" id="startTime">
+                            </div>
+                            <div class="layui-input-inline" style="width: 180px;">
+                                <input type="text" class="layui-input" id="endTime">
+                            </div>
+                            <input type="checkbox" name="like" lay-skin="primary" title="长期">
+                        </div>
+                        <div class="layui-form-item">
+                            <label for="bitian" class="layui-form-label">
+                                联系人/法人姓名
+                                <span class="red">*</span>
+                            </label>
+                            <div class="layui-input-inline">
+                                <input type="text" lay-verify="required" name="limitValue" class="layui-input" placeholder="联系人/法人姓名" />
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label for="bitian" class="layui-form-label">
+                                联系人/法人身份证号</label>
+                            <div class="layui-input-inline">
+                                <input type="text" lay-verify="required" name="limitValue" class="layui-input" placeholder="联系人/法人身份证号" />
+                            </div>
+                        </div>
+                        <div class="btn-box">
+                            <button class="layui-btn" lay-submit lay-filter="formDemo">提交</button>
+                            <button type="reset" class="layui-btn layui-btn-danger">取消</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="layui-tab-item">
+                    <form class="layui-form" action="">
+                        <div class="layui-form-item">
+                            <label for="bitian" class="layui-form-label">
+                                <i class="layuiIcon"></i>
+                                <span>结算资金账号</span>
+                            </label>
+                        </div>
+                        <div class="layui-form-item">
+                            <label for="bitian" class="layui-form-label">
+                                结算银行卡
+                                <span class="red">*</span>
+                            </label>
+                            <div class="layui-input-inline">
+                                <img class="layui-upload-img">
+                                <button type="button" class="layui-btn">上传图片</button>
+                                <!-- <span>建议上传170*30像素的图片</span> -->
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label for="bitian" class="layui-form-label">
+                                银行卡开户行
+                                <span class="red">*</span>
+                            </label>
+                            <div class="layui-input-inline">
+                                <input type="text" lay-verify="required" name="limitValue" class="layui-input" placeholder="银行卡开户行" />
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label for="bitian" class="layui-form-label">
+                                联行号</label>
+                            <div class="layui-input-inline">
+                                <input type="text" lay-verify="required" name="limitValue" class="layui-input" placeholder="联行号" />
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label for="bitian" class="layui-form-label">
+                                银行卡类型
+                            </label>
+                            <div class="layui-input-inline">
+                                <select name="quiz1">
+                                    <option value="">对公</option>
+                                    <option value="">对私</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label for="bitian" class="layui-form-label">
+                                结算卡卡号</label>
+                            <div class="layui-input-inline">
+                                <input type="text" lay-verify="required" name="limitValue" class="layui-input" placeholder="结算卡卡号" />
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label for="bitian" class="layui-form-label">
+                                开户人姓名</label>
+                            <div class="layui-input-inline">
+                                <input type="text" lay-verify="required" name="limitValue" class="layui-input" placeholder="开户人姓名" />
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label for="bitian" class="layui-form-label">
+                                结算银行卡身份证号</label>
+                            <div class="layui-input-inline">
+                                <input type="text" lay-verify="required" name="limitValue" class="layui-input" placeholder="结算银行卡身份证号" />
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label for="bitian" class="layui-form-label">
+                                预留手机号</label>
+                            <div class="layui-input-inline">
+                                <input type="text" lay-verify="required" name="limitValue" class="layui-input" placeholder="预留手机号" />
+                            </div>
+                        </div>
+                        <div class="btn-box">
+                            <button class="layui-btn" lay-submit lay-filter="formDemo">提交</button>
+                            <button type="reset" class="layui-btn layui-btn-danger">取消</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="layui-tab-item">
+                    <form class="layui-form" action="">
+                        <div class="layui-form-item">
+                            <label for="bitian" class="layui-form-label" style="width: 400px; text-align: left;">
+                                <i class="layuiIcon"></i>
+                                <span>证件资料(如需申请微信官方通道，请上传开户许可证)</span>
+                            </label>
+                        </div>
+                        <div class="layui-row layui-col-space1" style="text-align: center;">
+                            <div class="layui-col-md3">
+                                <div class="grid-demo grid-demo-bg1">
+                                    <label for="bitian" class="layui-form-label">
+                                        手持证件照
+                                        <span class="red">*</span>
+                                    </label>
+                                    <div class="layui-input-inline">
+                                        <img class="layui-id-img" id="demoList" v-show="imgShow">
+                                        <img id="handleUpload" v-show="!imgShow" src="./../../../layuiadmin/img/upload.jpg" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="layui-col-md3">
+                                <div class="grid-demo">
+                                    <label for="bitian" class="layui-form-label">
+                                        商户logo
+                                        <!-- <span class="red">*</span> -->
+                                    </label>
+                                    <div class="layui-input-inline">
+                                        <img class="layui-id-img" id="demoList" v-show="imgShow">
+                                        <img id="handleUpload" v-show="!imgShow" src="./../../../layuiadmin/img/upload.jpg" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="layui-col-md3">
+                                <div class="grid-demo grid-demo-bg1">
+                                    <label for="bitian" class="layui-form-label">
+                                        特殊行业许可证
+                                        <!-- <span class="red">*</span> -->
+                                    </label>
+                                    <div class="layui-input-inline">
+                                        <img class="layui-id-img" id="demoList" v-show="imgShow">
+                                        <img id="handleUpload" v-show="!imgShow" src="./../../../layuiadmin/img/upload.jpg" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="layui-col-md3">
+                                <div class="grid-demo">
+                                    <label for="bitian" class="layui-form-label">
+                                        门头照
+                                        <span class="red">*</span>
+                                    </label>
+                                    <div class="layui-input-inline">
+                                        <img class="layui-id-img" id="demoList" v-show="imgShow">
+                                        <img id="handleUpload" v-show="!imgShow" src="./../../../layuiadmin/img/upload.jpg" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="layui-row layui-col-space1" style="text-align: center;">
+                            <div class="layui-col-md3">
+                                <div class="grid-demo grid-demo-bg1">
+                                    <label for="bitian" class="layui-form-label">
+                                        内景照1
+                                        <!-- <span class="red">*</span> -->
+                                    </label>
+                                    <div class="layui-input-inline">
+                                        <img class="layui-id-img" id="demoList" v-show="imgShow">
+                                        <img id="handleUpload" v-show="!imgShow" src="./../../../layuiadmin/img/upload.jpg" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="layui-col-md3">
+                                <div class="grid-demo">
+                                    <label for="bitian" class="layui-form-label">
+                                        内景照2
+                                        <!-- <span class="red">*</span> -->
+                                    </label>
+                                    <div class="layui-input-inline">
+                                        <img class="layui-id-img" id="demoList" v-show="imgShow">
+                                        <img id="handleUpload" v-show="!imgShow" src="./../../../layuiadmin/img/upload.jpg" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="layui-col-md3">
+                                <div class="grid-demo grid-demo-bg1">
+                                    <label for="bitian" class="layui-form-label">
+                                        内景照3
+                                        <!-- <span class="red">*</span> -->
+                                    </label>
+                                    <div class="layui-input-inline">
+                                        <img class="layui-id-img" id="demoList" v-show="imgShow">
+                                        <img id="handleUpload" v-show="!imgShow" src="./../../../layuiadmin/img/upload.jpg" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="layui-col-md3">
+                                <div class="grid-demo">
+                                    <label for="bitian" class="layui-form-label">
+                                        开户许可证
+                                        <!-- <span class="red">*</span> -->
+                                    </label>
+                                    <div class="layui-input-inline">
+                                        <img class="layui-id-img" id="demoList" v-show="imgShow">
+                                        <img id="handleUpload" v-show="!imgShow" src="./../../../layuiadmin/img/upload.jpg" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="btn-box">
+                            <button class="layui-btn" lay-submit lay-filter="formDemo">提交</button>
+                            <button type="reset" class="layui-btn layui-btn-danger">取消</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        layui.config({
+            base: '../../../layuiadmin/' //静态资源所在路径
+        }).extend({
+            index: 'lib/index' //主入口模块
+        }).use(['index', "jquery", 'form', 'laydate', 'upload'], function () {
+            var form = layui.form,
+                $ = layui.jquery,
+                laydate = layui.laydate,
+                upload = layui.upload;
+            //执行一个laydate实例
+            laydate.render({
+                elem: '#startTime' //指定元素
+            });
+            laydate.render({
+                elem: '#endTime' //指定元素
+            });
+
+            // 网站logo文件上传
+            upload.render({
+                elem: '#handleUpload',
+                auto: false,
+                accept: 'file',
+                choose: function (obj) {
+                    obj.preview(function (index, file, result) {
+                        // console.log(result)
+                        $('#demoList').attr('src', result); //图片链接（base64）
+                        vm.imgShow = true;
+                    });
+                }
+            });
+
+            //自定义验证
+            form.verify({
+                //确认密码
+                repass: function (value) {
+                    if (value !== $('#passOne').val()) {
+                        return '两次密码输入不一致';
+                    }
+                }
+            });
+            form.on('submit(warnForm)', function (data) {
+
+                axios({
+                    method: "post",
+                    // url: layui.setter.BASEURL + 'environmental_intelligent_monitoring/twarnsubscribe/save',
+                    url: layui.setter.BASEURL + 'environmental_intelligent_monitoring/twarnsubscribe/batchSave',
+                    data: data.field,
+                    headers: {
+                        "Content-Type": "application/json;charset=UTF-8"
+                    }
+                }).then(function (res) {
+                    if (res.data.code == 0) {
+                        // console.log(res)
+                        layer.msg('保存成功！', {
+                            time: 500
+                        }, function () {
+                            window.parent.location.reload();
+                            parent.layer.close('iframe');
+                        }
+                        );
+                    } else {
+                        vm.$notify.error({
+                            title: '错误',
+                            message: '保存失败'
+                        });
+                    }
+                }).catch(function (err) {
+                    // console.log(err);
+                });
+                return false;
+            })
+        })
+        var vm = new Vue({
+            el: "#vm",
+            data: {
+                imgShow: false
+            },
+            methods: {},
+            created() {}
+        });
+    </script>
+</body>
+
+</html>

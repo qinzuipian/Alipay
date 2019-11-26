@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>商户权限设置</title>
+    <link rel="stylesheet" href="./../../layuiadmin/layui/css/layui.css">
+    <link rel="stylesheet" href="./../../layuiadmin/style/admin.css">
+    <style>
+        .meal {
+            padding: 10px;
+            font-size: 14px;
+            font-weight: 700;
+            border-top: 1px solid #C1DAD7;
+            border-bottom: 1px solid #C1DAD7;
+            margin-top: 10px;
+        }
+
+        .layui-card {
+            margin-bottom: 0;
+        }
+
+        .layui-card .layui-card-header {
+            background-color: #337AB7;
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="vm">
+        <p class="meal">商户套餐权限设置（未勾选功能将不在商户后台显示）</p>
+        <div class="layui-form layui-card-header layuiadmin-card-header-auto">
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label">商户级别</label>
+                    <div class="layui-input-inline">
+                        <select name="eventTypeId" id="eventType" lay-filter="eventType" lay-verify="">
+                            <option value="">初级会员</option>
+                            <option value="">中级会员</option>
+                            <option value="">高级会员</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <button class="layui-btn layuiadmin-btn-list" lay-submit lay-filter="LAY-app-contlist-search">
+                        保存
+                    </button>
+                </div>
+            </div>
+
+            <div class="layuiCard">
+                <div class="layui-col-md12">
+                    <div class="layui-card">
+                        <div class="layui-card-header">账户中心</div>
+                        <div class="layui-card-body">
+                            <input type="checkbox" name="like" lay-skin="primary" title="商户信息">
+                            <input type="checkbox" name="like" lay-skin="primary" title="安全设置">
+                            <input type="checkbox" name="like" lay-skin="primary" title="签约管理">
+                        </div>
+                    </div>
+                    <div class="layui-card">
+                        <div class="layui-card-header">门店管理</div>
+                        <div class="layui-card-body">
+                            <input type="checkbox" name="like" lay-skin="primary" title="添加门店">
+                            <input type="checkbox" name="like" lay-skin="primary" title="我的门店">
+                        </div>
+                    </div>
+                    <div class="layui-card">
+                        <div class="layui-card-header">店员管理</div>
+                        <div class="layui-card-body">
+                            <input type="checkbox" name="like" lay-skin="primary" title="添加店员">
+                            <input type="checkbox" name="like" lay-skin="primary" title="店员管理">
+
+                        </div>
+                    </div>
+                    <div class="layui-card">
+                        <div class="layui-card-header">交易查询</div>
+                        <div class="layui-card-body">
+                            <input type="checkbox" name="like" lay-skin="primary" title="订单列表">
+                            <input type="checkbox" name="like" lay-skin="primary" title="交易统计">
+                        </div>
+                    </div>
+                    <div class="layui-card">
+                        <div class="layui-card-header">广告管理</div>
+                        <div class="layui-card-body">
+                            <input type="checkbox" name="like" lay-skin="primary" title="添加广告">
+                            <input type="checkbox" name="like" lay-skin="primary" title="广告列表">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="../../layuiadmin/layui/layui.js"></script>
+        <script src="../../layuiadmin/plugin/vue.min.js"></script>
+        <script src="../../layuiadmin/plugin/axios.js"></script>
+        <script>
+            layui.config({
+                base: '../../layuiadmin/' //静态资源所在路径
+            }).extend({
+                index: 'lib/index' //主入口模块
+            }).use(['index', 'form'], function () {
+                var form = layui.form
+
+            });
+
+
+            var vm = new Vue({
+                el: "#vm",
+                data: {
+                },
+                methods: {
+                },
+
+            });
+        </script>
+</body>
+
+</html>

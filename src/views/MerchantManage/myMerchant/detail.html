@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>商户详情</title>
+    <link rel="stylesheet" href="../../../layuiadmin/layui/css/layui.css">
+    <script type="text/javascript" src="../../../layuiadmin/layui/layui.js" charset="utf-8"></script>
+    <!-- 引入vue -->
+    <script type="text/javascript" src="../../../layuiadmin/plugin/vue.js"></script>
+    <script type="text/javascript" src="../../../layuiadmin/plugin/axios.js"></script>
+    <script src="../../../layuiadmin/js/baseUrlConfig.js"></script>
+
+    <style>
+        .btn-box {
+            text-align: center;
+        }
+
+        .btn-box button {
+            /* margin-right: 30px; */
+            margin-bottom: 10px;
+        }
+
+        .layui-form-label {
+            width: 130px;
+
+        }
+
+        .layui-form-item .layui-input-inline {
+            width: 360px;
+        }
+
+        .red {
+            color: #f00;
+            font-size: 22px;
+        }
+
+        .layui-form {
+            padding-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="vm">
+        <div class="layui-fluid">
+            <div class="layui-row">
+                <form class="layui-form" lay-filter="editMerchant">
+                    <div class="layui-form-item">
+                        <label for="bitian" class="layui-form-label">
+                            商户类型
+                            <span class="red">*</span>
+                        </label>
+                        <div class="layui-input-inline">
+                            <select name="type" id="eventType" lay-filter="eventType" lay-verify="">
+                                <option value="1">个人</option>
+                                <option value="2">个体工商户</option>
+                                <option value="3">企业</option>
+                                <option value="4">事业</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="bitian" class="layui-form-label">
+                            商户账号
+                            <span class="red">*</span>
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="mchId" class="layui-input" placeholder="需为手机号格式" />
+                        </div>
+                    </div>
+                    <!-- <div class="layui-form-item">
+                                        <label for="bitian" class="layui-form-label">
+                                            商户绑定密码
+                                            <span class="red">*</span>
+                                        </label>
+                                        <div class="layui-input-inline">
+                                            <input type="text" name="pwd" class="layui-input" placeholder="商户绑定密码" />
+                                        </div>
+                                    </div> -->
+                    <div class="layui-form-item">
+                        <label for="bitian" class="layui-form-label">
+                            商户全称
+                            <span class="red">*</span>
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="name" class="layui-input" placeholder="请输入营业执照上的全称 " />
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="bitian" class="layui-form-label">
+                            请求私钥
+                            <span class="red">*</span>
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="reqKey" class="layui-input" placeholder="请求私钥" />
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="bitian" class="layui-form-label">
+                            响应私钥
+                            <span class="red">*</span>
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="resKey" class="layui-input" placeholder="响应私钥" />
+                        </div>
+
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="bitian" class="layui-form-label">
+                            是否启用
+                            <span class="red">*</span>
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="radio" value="1" name="state" title="启用" />
+                            <input type="radio" value="0" name="state" title="禁用" />
+                        </div>
+                    </div>
+                    <div class="btn-box">
+                        <!-- <button class="layui-btn" lay-submit lay-filter="merchantForm">提交</button> -->
+                        <button type="reset" class="layui-btn layui-btn-danger" @click="cancel">取消</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+        layui.config({
+            base: '../../../layuiadmin/' //静态资源所在路径
+        }).extend({
+            index: 'lib/index' //主入口模块
+        }).use(['index', "jquery", 'form'], function () {
+            var form = layui.form,
+                $ = layui.jquery;
+
+            // 单个信息数据展示
+            form.val('editMerchant', {
+                "type": parent.data.type,
+                "mchId": parent.data.mchId,
+                "name": parent.data.name,
+                "reqKey": parent.data.reqKey,
+                "resKey": parent.data.resKey,
+                "state": parent.data.state,
+
+            });
+        })
+        var vm = new Vue({
+            el: "#vm",
+            data: {
+            },
+            methods: {
+                cancel() {
+                    parent.layer.closeAll('iframe');//关闭弹窗
+                },
+            },
+            created() { }
+        });
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>商户套餐级别</title>
+    <link rel="stylesheet" href="./../../layuiadmin/layui/css/layui.css">
+    <link rel="stylesheet" href="../../layuiadmin/style/admin.css" media="all">
+    <style>
+        .name {
+            font-size: 16px;
+            font-weight: 700;
+            border-bottom: 1px solid #00f;
+            padding: 10px;
+        }
+
+        .tableList {
+            width: 100%;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .tableList tr th,
+        .tableList tr td {
+            width: 200px;
+            border: 1px solid #C1DAD7;
+        }
+
+        .tableList tr td {
+            height: 50px;
+        }
+
+        .tableList tr th {
+            background-color: #D9EDF7;
+            height: 40px;
+        }
+
+        .layui-input {
+            width: 70%;
+            margin: 0 auto;
+        }
+        .btn {
+            padding: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="vm">
+        <div class="layui-fluid">
+            <p class="name">商户套餐名称</p>
+            <table class="tableList">
+                <tr>
+                    <th>套餐类型</th>
+                    <th>套餐价格（年）</th>
+                </tr>
+                <tr>
+                    <td>初级会员</td>
+                    <td>
+                        <input type="text" name="title" autocomplete="off" placeholder="" class="layui-input">
+                    </td>
+                </tr>
+                <tr>
+                    <td>中级会员</td>
+                    <td>
+                        <input type="text" name="title" autocomplete="off" placeholder="" class="layui-input">
+                    </td>
+                </tr>
+                <tr>
+                    <td>高级会员</td>
+                    <td>
+                        <input type="text" name="title" autocomplete="off" placeholder="" class="layui-input">
+                    </td>
+                </tr>
+
+            </table>
+            <p class="btn">
+                <button class="layui-btn">提交</button>
+            </p>
+        </div>
+    </div>
+
+
+    <script src="../../layuiadmin/layui/layui.js"></script>
+    <script src="../../layuiadmin/plugin/vue.min.js"></script>
+    <script src="../../layuiadmin/plugin/axios.js"></script>
+    <script>
+        layui.config({
+            base: '../../layuiadmin/' //静态资源所在路径
+        }).extend({
+            index: 'lib/index' //主入口模块
+        }).use(['index', 'form'], function () {
+            var form = layui.form
+
+        });
+
+
+        var vm = new Vue({
+            el: "#vm",
+            data: {
+            },
+            methods: {
+            },
+
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>短信配置</title>
+    <link rel="stylesheet" href="../../../layuiadmin/layui/css/layui.css">
+    <script type="text/javascript" src="../../../layuiadmin/layui/layui.js" charset="utf-8"></script>
+    <!-- 引入vue -->
+    <script type="text/javascript" src="../../../layuiadmin/plugin/vue.js"></script>
+    <script type="text/javascript" src="../../../layuiadmin/plugin/axios.js"></script>
+    <script src="../../../layuiadmin/js/baseUrlConfig.js"></script>
+    <style>
+        .btn-box {
+            text-align: center;
+        }
+
+        .btn-box button {
+            /* margin-right: 30px; */
+            margin-bottom: 10px;
+        }
+
+        .layui-form-label {
+            width: 120px;
+
+        }
+
+        .layui-form-item .layui-input-inline {
+            width: 460px;
+        }
+
+       /*  .layui-form {
+            padding-top: 20px;
+        } */
+
+        .red {
+            color: #f00;
+            font-size: 22px;
+        }
+
+        .layui-form .layui-form-item .layuiIcon {
+            width: 10px;
+            height: 24px;
+            background-color: #1188F6;
+            display: inline-block;
+            margin-bottom: -6px;
+            margin-right: 10px;
+        }
+
+        .layui-upload-img {
+            width: 170px;
+            height: 40px;
+        }
+
+        .layui-pclogo-img {
+            width: 93px;
+            height: 60px;
+        }
+
+        .layui-code-img {
+            width: 80px;
+            height: 80px;
+        }
+
+        .test {
+            display: inline;
+            width: 80%;
+        }
+
+        .noteStyle {
+            /* text-align: center; */
+            font-size: 16px;
+            font-weight: 700;
+            border-bottom: 1px solid #317AB7;
+            padding: 10px;
+        }
+        .layui-tab-card>.layui-tab-title {
+            background-color: #0C7D9D;
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="vm">
+        <div class="layui-tab layui-tab-card">
+            <ul class="layui-tab-title">
+                <li class="layui-this">短信配置</li>
+                <li>专用通道配置</li>
+                <li>阿里云配置</li>
+                <li>短信发送记录</li>
+            </ul>
+            <div class="layui-tab-content">
+                <div class="layui-tab-item layui-show">
+                    <form class="layui-form" action="">
+                        <div class="layui-form-item">
+                            <label for="bitian" class="layui-form-label">
+                                短信通道
+                                <span class="red">*</span>
+                            </label>
+                            <div class="layui-input-inline">
+                                <div class="layui-input-inline">
+                                    <input type="radio" name="userType" checked value="1" title="官方专用通道">
+                                    <input type="radio" name="userType" value="2" title="阿里云">
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                        <div class="btn-box">
+                            <button class="layui-btn" lay-submit lay-filter="formDemo">提交</button>
+                            <button type="reset" class="layui-btn layui-btn-danger">取消</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="layui-tab-item">
+                    <form class="layui-form" action="">
+                        <div class="layui-form-item">
+                            <label for="bitian" class="layui-form-label">
+                                用户ID
+                                <span class="red">*</span>
+                            </label>
+                            <div class="layui-input-inline">
+                                <input type="text" lay-verify="required" name="limitValue" class="layui-input" placeholder="用户ID" />
+                                <span>官方专用高速短信通道，请联系管理员 购买短信并开设账号，200元=2200条，300元=3800条</span>
+                            </div>
+
+                        </div>
+                        <div class="layui-form-item">
+                            <label for="bitian" class="layui-form-label">
+                                密码
+                                <span class="red">*</span>
+                            </label>
+                            <div class="layui-input-inline">
+                                <input type="text" lay-verify="required" name="limitValue" class="layui-input" placeholder="密码" />
+                            </div>
+
+                        </div>
+                        <div class="layui-form-item">
+                            <label for="bitian" class="layui-form-label">
+                                签名
+                                <span class="red">*</span>
+                            </label>
+                            <div class="layui-input-inline">
+                                <input type="text" lay-verify="required" name="limitValue" class="layui-input" placeholder="签名" />
+                                <span>短信的后缀，必须带有签名，如：小程序</span>
+                            </div>
+
+                        </div>
+                        <div class="layui-form-item">
+                            <label for="bitian" class="layui-form-label">
+                                验证码
+                                <span class="red">*</span>
+                            </label>
+                            <div class="layui-input-inline">
+                                <input type="text" lay-verify="required" name="limitValue" class="layui-input" placeholder="验证码" />
+                            </div>
+
+                        </div>
+                        <div class="layui-form-item">
+                            <label for="bitian" class="layui-form-label">
+                                测试
+                                <span class="red">*</span>
+                            </label>
+                            <div class="layui-input-inline">
+                                <input type="text" lay-verify="required" name="limitValue" class="layui-input test" placeholder="测试" />
+                                <button class="layui-btn">测试</button>
+                            </div>
+
+                        </div>
+                        <div class="btn-box">
+                            <button class="layui-btn" lay-submit lay-filter="AdminSubmit">提交</button>
+                            <button type="reset" class="layui-btn layui-btn-danger">取消</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="layui-tab-item">
+                    <form class="layui-form" action="">
+                        <div class="layui-form-item">
+                            <label for="bitian" class="layui-form-label">
+                                accessKeyId
+                                <span class="red">*</span>
+                            </label>
+                            <div class="layui-input-inline">
+                                <input type="text" lay-verify="required" name="limitValue" class="layui-input" placeholder="accessKeyId" />
+                                <span>(请参阅 https://ak-console.aliyun.com/ 取得您的AK信息)</span>
+                            </div>
+
+                        </div>
+                        <div class="layui-form-item">
+                            <label for="bitian" class="layui-form-label">
+                                accessKeySecret
+                                <span class="red">*</span>
+                            </label>
+                            <div class="layui-input-inline">
+                                <input type="text" lay-verify="required" name="limitValue" class="layui-input" placeholder="accessKeySecret" />
+                                <span>(请参阅 https://ak-console.aliyun.com/ 取得您的AK信息)</span>
+                            </div>
+
+                        </div>
+                        <div class="layui-form-item">
+                            <label for="bitian" class="layui-form-label">
+                                签名
+                                <span class="red">*</span>
+                            </label>
+                            <div class="layui-input-inline">
+                                <input type="text" lay-verify="required" name="limitValue" class="layui-input" placeholder="签名" />
+                            </div>
+
+                        </div>
+                        <div class="btn-box">
+                            <button class="layui-btn" lay-submit lay-filter="sumSubmit">提交</button>
+                            <button type="reset" class="layui-btn layui-btn-danger">取消</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="layui-tab-item">
+                    <p class="noteStyle">
+                        <span>官方通道短信余额：</span>
+                        <span>0条</span>
+                    </p>
+                    <table id="LAY-app-content-list" lay-filter="LAY-app-content-list"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        layui.config({
+            base: '../../../layuiadmin/' //静态资源所在路径
+        }).extend({
+            index: 'lib/index' //主入口模块
+        }).use(['index', "jquery", 'form', 'table'], function () {
+            var form = layui.form,
+                $ = layui.jquery,
+                table = layui.table;
+
+
+            table.render({
+                elem: '#LAY-app-content-list'
+                , height: 555 //容器高度
+                , url: layui.setter.BASEURL + 'environmental_intelligent_monitoring/twarnsubscribe/list' //数据接口
+                , page: true,
+                where: {
+                    userId: window.localStorage.getItem("userId")
+                }
+                , parseData: function (res) { // 数据重新处理为layUI的数据格式
+                    var msg = {
+                        "code": res.code, //解析接口状态
+                        "msg": res.msg, //解析提示文本
+                        "count": res.page.totalCount, //解析数据长度
+                        "data": res.page.list //解析数据列表
+                    };
+                    return msg;
+                }
+                , cols: [[
+                    { title: '发送时间', field: 'enterpriseName', minWidth: 100 },
+                    { title: '收信人', field: 'eventType', minWidth: 100 },
+                    { title: '内容', field: 'sendToList', minWidth: 100 },
+                    { title: '发送状态', field: 'sendType', minWidth: 100 },
+                    { title: '返回码', field: 'userType', minWidth: 100 }
+                ]] //设置表头
+                , limit: 15
+                , limits: [15, 30, 50, 100, 200]
+                , done: function (res, page, count) {
+                    $("[data-field='userType']").children().each(function () {
+                        if ($(this).text() == '1') {
+                            $(this).text("企业人员")
+                        } else if ($(this).text() == '2') {
+                            $(this).text("检查人员")
+                        } else if ($(this).text() == '3') {
+                            $(this).text("执法人员")
+                        }
+                    })
+                }
+            });
+
+            //自定义验证
+            form.verify({
+                //确认密码
+                repass: function (value) {
+                    if (value !== $('#passOne').val()) {
+                        return '两次密码输入不一致';
+                    }
+                }
+            });
+
+
+
+            form.on('submit(warnForm)', function (data) {
+                // console.log(data);
+          
+                axios({
+                    method: "post",
+                    // url: layui.setter.BASEURL + 'environmental_intelligent_monitoring/twarnsubscribe/save',
+                    url: layui.setter.BASEURL + 'environmental_intelligent_monitoring/twarnsubscribe/batchSave',
+                    data: data.field,
+                    headers: {
+                        "Content-Type": "application/json;charset=UTF-8"
+                    }
+                }).then(function (res) {
+                    if (res.data.code == 0) {
+                        // console.log(res)
+                        layer.msg('保存成功！', {
+                            time: 500
+                        }, function () {
+                            window.parent.location.reload();
+                            parent.layer.close('iframe');
+                        }
+                        );
+                    } else {
+                        vm.$notify.error({
+                            title: '错误',
+                            message: '保存失败'
+                        });
+                    }
+                }).catch(function (err) {
+                    // console.log(err);
+                });
+                return false;
+            })
+        })
+        var vm = new Vue({
+            el: "#vm",
+            data: {
+             
+            },
+            methods: {
+            },
+
+        });
+    </script>
+</body>
+
+</html>

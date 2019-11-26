@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html class="x-admin-sm">
+
+<head>
+    <meta charset="UTF-8">
+    <title>站点设置</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi"
+    />
+    <link rel="stylesheet" href="../../../layuiadmin/layui/css/layui.css">
+    <link rel="stylesheet" href="../../../layuiadmin/plugin/element.css">
+    <script type="text/javascript" src="../../../layuiadmin/layui/layui.js" charset="utf-8"></script>
+    <!-- 引入vue -->
+    <script type="text/javascript" src="../../../layuiadmin/plugin/vue.js"></script>
+    <script type="text/javascript" src="../../../layuiadmin/plugin/axios.js"></script>
+    <script src="../../../layuiadmin/js/baseUrlConfig.js"></script>
+    <script src="../../../layuiadmin/plugin/element.js"></script>
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    
+    <![endif]-->
+    <style>
+        .btn-box {
+            text-align: center;
+        }
+
+        .btn-box button {
+            /* margin-right: 30px; */
+            margin-bottom: 10px;
+        }
+
+        .layui-form-label {
+            width: 120px;
+
+        }
+
+        .layui-form-item .layui-input-inline {
+            width: 460px;
+        }
+
+        .layui-form {
+            padding-top: 20px;
+        }
+
+        .red {
+            color: #f00;
+            font-size: 22px;
+        }
+
+        .layui-form .layui-form-item .layuiIcon {
+            width: 10px;
+            height: 24px;
+            background-color: #1188F6;
+            display: inline-block;
+            margin-bottom: -6px;
+            margin-right: 10px;
+        }
+
+        .layui-upload-img {
+            width: 170px;
+            height: 40px;
+        }
+
+        .layui-pclogo-img {
+            width: 93px;
+            height: 60px;
+        }
+
+        .layui-code-img {
+            width: 80px;
+            height: 80px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="vm">
+        <div class="layui-fluid">
+            <div class="layui-row">
+                <form class="layui-form" action="">
+                    <div class="layui-form-item">
+                        <label for="bitian" class="layui-form-label">
+                            <i class="layuiIcon"></i>
+                            <span>站点信息</span>
+                        </label>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="bitian" class="layui-form-label">
+                            网站名称
+                            <span class="red">*</span>
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="text" v-model="limitValue" lay-verify="required" name="limitValue" class="layui-input" placeholder="网站名称" />
+                        </div>
+
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="bitian" class="layui-form-label">
+                            网站标题
+                            <span class="red">*</span>
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="text" v-model="limitValue" lay-verify="required" name="limitValue" class="layui-input" placeholder="网站标题" />
+                        </div>
+
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="bitian" class="layui-form-label">
+                            网站LOGO
+                            <span class="red">*</span>
+                        </label>
+                        <div class="layui-input-inline">
+                            <img class="layui-upload-img" id="demoList">
+                            <button type="button" class="layui-btn" id="handleUpload">上传图片</button>
+                            <span>建议上传170*30像素的图片</span>
+                        </div>
+
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="bitian" class="layui-form-label">
+                            网站域名
+                            <span class="red">*</span>
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="text" v-model="limitValue" lay-verify="required" name="limitValue" class="layui-input" placeholder="网站域名" />
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="bitian" class="layui-form-label">
+                            网站关键词
+                            <!-- <span class="red">*</span> -->
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="text" v-model="limitValue" name="limitValue" class="layui-input" placeholder="网站关键词" />
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="bitian" class="layui-form-label">
+                            网站描述</label>
+                        <div class="layui-input-inline">
+                            <textarea placeholder="请输入内容" class="layui-textarea" name="remark" v-model="remark"></textarea>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="bitian" class="layui-form-label">
+                            PCLogo
+                            <span class="red">*</span>
+                        </label>
+                        <div class="layui-input-inline">
+                            <img class="layui-pclogo-img" id="Pcdemo">
+                            <button type="button" class="layui-btn" id="PCUpload">上传图片</button>
+                            <span>建议上传93x60像素的图片</span>
+                        </div>
+
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="bitian" class="layui-form-label">
+                            <i class="layuiIcon"></i>
+                            <span>公司信息</span>
+                        </label>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="bitian" class="layui-form-label">
+                            公司名称
+                            <!-- <span class="red">*</span> -->
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="text" v-model="limitValue" name="limitValue" class="layui-input" placeholder="公司名称" />
+                        </div>
+
+                    </div>
+                    <div class="layui-form-item">
+                        <div class="layui-form-item">
+                            <label for="bitian" class="layui-form-label">
+                                公司地址
+                                <!-- <span class="red">*</span> -->
+                            </label>
+                            <div class="layui-input-inline">
+                                <input type="text" v-model="limitValue" name="limitValue" class="layui-input" placeholder="公司地址" />
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div class="layui-form-item">
+                        <div class="layui-form-item">
+                            <label for="bitian" class="layui-form-label">
+                                备案号
+                                <!-- <span class="red">*</span> -->
+                            </label>
+                            <div class="layui-input-inline">
+                                <input type="text" v-model="limitValue" name="limitValue" class="layui-input" placeholder="备案号" />
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="bitian" class="layui-form-label">
+                            二维码
+                            <span class="red">*</span>
+                        </label>
+                        <div class="layui-input-inline">
+                            <img class="layui-code-img" id="codedemo">
+                            <button type="button" class="layui-btn" id="codeUpload">上传图片</button>
+                            <span>建议上传80x80像素的图片</span>
+                        </div>
+
+
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="bitian" class="layui-form-label">
+                            联系电话
+                            <span class="red">*</span>
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="text" v-model="limitValue" lay-verify="required" name="limitValue" class="layui-input" placeholder="联系电话" />
+                        </div>
+
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="bitian" class="layui-form-label">
+                            QQ
+                            <!-- <span class="red">*</span> -->
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="text" v-model="limitValue" name="limitValue" class="layui-input" placeholder="QQ" />
+                        </div>
+
+                    </div>
+                    <div class="btn-box">
+                        <button class="layui-btn" lay-submit lay-filter="formDemo">提交</button>
+                        <button type="reset" class="layui-btn layui-btn-danger">取消</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+    <script>
+        layui.config({
+            base: '../../../layuiadmin/' //静态资源所在路径
+        }).extend({
+            index: 'lib/index' //主入口模块
+        }).use(['index', "jquery", 'form', 'upload'], function () {
+            var form = layui.form,
+                $ = layui.jquery,
+                upload = layui.upload;
+
+
+
+            // 网站logo文件上传
+            upload.render({
+                elem: '#handleUpload',
+                auto: false,
+                accept: 'file',
+                choose: function (obj) {
+                    obj.preview(function (index, file, result) {
+                        // console.log(result)
+                        $('#demoList').attr('src', result); //图片链接（base64）
+                    });
+                }
+            });
+
+
+            // PC logo文件上传
+            upload.render({
+                elem: '#PCUpload',
+                auto: false,
+                accept: 'file',
+                choose: function (obj) {
+                    obj.preview(function (index, file, result) {
+                        // console.log(result)
+                        $('#Pcdemo').attr('src', result); //图片链接（base64）
+                    });
+                }
+            });
+            // 二维码文件上传
+            upload.render({
+                elem: '#codeUpload',
+                auto: false,
+                accept: 'file',
+                choose: function (obj) {
+                    obj.preview(function (index, file, result) {
+                        // console.log(result)
+                        $('#codedemo').attr('src', result); //图片链接（base64）
+                    });
+                }
+            });
+
+
+            form.on('submit(formDemo)', function (data) {
+                axios({
+                    method: "post",
+                    url: layui.setter.BASEURL + 'environmental_intelligent_monitoring/twarnset/save',
+                    data: data.field,
+                    headers: {
+                        "Content-Type": "application/json;charset=UTF-8"
+                    }
+                }).then(function (res) {
+                    if (res.data.code == 0) {
+                        // console.log(res)
+                        layer.msg('保存成功！', {
+                            time: 500
+                        }, function () {
+                            window.parent.location.reload();
+                            parent.layer.close('iframe');
+                        }
+                        );
+                    } else {
+                        vm.$notify.error({
+                            title: '错误',
+                            message: '保存异常'
+                        });
+                    }
+                }).catch(function (err) {
+                    // console.log(err);
+                });
+                return false;
+            })
+
+
+        })
+
+        var vm = new Vue({
+            el: "#vm",
+            data: {},
+            methods: {},
+            created() {
+
+            }
+        });
+    </script>
+</body>
+
+</html>
