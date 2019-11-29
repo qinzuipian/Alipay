@@ -9,13 +9,11 @@
     <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi"
     />
     <link rel="stylesheet" href="../../../layuiadmin/layui/css/layui.css">
-    <link rel="stylesheet" href="../../../layuiadmin/plugin/element.css">
     <script type="text/javascript" src="../../../layuiadmin/layui/layui.js" charset="utf-8"></script>
     <!-- 引入vue -->
     <script type="text/javascript" src="../../../layuiadmin/plugin/vue.js"></script>
     <script type="text/javascript" src="../../../layuiadmin/plugin/axios.js"></script>
     <script src="../../../layuiadmin/js/baseUrlConfig.js"></script>
-    <script src="../../../layuiadmin/plugin/element.js"></script>
     <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
     <!--[if lt IE 9]>
     <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
@@ -93,7 +91,7 @@
                             <span class="red">*</span>
                         </label>
                         <div class="layui-input-inline">
-                            <input type="text" v-model="limitValue" lay-verify="required" name="limitValue" class="layui-input" placeholder="网站名称" />
+                            <input type="text" lay-verify="required" name="webname" class="layui-input" placeholder="网站名称" />
                         </div>
 
                     </div>
@@ -103,7 +101,7 @@
                             <span class="red">*</span>
                         </label>
                         <div class="layui-input-inline">
-                            <input type="text" v-model="limitValue" lay-verify="required" name="limitValue" class="layui-input" placeholder="网站标题" />
+                            <input type="text" lay-verify="required" name="webtitle" class="layui-input" placeholder="网站标题" />
                         </div>
 
                     </div>
@@ -125,7 +123,7 @@
                             <span class="red">*</span>
                         </label>
                         <div class="layui-input-inline">
-                            <input type="text" v-model="limitValue" lay-verify="required" name="limitValue" class="layui-input" placeholder="网站域名" />
+                            <input type="text" lay-verify="required" name="domain" class="layui-input" placeholder="(无需填写http://)" />
                         </div>
                     </div>
                     <div class="layui-form-item">
@@ -134,14 +132,14 @@
                             <!-- <span class="red">*</span> -->
                         </label>
                         <div class="layui-input-inline">
-                            <input type="text" v-model="limitValue" name="limitValue" class="layui-input" placeholder="网站关键词" />
+                            <input type="text" name="keyWord" class="layui-input" placeholder="网站关键词" />
                         </div>
                     </div>
                     <div class="layui-form-item">
                         <label for="bitian" class="layui-form-label">
                             网站描述</label>
                         <div class="layui-input-inline">
-                            <textarea placeholder="请输入内容" class="layui-textarea" name="remark" v-model="remark"></textarea>
+                            <textarea placeholder="请输入内容" class="layui-textarea" name="describe"></textarea>
                         </div>
                     </div>
                     <div class="layui-form-item">
@@ -168,7 +166,7 @@
                             <!-- <span class="red">*</span> -->
                         </label>
                         <div class="layui-input-inline">
-                            <input type="text" v-model="limitValue" name="limitValue" class="layui-input" placeholder="公司名称" />
+                            <input type="text" name="companyName" class="layui-input" placeholder="公司名称" />
                         </div>
 
                     </div>
@@ -179,7 +177,7 @@
                                 <!-- <span class="red">*</span> -->
                             </label>
                             <div class="layui-input-inline">
-                                <input type="text" v-model="limitValue" name="limitValue" class="layui-input" placeholder="公司地址" />
+                                <input type="text" name="companyAddress" class="layui-input" placeholder="公司地址" />
                             </div>
 
                         </div>
@@ -192,7 +190,7 @@
                                 <!-- <span class="red">*</span> -->
                             </label>
                             <div class="layui-input-inline">
-                                <input type="text" v-model="limitValue" name="limitValue" class="layui-input" placeholder="备案号" />
+                                <input type="text" name="recordNumber" class="layui-input" placeholder="备案号" />
                             </div>
 
                         </div>
@@ -217,7 +215,7 @@
                             <span class="red">*</span>
                         </label>
                         <div class="layui-input-inline">
-                            <input type="text" v-model="limitValue" lay-verify="required" name="limitValue" class="layui-input" placeholder="联系电话" />
+                            <input type="text" lay-verify="required" name="tel" class="layui-input" placeholder="联系电话" />
                         </div>
 
                     </div>
@@ -227,7 +225,7 @@
                             <!-- <span class="red">*</span> -->
                         </label>
                         <div class="layui-input-inline">
-                            <input type="text" v-model="limitValue" name="limitValue" class="layui-input" placeholder="QQ" />
+                            <input type="text" name="qq" class="layui-input" placeholder="QQ" />
                         </div>
 
                     </div>
@@ -238,7 +236,6 @@
                 </form>
             </div>
         </div>
-
     </div>
     <script>
         layui.config({
@@ -259,8 +256,9 @@
                 accept: 'file',
                 choose: function (obj) {
                     obj.preview(function (index, file, result) {
-                        // console.log(result)
+                        console.log(result)
                         $('#demoList').attr('src', result); //图片链接（base64）
+                        vm.webLogo = result;
                     });
                 }
             });
@@ -275,6 +273,7 @@
                     obj.preview(function (index, file, result) {
                         // console.log(result)
                         $('#Pcdemo').attr('src', result); //图片链接（base64）
+                        vm.pcLogo = result;
                     });
                 }
             });
@@ -287,29 +286,26 @@
                     obj.preview(function (index, file, result) {
                         // console.log(result)
                         $('#codedemo').attr('src', result); //图片链接（base64）
+                        vm.codeLogo = result;
                     });
                 }
             });
 
 
             form.on('submit(formDemo)', function (data) {
+                data.field.logo = vm.webLogo;
+                data.field.pclogo = vm.pcLogo;
+                data.field.qrCode = vm.codeLogo;
                 axios({
                     method: "post",
-                    url: layui.setter.BASEURL + 'environmental_intelligent_monitoring/twarnset/save',
+                    url: layui.setter.BASEURL + 'mgr/payuseragency/save',
                     data: data.field,
                     headers: {
                         "Content-Type": "application/json;charset=UTF-8"
                     }
                 }).then(function (res) {
                     if (res.data.code == 0) {
-                        // console.log(res)
-                        layer.msg('保存成功！', {
-                            time: 500
-                        }, function () {
-                            window.parent.location.reload();
-                            parent.layer.close('iframe');
-                        }
-                        );
+                        layer.msg('保存成功！');
                     } else {
                         vm.$notify.error({
                             title: '错误',
@@ -327,7 +323,14 @@
 
         var vm = new Vue({
             el: "#vm",
-            data: {},
+            data: {
+                // 网站logo
+                webLogo: "",
+                // pclogo
+                pcLogo: "",
+                // 二维码logo
+                codeLogo: ""
+            },
             methods: {},
             created() {
 

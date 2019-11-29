@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>渠道编辑</title>
+    <link rel="stylesheet" href="../../../layuiadmin/layui/css/layui.css">
+    <script type="text/javascript" src="../../../layuiadmin/layui/layui.js" charset="utf-8"></script>
+    <!-- 引入vue -->
+    <script type="text/javascript" src="../../../layuiadmin/plugin/vue.js"></script>
+    <script type="text/javascript" src="../../../layuiadmin/plugin/axios.js"></script>
+    <script src="../../../layuiadmin/js/baseUrlConfig.js"></script>
+
+    <style>
+        .btn-box {
+            text-align: center;
+        }
+
+        .btn-box button {
+            /* margin-right: 30px; */
+            margin-bottom: 10px;
+        }
+
+        .layui-form-label {
+            width: 130px;
+
+        }
+
+        .layui-form-item .layui-input-inline {
+            width: 360px;
+        }
+
+        .red {
+            color: #f00;
+            font-size: 22px;
+        }
+
+        .layui-form {
+            padding-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="vm">
+        <div class="layui-fluid">
+            <div class="layui-row">
+                <form class="layui-form" lay-filter="editMerchant">
+                    <div class="layui-form-item">
+                        <label for="bitian" class="layui-form-label">
+                            商户ID
+                            <span class="red">*</span>
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="mchId" lay-verify="required" class="layui-input" placeholder="商户ID" />
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="bitian" class="layui-form-label">
+                            渠道ID
+                            <span class="red">*</span>
+                        </label>
+                        <div class="layui-input-inline">
+                            <select name="channelId" lay-filter="channelId" lay-verify="required">
+                                <option value="">请选择渠道ID</option>
+                                <option value="ALIPAY_MOBILE">ALIPAY_MOBILE</option>
+                                <option value="ALIPAY_PC">ALIPAY_PC</option>
+                                <option value="ALIPAY_WAP">ALIPAY_WAP</option>
+                                <option value="ALIPAY_QR">ALIPAY_QR</option>
+                                <option value="WX_APP">WX_APP</option>
+                                <option value="WX_JSAPI">WX_JSAPI</option>
+                                <option value="WX_NATIVE">WX_NATIVE</option>
+                                <option value="WX_MWEB">WX_MWEB</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="bitian" class="layui-form-label">
+                            渠道名称
+                            <span class="red">*</span>
+                        </label>
+                        <div class="layui-input-inline">
+                            <select name="channelName" lay-filter="eventType" lay-verify="required">
+                                <option value="">请选择渠道名称</option>
+                                <option value="ALIPAY">ALIPAY</option>
+                                <option value="WX">WX</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="bitian" class="layui-form-label">
+                            渠道商户ID
+                            <span class="red">*</span>
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="channelMchId" lay-verify="required" class="layui-input" placeholder="渠道商户ID" />
+                        </div>
+                    </div>
+
+
+                    <div class="layui-form-item">
+                        <label for="bitian" class="layui-form-label">
+                            参数
+                            <span class="red">*</span>
+                        </label>
+                        <div class="layui-input-inline">
+                            <textarea placeholder="请输入内容" lay-verify="required" class="layui-textarea" name="param"></textarea>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="bitian" class="layui-form-label">
+                            状态
+                            <!-- <span class="red">*</span> -->
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="radio" lay-filter="State" value="1" name="state" title="启用" />
+                            <input type="radio" lay-filter="State" value="0" name="state" title="禁用" />
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="bitian" class="layui-form-label">
+                            备注
+                            <!-- <span class="red">*</span> -->
+                        </label>
+                        <div class="layui-input-inline">
+                            <textarea placeholder="请输入内容" name="remark" class="layui-textarea"></textarea>
+                        </div>
+                    </div>
+                    <div class="btn-box">
+                        <button class="layui-btn" lay-submit lay-filter="merchantForm">提交</button>
+                        <button type="reset" class="layui-btn layui-btn-danger" @click="cancel">取消</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+        layui.config({
+            base: '../../../layuiadmin/' //静态资源所在路径
+        }).extend({
+            index: 'lib/index' //主入口模块
+        }).use(['index', "jquery", 'form'], function () {
+            var form = layui.form,
+                $ = layui.jquery;
+
+            form.on('radio(State)', function (data) {
+                console.log(data);
+                vm.valueState = data.value;
+            })
+
+            // 单个信息数据展示
+            form.val('editMerchant', {
+                "mchId": parent.data.mchId,
+                "channelId": parent.data.channelId,
+                "channelName": parent.data.channelName,
+                "channelMchId": parent.data.channelMchId,
+                "state": parent.data.state,
+                "param": parent.data.param,
+                "remark": parent.data.remark,
+                "createTime": parent.data.createTime,
+                "updateTime": parent.data.updateTime
+
+            });
+
+
+            // 编辑保存
+            form.on('submit(merchantForm)', function (data) {
+                if (vm.valueState == '1') {
+                    data.field.state = 'on';
+                } else {
+                    data.field.state = 'uon';
+                }
+                axios({
+                    method: "post",
+                    url: layui.setter.BASEURL + 'pay_channel/save',
+                    params: data.field
+                }).then(function (res) {
+                    if (res.data.code == 0) {
+                        layer.msg('修改成功！', {
+                            time: 500
+                        }, function () {
+                            window.parent.location.reload();
+                            parent.layer.close('iframe');
+                        });
+                    } else {
+                        layer.msg('修改失败！', {
+                            time: 500
+                        }, function () {
+                            parent.layer.closeAll('iframe');
+                        });
+                    }
+                }).catch(function (err) {
+                    // console.log(err);
+                });
+                return false;
+            })
+        })
+        var vm = new Vue({
+            el: "#vm",
+            data: {
+                valueState: ""
+            },
+            methods: {
+                cancel() {
+                    parent.layer.closeAll('iframe');//关闭弹窗
+                },
+            },
+            created() { }
+        });
+    </script>
+
+</body>
+
+</html>

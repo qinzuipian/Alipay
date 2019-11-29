@@ -55,16 +55,15 @@
         <div class="layui-fluid">
             <div class="layui-row">
                 <form class="layui-form">
-                    <input type="hidden" name="enterpriseId">
                     <div class="layui-form-item">
                         <label for="bitian" class="layui-form-label">
                             提现渠道
                             <span class="red">*</span>
                         </label>
                         <div class="layui-input-inline">
-                            <select name="eventTypeId" id="eventType" lay-filter="eventType" lay-verify="required">
-                                <option value="">支付宝</option>
-                                <option value="">银行卡</option>
+                            <select name="txchannel" id="eventType" lay-filter="eventType" lay-verify="required">
+                                <option value="支付宝">支付宝</option>
+                                <option value="银行卡">银行卡</option>
                             </select>
                         </div>
 
@@ -76,20 +75,16 @@
                             <span class="red">*</span>
                         </label>
                         <div class="layui-input-inline">
-                            <input type="text" name="enterpriseName" class="layui-input" placeholder="个人填写姓名，公司填写公司名称" />
+                            <input type="text" name="truename" class="layui-input" placeholder="个人填写姓名，公司填写公司名称" />
                         </div>
-
                     </div>
-
-
-
                     <div class="layui-form-item">
                         <label for="bitian" class="layui-form-label">
                             账号
                             <span class="red">*</span>
                         </label>
                         <div class="layui-input-inline">
-                            <input type="text" name="enterpriseName" class="layui-input" placeholder="支付宝写支付宝账号，银行卡写卡号，对公写对公账号" />
+                            <input type="text" name="cardno" class="layui-input" placeholder="支付宝写支付宝账号，银行卡写卡号，对公写对公账号" />
                         </div>
 
                     </div>
@@ -100,7 +95,7 @@
                             <span class="red">*</span>
                         </label>
                         <div class="layui-input-inline">
-                            <input type="text" name="enterpriseName" class="layui-input" placeholder="支付宝此项不填" />
+                            <input type="text" name="openbank" class="layui-input" placeholder="支付宝此项不填" />
                         </div>
 
                     </div>
@@ -127,8 +122,7 @@
             form.on('submit(warnForm)', function (data) {
                 axios({
                     method: "post",
-                    // url: layui.setter.BASEURL + 'environmental_intelligent_monitoring/twarnsubscribe/save',
-                    url: layui.setter.BASEURL + 'environmental_intelligent_monitoring/twarnsubscribe/batchSave',
+                    url: layui.setter.BASEURL + 'mgr/paywithdrawaccount/save',
                     data: data.field,
                     headers: {
                         "Content-Type": "application/json;charset=UTF-8"
@@ -136,13 +130,7 @@
                 }).then(function (res) {
                     if (res.data.code == 0) {
                         // console.log(res)
-                        layer.msg('保存成功！', {
-                            time: 500
-                        }, function () {
-                            window.parent.location.reload();
-                            parent.layer.close('iframe');
-                        }
-                        );
+                        layer.msg('保存成功！');
                     } else {
                         vm.$notify.error({
                             title: '错误',

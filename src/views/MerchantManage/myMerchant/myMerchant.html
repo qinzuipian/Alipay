@@ -24,7 +24,7 @@
                     <div class="layui-inline">
                         <label class="layui-form-label">商户账户</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="enterpriseName" placeholder="商户账户" autocomplete="off" class="layui-input">
+                            <input type="text" name="mchId" placeholder="商户账户" autocomplete="off" class="layui-input">
                         </div>
                     </div>
                     <div class="layui-inline">
@@ -57,8 +57,8 @@
                 <table id="LAY-app-content-list" lay-filter="LAY-app-content-list"></table>
                 <script type="text/html" id="barDemo">
                     <a class="layui-btn layui-btn-xs" lay-event="money">升级续费</a>
-                    <a class="layui-btn layui-btn-danger layui-btn-xs layui-icon layui-icon-survey" lay-event="sign">签约管理</a>
-                    <a class="layui-btn layui-btn-danger layui-btn-xs layui-icon layui-icon-survey" lay-event="edit">编辑</a>
+                    <a class="layui-btn layui-btn-warm layui-btn-xs layui-icon layui-icon-survey" lay-event="sign">签约管理</a>
+                    <a class="layui-btn layui-btn-normal layui-btn-xs layui-icon layui-icon-survey" lay-event="edit">编辑</a>
                     <a class="layui-btn layui-btn-danger layui-btn-xs layui-icon layui-icon-survey" lay-event="detail">查看</a>
                 </script>
             </div>
@@ -80,7 +80,7 @@
 
             table.render({
                 elem: '#LAY-app-content-list'
-                , height: 555 //容器高度
+                , height: 480 //容器高度
                 , url: layui.setter.BASEURL + 'mch_info/list' //数据接口
                 , page: true,
                 request: {
@@ -111,15 +111,13 @@
                 , limit: 10
                 , limits: [10, 30, 50, 100, 200]
                 , done: function (res, page, count) {
-                    console.log(res, page)
                     $("[data-field='state']").children().each(function () {
                         if ($(this).text() == '0') {
                             $(this).text("禁用")
                         } else if ($(this).text() == '1') {
-                            $(this).text("使用")
+                            $(this).text("启用")
                         }
                     })
-
                       $("[data-field='type']").children().each(function () {
                         if ($(this).text() == '1') {
                             $(this).text("平台账户")
@@ -168,11 +166,8 @@
                         area: ['600px', '450px'],//弹框大小
                         content: 'detail.html' //这里content是一个普通的String
                     });
-
                 }
             });
-
-
 
             //监听搜索
             form.on('submit(LAY-app-contlist-search)', function (data) {

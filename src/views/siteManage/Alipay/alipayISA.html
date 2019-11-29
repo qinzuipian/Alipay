@@ -55,25 +55,23 @@
         <div class="layui-fluid">
             <div class="layui-row">
                 <form class="layui-form">
-                    <input type="hidden" name="enterpriseId">
                     <div class="layui-form-item">
                         <label for="bitian" class="layui-form-label">
                             服务商PID
                             <span class="red">*</span>
                         </label>
                         <div class="layui-input-inline">
-                            <input type="text" name="enterpriseName" class="layui-input" placeholder="服务商PID" />
+                            <input type="text" name="servicepid" class="layui-input" placeholder="服务商PID" />
                         </div>
 
                     </div>
-
                     <div class="layui-form-item">
                         <label for="bitian" class="layui-form-label">
                             服务商AppId
                             <span class="red">*</span>
                         </label>
                         <div class="layui-input-inline">
-                            <input type="text" name="enterpriseName" class="layui-input" placeholder="服务商AppId" />
+                            <input type="text" name="serviceappid" class="layui-input" placeholder="服务商AppId" />
                         </div>
 
                     </div>
@@ -83,18 +81,17 @@
                             <span class="red">*</span>
                         </label>
                         <div class="layui-input-inline">
-                            <textarea placeholder="请输入内容" class="layui-textarea" name="remark" v-model="remark"></textarea>
+                            <textarea placeholder="请输入内容" class="layui-textarea" name="publickey"></textarea>
                         </div>
 
                     </div>
-
                     <div class="layui-form-item">
                         <label for="bitian" class="layui-form-label">
                             应用私钥
                             <span class="red">*</span>
                         </label>
                         <div class="layui-input-inline">
-                            <textarea placeholder="请输入内容" class="layui-textarea" name="remark" v-model="remark"></textarea>
+                            <textarea placeholder="请输入内容" class="layui-textarea" name="privatekey"></textarea>
                         </div>
 
                     </div>
@@ -116,30 +113,16 @@
             var form = layui.form,
                 $ = layui.jquery;
             form.on('submit(warnForm)', function (data) {
-                // console.log(data);
-                data.field.enterpriseName = vm.enterpriseName;
-                data.field.eventTypeListStr = vm.eventTypeList.join();
-                data.field.eventTypeIdListStr = vm.eventTypeIdList.join();
-                data.field.userId = window.localStorage.getItem("userId");
-                // console.log(data.field);
                 axios({
                     method: "post",
-                    // url: layui.setter.BASEURL + 'environmental_intelligent_monitoring/twarnsubscribe/save',
-                    url: layui.setter.BASEURL + 'environmental_intelligent_monitoring/twarnsubscribe/batchSave',
+                    url: layui.setter.BASEURL + 'mgr/payalipayservice/save',
                     data: data.field,
                     headers: {
                         "Content-Type": "application/json;charset=UTF-8"
                     }
                 }).then(function (res) {
                     if (res.data.code == 0) {
-                        // console.log(res)
-                        layer.msg('保存成功！', {
-                            time: 500
-                        }, function () {
-                            window.parent.location.reload();
-                            parent.layer.close('iframe');
-                        }
-                        );
+                        layer.msg('保存成功！');
                     } else {
                         vm.$notify.error({
                             title: '错误',
@@ -155,10 +138,10 @@
         var vm = new Vue({
             el: "#vm",
             data: {
-       
+
             },
             methods: {
-                
+
             },
 
         });

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>渠道详情</title>
+    <link rel="stylesheet" href="../../../layuiadmin/layui/css/layui.css">
+    <script type="text/javascript" src="../../../layuiadmin/layui/layui.js" charset="utf-8"></script>
+    <!-- 引入vue -->
+    <script type="text/javascript" src="../../../layuiadmin/plugin/vue.js"></script>
+    <script type="text/javascript" src="../../../layuiadmin/plugin/axios.js"></script>
+    <script src="../../../layuiadmin/js/baseUrlConfig.js"></script>
+
+    <style>
+        .btn-box {
+            text-align: center;
+        }
+
+        .btn-box button {
+            /* margin-right: 30px; */
+            margin-bottom: 10px;
+        }
+
+        .layui-form-label {
+            width: 130px;
+
+        }
+
+        .layui-form-item .layui-input-inline {
+            width: 360px;
+        }
+
+        .layui-form {
+            padding-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="vm">
+        <div class="layui-fluid">
+            <div class="layui-row">
+                <form class="layui-form" lay-filter="editMerchant">
+                    <div class="layui-form-item">
+                        <label for="bitian" class="layui-form-label">
+                            商户ID
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="mchId" class="layui-input" placeholder="商户ID" />
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="bitian" class="layui-form-label">
+                            渠道ID
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="channelId" class="layui-input" placeholder="渠道ID" />
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="bitian" class="layui-form-label">
+                            渠道名称
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="channelName" class="layui-input" placeholder="渠道名称 " />
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="bitian" class="layui-form-label">
+                            渠道商户ID
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="channelMchId" class="layui-input" placeholder="渠道商户ID" />
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label for="bitian" class="layui-form-label">
+                            状态
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="state" class="layui-input" />
+                            <!--  <input type="radio" value="1" name="state" title="启用" />
+                            <input type="radio" value="0" name="state" title="禁用" /> -->
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="bitian" class="layui-form-label">
+                            参数
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="param" class="layui-input" placeholder="参数" />
+                        </div>
+
+                    </div>
+                    <!-- <div class="layui-form-item">
+                        <label for="bitian" class="layui-form-label">
+                            更新时间
+                            <span class="red">*</span>
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="updateTime" class="layui-input" placeholder="更新时间" />
+                        </div>
+
+                    </div> -->
+                    <div class="layui-form-item">
+                        <label for="bitian" class="layui-form-label">
+                            备注
+                        </label>
+                        <div class="layui-input-inline">
+                            <textarea placeholder="请输入内容" name="remark" class="layui-textarea"></textarea>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="bitian" class="layui-form-label">
+                            创建时间
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="createTime" class="layui-input" placeholder="创建时间" />
+                        </div>
+
+                    </div>
+                    <div class="btn-box">
+                        <!-- <button class="layui-btn" lay-submit lay-filter="merchantForm">提交</button> -->
+                        <button type="reset" class="layui-btn layui-btn-danger" @click="cancel">取消</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+        layui.config({
+            base: '../../../layuiadmin/' //静态资源所在路径
+        }).extend({
+            index: 'lib/index' //主入口模块
+        }).use(['index', "jquery", 'form'], function () {
+            var form = layui.form,
+                $ = layui.jquery;
+
+            // 单个信息数据展示
+            form.val('editMerchant', {
+                "mchId": parent.data.mchId,
+                "channelId": parent.data.channelId,
+                "channelName": parent.data.channelName,
+                "channelMchId": parent.data.channelMchId,
+                "state": parent.data.state === 1 ? '启用' : parent.data.state === 0 ? '禁用' : '无',
+                "param": parent.data.param,
+                "remark": parent.data.remark,
+                "createTime": parent.data.createTime,
+                "updateTime": parent.data.updateTime
+            });
+        })
+        var vm = new Vue({
+            el: "#vm",
+            data: {
+            },
+            methods: {
+                cancel() {
+                    parent.layer.closeAll('iframe');//关闭弹窗
+                },
+            },
+            created() { }
+        });
+    </script>
+
+</body>
+
+</html>

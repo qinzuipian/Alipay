@@ -63,7 +63,6 @@
                     阿里云OSS配置（开启阿里云OSS将自动关闭七牛）
                 </p>
                 <form class="layui-form">
-                    <input type="hidden" name="enterpriseId">
                     <div class="layui-form-item">
                         <label for="bitian" class="layui-form-label">
                             状态
@@ -128,8 +127,6 @@
         }).use(['index', "jquery", 'form'], function () {
             var form = layui.form,
                 $ = layui.jquery;
-
-
 
             form.on('submit(warnForm)', function (data) {
                 axios({

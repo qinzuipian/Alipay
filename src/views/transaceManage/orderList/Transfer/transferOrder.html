@@ -57,7 +57,7 @@
                 </div> -->
                 <table id="LAY-app-content-list" lay-filter="LAY-app-content-list"></table>
                 <script type="text/html" id="barDemo">
-                    <a class="layui-btn layui-btn-danger layui-btn-xs layui-icon layui-icon-survey" lay-event="edit">重新转账</a>
+                    <!-- <a class="layui-btn layui-btn-danger layui-btn-xs layui-icon layui-icon-survey" lay-event="edit">重新转账</a> -->
                     <a class="layui-btn layui-btn-danger layui-btn-xs layui-icon layui-icon-survey" lay-event="detail">订单详情</a>
                 </script>
             </div>
@@ -102,16 +102,15 @@
                     { title: '商户ID', field: 'mchId', minWidth: 100 },
                     { title: '渠道ID', field: 'channelId', minWidth: 100 },
                     { title: '金额(元)', field: 'amount', minWidth: 100 },
-                    { title: '状态', field: 'state', minWidth: 100 },
-                    { title: '转账结果', field: 'state', minWidth: 100 },
-                    { title: '创建时间', field: 'result', minWidth: 100 },
-                    { fixed: 'right', title: '操作', toolbar: '#barDemo', width: 300 }
+                    { title: '状态', field: 'status', minWidth: 100 },
+                    { title: '转账结果', field: 'result', minWidth: 100 },
+                    { title: '创建时间', field: 'createTime', minWidth: 100 },
+                    { fixed: 'right', title: '操作', toolbar: '#barDemo', width: 160 }
                 ]] //设置表头
                 , limit: 10
                 , limits: [10, 30, 50, 100, 200]
                 , done: function (res, page, count) {
-                    console.log(res, page)
-                    $("[data-field='state']").children().each(function () {
+                    $("[data-field='status']").children().each(function () {
                         if ($(this).text() == '0') {
                             $(this).text("订单生成")
                         } else if ($(this).text() == '1') {
@@ -159,9 +158,9 @@
                     window.data = data;
                     layer.open({
                         type: 2,
-                        title: '查看渠道',
+                        title: '查看转账订单',
                         area: ['600px', '450px'],//弹框大小
-                        content: 'channelDetail.html' //这里content是一个普通的String
+                        content: 'transferDetail.html' //这里content是一个普通的String
                     });
 
                 }

@@ -62,29 +62,18 @@
                         </label>
                         <div class="layui-input-inline">
                             <select name="type" id="eventType" lay-filter="eventType" lay-verify="">
-                                <option value="1">个人</option>
-                                <option value="2">个体工商户</option>
-                                <option value="3">企业</option>
-                                <option value="4">事业</option>
+                                <option value="1">平台账户</option>
+                                <option value="2">私有账户</option>
                             </select>
                         </div>
                     </div>
-                    <div class="layui-form-item">
+                    <!--  <div class="layui-form-item">
                         <label for="bitian" class="layui-form-label">
                             商户账号
                             <span class="red">*</span>
                         </label>
                         <div class="layui-input-inline">
                             <input type="text" name="mchId" class="layui-input" placeholder="需为手机号格式" />
-                        </div>
-                    </div>
-                    <!-- <div class="layui-form-item">
-                        <label for="bitian" class="layui-form-label">
-                            商户绑定密码
-                            <span class="red">*</span>
-                        </label>
-                        <div class="layui-input-inline">
-                            <input type="text" name="pwd" class="layui-input" placeholder="商户绑定密码" />
                         </div>
                     </div> -->
                     <div class="layui-form-item">
@@ -121,8 +110,8 @@
                             <span class="red">*</span>
                         </label>
                         <div class="layui-input-inline">
-                            <input type="radio" value="1" name="state" title="启用" />
-                            <input type="radio" value="0" name="state" title="禁用" />
+                            <input type="radio" value="on" name="state" title="启用" />
+                            <input type="radio" value="uop" name="state" title="禁用" />
                         </div>
                     </div>
                     <div class="btn-box">
@@ -144,6 +133,7 @@
 
             form.on('submit(merchantForm)', function (data) {
                 console.log(data)
+                data.field.mchId = "";
                 axios({
                     method: "post",
                     url: layui.setter.BASEURL + 'mch_info/save',

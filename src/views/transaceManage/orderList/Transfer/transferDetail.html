@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>转账订单详情</title>
+    <link rel="stylesheet" href="../../../../layuiadmin/layui/css/layui.css">
+    <script type="text/javascript" src="../../../../layuiadmin/layui/layui.js" charset="utf-8"></script>
+    <!-- 引入vue -->
+    <script type="text/javascript" src="../../../../layuiadmin/plugin/vue.js"></script>
+    <script type="text/javascript" src="../../../../layuiadmin/plugin/axios.js"></script>
+    <script src="../../../../layuiadmin/js/baseUrlConfig.js"></script>
+
+    <style>
+        .btn-box {
+            text-align: center;
+        }
+
+        .btn-box button {
+            /* margin-right: 30px; */
+            margin-bottom: 10px;
+        }
+
+        .layui-form-label {
+            width: 130px;
+
+        }
+
+        .layui-form-item .layui-input-inline {
+            width: 360px;
+        }
+
+        .layui-form {
+            padding-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="vm">
+        <div class="layui-fluid">
+            <div class="layui-row">
+                <form class="layui-form" lay-filter="editMerchant">
+                    <div class="layui-form-item">
+                        <label for="bitian" class="layui-form-label">
+                                转账单号
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="transOrderId" class="layui-input" />
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="bitian" class="layui-form-label">
+                            商户ID
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="mchId" class="layui-input" placeholder="商户ID" />
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="bitian" class="layui-form-label">
+                            商户单号
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="mchTransNo" class="layui-input" placeholder="" />
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="bitian" class="layui-form-label">
+                            金额(元)
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="amount" class="layui-input" placeholder="" />
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="bitian" class="layui-form-label">
+                            币种
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="currency" class="layui-input" placeholder="" />
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="bitian" class="layui-form-label">
+                                转账状态
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="status" class="layui-input" placeholder="" />
+                          <!--   <input type="radio" value="0" name="status" title="订单生成" />
+                            <input type="radio" value="1" name="status" title="支付中" />
+                            <input type="radio" value="2" name="status" title="支付成功" />
+                            <input type="radio" value="3" name="status" title="处理完成" /> -->
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="bitian" class="layui-form-label">
+                                转账结果
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="result" class="layui-input" placeholder="" />
+                        </div>
+                    </div>
+
+
+                    <div class="layui-form-item">
+                        <label for="bitian" class="layui-form-label">
+                                渠道用户
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="channelUser" class="layui-input" placeholder="" />
+
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="bitian" class="layui-form-label">
+                                用户姓名
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="userName" class="layui-input" />
+                        </div>
+
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="bitian" class="layui-form-label">
+                                渠道商户ID
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="channelMchId" class="layui-input" />
+                        </div>
+
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="bitian" class="layui-form-label">
+                            渠道单号
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="channelOrderNo" class="layui-input" />
+                        </div>
+
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label for="bitian" class="layui-form-label">
+                            错误码
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="channelErrCode" class="layui-input" />
+                        </div>
+
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="bitian" class="layui-form-label">
+                            错误消息
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="channelErrMsg" class="layui-input" />
+                        </div>
+
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="bitian" class="layui-form-label">
+                            扩展参数
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="extra" class="layui-input" />
+                        </div>
+
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="bitian" class="layui-form-label">
+                            参数1
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="param1" class="layui-input" />
+                        </div>
+
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="bitian" class="layui-form-label">
+                            参数2
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="param2" class="layui-input" />
+                        </div>
+
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="bitian" class="layui-form-label">
+                            通知地址
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="notifyUrl" class="layui-input" />
+                        </div>
+
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="bitian" class="layui-form-label">
+                            失效时间
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="expireTime" class="layui-input" />
+                        </div>
+
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="bitian" class="layui-form-label">
+                            成功时间
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="transSuccTime" class="layui-input" />
+                        </div>
+
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="bitian" class="layui-form-label">
+                            创建时间
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="createTime" class="layui-input" />
+                        </div>
+
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="bitian" class="layui-form-label">
+                            更新时间
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="updateTime" class="layui-input" />
+                        </div>
+
+                    </div>
+                    <div class="btn-box">
+                        <!-- <button class="layui-btn" lay-submit lay-filter="merchantForm">提交</button> -->
+                        <button type="reset" class="layui-btn layui-btn-danger" @click="cancel">取消</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+        layui.config({
+            base: '../../../../layuiadmin/' //静态资源所在路径
+        }).extend({
+            index: 'lib/index' //主入口模块
+        }).use(['index', "jquery", 'form'], function () {
+            var form = layui.form,
+                $ = layui.jquery;
+
+            // 单个信息数据展示
+            form.val('editMerchant', {
+                "updateTime": parent.data.updateTime,
+                "createTime": parent.data.createTime,
+                "transSuccTime": parent.data.transSuccTime,
+                "expireTime": parent.data.expireTime,
+                "notifyUrl": parent.data.notifyUrl,
+                "param2": parent.data.param2,
+                "param1": parent.data.param1,
+                "extra": parent.data.extra,
+                "channelErrCode": parent.data.channelErrCode,
+                "channelErrMsg": parent.data.channelErrMsg,
+                "channelOrderNo": parent.data.channelOrderNo,
+                "channelMchId": parent.data.channelMchId,
+                "userName": parent.data.userName,
+                "channelUser": parent.data.channelUser,
+                "status": parent.data.status===0?'订单生成':(parent.data.status===1?'转账中':(parent.data.status===2?'转账成功':(parent.data.status===3?'转账失败':'处理完成'))),
+                "result": parent.data.result===0?'不确认结果':(parent.data.result===1?'等待手动处理':(parent.data.result===2?'确认成功':(parent.data.result===3?'确认失败':'无'))),
+                "currency": parent.data.currency,
+                "amount": parent.data.amount,
+                "mchTransNo": parent.data.mchTransNo,
+                "mchId": parent.data.mchId,
+                "transOrderId": parent.data.transOrderId
+            });
+        })
+        var vm = new Vue({
+            el: "#vm",
+            data: {
+            },
+            methods: {
+                cancel() {
+                    parent.layer.closeAll('iframe');//关闭弹窗
+                },
+            },
+            created() { }
+        });
+    </script>
+
+</body>
+
+</html>

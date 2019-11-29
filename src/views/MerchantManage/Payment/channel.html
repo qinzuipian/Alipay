@@ -12,7 +12,6 @@
 </head>
 
 <body>
-
     <div class="layui-fluid">
         <div class="layui-card">
             <div class="layui-form layui-card-header layuiadmin-card-header-auto">
@@ -36,7 +35,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="layui-card-body">
                 <div style="padding-bottom: 10px;">
                     <button class="layui-btn layuiadmin-btn-list layui-bg-green" data-type="add">
@@ -44,7 +42,7 @@
                 </div>
                 <table id="LAY-app-content-list" lay-filter="LAY-app-content-list"></table>
                 <script type="text/html" id="barDemo">
-                    <a class="layui-btn layui-btn-danger layui-btn-xs layui-icon layui-icon-survey" lay-event="edit">编辑</a>
+                    <a class="layui-btn layui-btn-normal layui-btn-xs layui-icon layui-icon-survey" lay-event="edit">编辑</a>
                     <a class="layui-btn layui-btn-danger layui-btn-xs layui-icon layui-icon-survey" lay-event="detail">详情</a>
                 </script>
             </div>
@@ -66,7 +64,7 @@
 
             table.render({
                 elem: '#LAY-app-content-list'
-                , height: 555 //容器高度
+                , height: 480 //容器高度
                 , url: layui.setter.BASEURL + 'pay_channel/list' //数据接口
                 , page: true,      
                 request: {
@@ -91,17 +89,16 @@
                     { title: '状态', field: 'state', minWidth: 100 },
                     { title: '备注', field: 'remark', minWidth: 100 },
                     { title: '创建时间', field: 'createTime', minWidth: 100 },
-                    { fixed: 'right', title: '操作', toolbar: '#barDemo', width: 300 }
+                    { fixed: 'right', title: '操作', toolbar: '#barDemo', width: 150 }
                 ]] //设置表头
                 , limit: 10
                 , limits: [10, 30, 50, 100, 200]
                 , done: function (res, page, count) {
-                    console.log(res, page)
                      $("[data-field='state']").children().each(function () {
                          if ($(this).text() == '0') {
                              $(this).text("禁用")
                          } else if ($(this).text() == '1') {
-                             $(this).text("使用")
+                             $(this).text("启用")
                          }
                      })
                 }
@@ -167,7 +164,6 @@
                         }
 
                         layer.confirm('确定删除吗？', function (index) {
-
                             //执行 axios 后重载
                             axios({
                                 method: "post",

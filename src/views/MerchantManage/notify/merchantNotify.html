@@ -99,14 +99,13 @@
                     { title: '商户ID', field: 'mchId', minWidth: 100 },
                     { title: '订单类型', field: 'orderType', minWidth: 100 },
                     { title: '通知次数', field: 'notifyCount', minWidth: 100 },
-                    { title: '状态', field: 'state', minWidth: 100 },
+                    { title: '状态', field: 'status', minWidth: 100 },
                     { title: '最后通知', field: 'lastNotifyTime', minWidth: 100 },
-                    { fixed: 'right', title: '操作', toolbar: '#barDemo', width: 300 }
+                    { fixed: 'right', title: '操作', toolbar: '#barDemo', width: 160 }
                 ]] //设置表头
                 , limit: 10
                 , limits: [10, 30, 50, 100, 200]
                 , done: function (res, page, count) {
-                    console.log(res, page)
                     $("[data-field='orderType']").children().each(function () {
                         if ($(this).text() == '1') {
                             $(this).text("支付")
@@ -114,6 +113,17 @@
                             $(this).text("转账")
                         } else if ($(this).text() == '3') {
                             $(this).text("退款")
+                        }
+                    })
+
+
+                     $("[data-field='status']").children().each(function () {
+                        if ($(this).text() == '1') {
+                            $(this).text("通知中")
+                        } else if ($(this).text() == '2') {
+                            $(this).text("通知成功")
+                        } else if ($(this).text() == '3') {
+                            $(this).text("通知失败")
                         }
                     })
                 }

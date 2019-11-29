@@ -32,11 +32,6 @@
             width: 360px;
         }
 
-        .red {
-            color: #f00;
-            font-size: 22px;
-        }
-
         .layui-form {
             padding-top: 20px;
         }
@@ -51,7 +46,6 @@
                     <div class="layui-form-item">
                         <label for="bitian" class="layui-form-label">
                             商户类型
-                            <span class="red">*</span>
                         </label>
                         <div class="layui-input-inline">
                             <select name="type" id="eventType" lay-filter="eventType" lay-verify="">
@@ -65,7 +59,6 @@
                     <div class="layui-form-item">
                         <label for="bitian" class="layui-form-label">
                             商户账号
-                            <span class="red">*</span>
                         </label>
                         <div class="layui-input-inline">
                             <input type="text" name="mchId" class="layui-input" placeholder="需为手机号格式" />
@@ -83,7 +76,6 @@
                     <div class="layui-form-item">
                         <label for="bitian" class="layui-form-label">
                             商户全称
-                            <span class="red">*</span>
                         </label>
                         <div class="layui-input-inline">
                             <input type="text" name="name" class="layui-input" placeholder="请输入营业执照上的全称 " />
@@ -92,7 +84,6 @@
                     <div class="layui-form-item">
                         <label for="bitian" class="layui-form-label">
                             请求私钥
-                            <span class="red">*</span>
                         </label>
                         <div class="layui-input-inline">
                             <input type="text" name="reqKey" class="layui-input" placeholder="请求私钥" />
@@ -101,21 +92,19 @@
                     <div class="layui-form-item">
                         <label for="bitian" class="layui-form-label">
                             响应私钥
-                            <span class="red">*</span>
                         </label>
                         <div class="layui-input-inline">
                             <input type="text" name="resKey" class="layui-input" placeholder="响应私钥" />
                         </div>
-
                     </div>
                     <div class="layui-form-item">
                         <label for="bitian" class="layui-form-label">
                             是否启用
-                            <span class="red">*</span>
                         </label>
                         <div class="layui-input-inline">
-                            <input type="radio" value="1" name="state" title="启用" />
-                            <input type="radio" value="0" name="state" title="禁用" />
+                            <input type="text" name="state" class="layui-input" />
+                            <!-- <input type="radio" value="1" name="state" title="启用" />
+                            <input type="radio" value="0" name="state" title="禁用" /> -->
                         </div>
                     </div>
                     <div class="btn-box">
@@ -142,7 +131,7 @@
                 "name": parent.data.name,
                 "reqKey": parent.data.reqKey,
                 "resKey": parent.data.resKey,
-                "state": parent.data.state,
+                "state": parent.data.state === 1 ? '启用' : parent.data.state === 0 ? '禁用' : '无'
 
             });
         })

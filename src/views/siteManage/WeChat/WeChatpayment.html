@@ -55,14 +55,13 @@
         <div class="layui-fluid">
             <div class="layui-row">
                 <form class="layui-form">
-                    <input type="hidden" name="enterpriseId">
                     <div class="layui-form-item">
                         <label for="bitian" class="layui-form-label">
                             服务商Appid
                             <span class="red">*</span>
                         </label>
                         <div class="layui-input-inline">
-                            <input type="text" name="enterpriseName" class="layui-input" placeholder="服务商Appid" />
+                            <input type="text" name="appid" class="layui-input" placeholder="服务商Appid" />
                         </div>
 
                     </div>
@@ -73,7 +72,7 @@
                             <span class="red">*</span>
                         </label>
                         <div class="layui-input-inline">
-                            <input type="text" name="enterpriseName" class="layui-input" placeholder="服务商AppSecret" />
+                            <input type="text" name="appsecret" class="layui-input" placeholder="服务商AppSecret" />
                         </div>
 
                     </div>
@@ -86,7 +85,7 @@
                             <span class="red">*</span>
                         </label>
                         <div class="layui-input-inline">
-                            <input type="text" name="enterpriseName" class="layui-input" placeholder="服务商商户号" />
+                            <input type="text" name="partnerid" class="layui-input" placeholder="服务商商户号" />
                         </div>
 
                     </div>
@@ -97,7 +96,7 @@
                             <span class="red">*</span>
                         </label>
                         <div class="layui-input-inline">
-                            <input type="text" name="enterpriseName" class="layui-input" placeholder="商户api密钥" />
+                            <input type="text" name="certPem" class="layui-input" placeholder="商户api密钥" />
                         </div>
 
                     </div>
@@ -107,7 +106,7 @@
                             <span class="red">*</span>
                         </label>
                         <div class="layui-input-inline">
-                            <input type="text" name="enterpriseName" class="layui-input" placeholder="商户apiv3密钥" />
+                            <input type="text" name="apiv3Key" class="layui-input" placeholder="商户apiv3密钥" />
                         </div>
 
                     </div>
@@ -156,7 +155,7 @@
                 axios({
                     method: "post",
                     // url: layui.setter.BASEURL + 'environmental_intelligent_monitoring/twarnsubscribe/save',
-                    url: layui.setter.BASEURL + 'environmental_intelligent_monitoring/twarnsubscribe/batchSave',
+                    url: layui.setter.BASEURL + 'mgr/paywechatservice/save',
                     data: data.field,
                     headers: {
                         "Content-Type": "application/json;charset=UTF-8"
