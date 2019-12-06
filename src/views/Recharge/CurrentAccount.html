@@ -9,11 +9,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <link rel="stylesheet" href="../../layuiadmin/layui/css/layui.css" media="all">
     <link rel="stylesheet" href="../../layuiadmin/style/admin.css" media="all">
+    <style>
+        .pText {
+            padding: 10px;
+            /* text-align: center; */
+            font-size: 16px;
+            /* border-top: 1px solid #F2F2F2; */
+            border-bottom: 1px solid #F2F2F2;
+        }
+
+        .pText span:nth-child(3), 
+        .pText span:nth-child(5) {
+            margin-left: 20px;
+        }
+    </style>
 </head>
 
 <body>
     <div class="layui-fluid">
         <div class="layui-card">
+            <p class="pText">
+                <span>当前登陆角色：</span>
+                <span>admin</span>
+                <span>累计充值总金额：</span>
+                <span>0</span>
+                <span>累计实际充值总金额：</span>
+                <span>0</span>
+            </p>
             <div class="layui-form layui-card-header layuiadmin-card-header-auto">
                 <div class="layui-form-item">
                     <div class="layui-inline">

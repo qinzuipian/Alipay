@@ -61,7 +61,7 @@
                             <span class="red">*</span>
                         </label>
                         <div class="layui-input-inline">
-                            <input type="text" name="enterpriseName" class="layui-input" placeholder="需加上“http://”或“https://”" />
+                            <input type="text" name="url" class="layui-input" placeholder="需加上“http://”或“https://”" />
                         </div>
 
                     </div>
@@ -83,13 +83,10 @@
             var form = layui.form,
                 $ = layui.jquery;
 
-
-
             form.on('submit(warnForm)', function (data) {
                 axios({
                     method: "post",
-                    // url: layui.setter.BASEURL + 'environmental_intelligent_monitoring/twarnsubscribe/save',
-                    url: layui.setter.BASEURL + 'environmental_intelligent_monitoring/twarnsubscribe/batchSave',
+                    url: layui.setter.BASEURL + '/mgr/helpcenter/save',
                     data: data.field,
                     headers: {
                         "Content-Type": "application/json;charset=UTF-8"
