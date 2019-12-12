@@ -219,8 +219,8 @@
                                 <span class="red">*</span>
                             </label>
                             <div class="layui-input-inline">
-                                <img class="layui-upload-img">
-                                <button type="button" class="layui-btn">上传图片</button>
+                                <img class="layui-upload-img" id="license">
+                                <button type="button" class="layui-btn" id="licenseUpload">上传图片</button>
                                 <!-- <span>建议上传170*30像素的图片</span> -->
                             </div>
 
@@ -274,8 +274,8 @@
                                 <span class="red">*</span>
                             </label>
                             <div class="layui-input-inline">
-                                <img class="layui-upload-img">
-                                <button type="button" class="layui-btn">上传图片</button>
+                                <img class="layui-upload-img" id="idcardReverse">
+                                <button type="button" class="layui-btn" id="idcardReverseUpload">上传图片</button>
                                 <!-- <span>建议上传170*30像素的图片</span> -->
                             </div>
 
@@ -286,8 +286,8 @@
                                 <span class="red">*</span>
                             </label>
                             <div class="layui-input-inline">
-                                <img class="layui-upload-img">
-                                <button type="button" class="layui-btn">上传图片</button>
+                                <img class="layui-upload-img" id="idcardFront">
+                                <button type="button" class="layui-btn" id="idcardFrontUpload">上传图片</button>
                                 <!-- <span>建议上传170*30像素的图片</span> -->
                             </div>
 
@@ -342,8 +342,8 @@
                                 <span class="red">*</span>
                             </label>
                             <div class="layui-input-inline">
-                                <img class="layui-upload-img">
-                                <button type="button" class="layui-btn">上传图片</button>
+                                <img class="layui-upload-img" id="Bankcard">
+                                <button type="button" class="layui-btn" id="BankcardUpload">上传图片</button>
                                 <!-- <span>建议上传170*30像素的图片</span> -->
                             </div>
                         </div>
@@ -424,8 +424,8 @@
                                         <span class="red">*</span>
                                     </label>
                                     <div class="layui-input-inline">
-                                        <img class="layui-id-img" id="demoList" v-show="imgShow">
-                                        <img id="handleUpload" v-show="!imgShow" src="./../../../layuiadmin/img/upload.jpg" alt="">
+                                        <img class="layui-id-img" id="handle" v-show="handleShow">
+                                        <img id="handleUpload" v-show="!handleShow" src="./../../../layuiadmin/img/upload.jpg" alt="">
                                     </div>
                                 </div>
                             </div>
@@ -436,8 +436,8 @@
                                         <!-- <span class="red">*</span> -->
                                     </label>
                                     <div class="layui-input-inline">
-                                        <img class="layui-id-img" id="demoList" v-show="imgShow">
-                                        <img id="handleUpload" v-show="!imgShow" src="./../../../layuiadmin/img/upload.jpg" alt="">
+                                        <img class="layui-id-img" id="logo" v-show="logoShow">
+                                        <img id="logoUpload" v-show="!logoShow" src="./../../../layuiadmin/img/upload.jpg" alt="">
                                     </div>
                                 </div>
                             </div>
@@ -448,8 +448,8 @@
                                         <!-- <span class="red">*</span> -->
                                     </label>
                                     <div class="layui-input-inline">
-                                        <img class="layui-id-img" id="demoList" v-show="imgShow">
-                                        <img id="handleUpload" v-show="!imgShow" src="./../../../layuiadmin/img/upload.jpg" alt="">
+                                        <img class="layui-id-img" id="Special" v-show="SpecialShow">
+                                        <img id="SpecialUpload" v-show="!SpecialShow" src="./../../../layuiadmin/img/upload.jpg" alt="">
                                     </div>
                                 </div>
                             </div>
@@ -460,8 +460,8 @@
                                         <span class="red">*</span>
                                     </label>
                                     <div class="layui-input-inline">
-                                        <img class="layui-id-img" id="demoList" v-show="imgShow">
-                                        <img id="handleUpload" v-show="!imgShow" src="./../../../layuiadmin/img/upload.jpg" alt="">
+                                        <img class="layui-id-img" id="Doorphoto" v-show="DoorphotoShow">
+                                        <img id="DoorphotoUpload" v-show="!DoorphotoShow" src="./../../../layuiadmin/img/upload.jpg" alt="">
                                     </div>
                                 </div>
                             </div>
@@ -475,8 +475,8 @@
                                         <!-- <span class="red">*</span> -->
                                     </label>
                                     <div class="layui-input-inline">
-                                        <img class="layui-id-img" id="demoList" v-show="imgShow">
-                                        <img id="handleUpload" v-show="!imgShow" src="./../../../layuiadmin/img/upload.jpg" alt="">
+                                        <img class="layui-id-img" id="InteriorFirst" v-show="InteriorFirstShow">
+                                        <img id="InteriorFirstUpload" v-show="!InteriorFirstShow" src="./../../../layuiadmin/img/upload.jpg" alt="">
                                     </div>
                                 </div>
                             </div>
@@ -487,8 +487,8 @@
                                         <!-- <span class="red">*</span> -->
                                     </label>
                                     <div class="layui-input-inline">
-                                        <img class="layui-id-img" id="demoList" v-show="imgShow">
-                                        <img id="handleUpload" v-show="!imgShow" src="./../../../layuiadmin/img/upload.jpg" alt="">
+                                        <img class="layui-id-img" id="InteriorSecond" v-show="InteriorSecondShow">
+                                        <img id="InteriorSecondUpload" v-show="!InteriorSecondShow" src="./../../../layuiadmin/img/upload.jpg" alt="">
                                     </div>
                                 </div>
                             </div>
@@ -499,8 +499,8 @@
                                         <!-- <span class="red">*</span> -->
                                     </label>
                                     <div class="layui-input-inline">
-                                        <img class="layui-id-img" id="demoList" v-show="imgShow">
-                                        <img id="handleUpload" v-show="!imgShow" src="./../../../layuiadmin/img/upload.jpg" alt="">
+                                        <img class="layui-id-img" id="InteriorThird" v-show="InteriorThirdShow">
+                                        <img id="InteriorThirdUpload" v-show="!InteriorThirdShow" src="./../../../layuiadmin/img/upload.jpg" alt="">
                                     </div>
                                 </div>
                             </div>
@@ -511,8 +511,8 @@
                                         <!-- <span class="red">*</span> -->
                                     </label>
                                     <div class="layui-input-inline">
-                                        <img class="layui-id-img" id="demoList" v-show="imgShow">
-                                        <img id="handleUpload" v-show="!imgShow" src="./../../../layuiadmin/img/upload.jpg" alt="">
+                                        <img class="layui-id-img" id="Account" v-show="AccountShow">
+                                        <img id="AccountUpload" v-show="!AccountShow" src="./../../../layuiadmin/img/upload.jpg" alt="">
                                     </div>
                                 </div>
                             </div>
@@ -546,7 +546,57 @@
                 elem: '#endTime' //指定元素
             });
 
-            // 网站logo文件上传
+            // 营业执照
+            upload.render({
+                elem: '#licenseUpload',
+                auto: false,
+                accept: 'file',
+                choose: function (obj) {
+                    obj.preview(function (index, file, result) {
+                        // console.log(result)
+                        $('#license').attr('src', result); //图片链接（base64）
+                    });
+                }
+            });
+            // 身份证反面照
+            upload.render({
+                elem: '#idcardReverseUpload',
+                auto: false,
+                accept: 'file',
+                choose: function (obj) {
+                    obj.preview(function (index, file, result) {
+                        // console.log(result)
+                        $('#idcardReverse').attr('src', result); //图片链接（base64）
+                    });
+                }
+            });
+            // 身份证正面照
+            upload.render({
+                elem: '#idcardFrontUpload',
+                auto: false,
+                accept: 'file',
+                choose: function (obj) {
+                    obj.preview(function (index, file, result) {
+                        // console.log(result)
+                        $('#idcardFront').attr('src', result); //图片链接（base64）
+                    });
+                }
+            });
+            // 银行卡
+            upload.render({
+                elem: '#BankcardUpload',
+                auto: false,
+                accept: 'file',
+                choose: function (obj) {
+                    obj.preview(function (index, file, result) {
+                        // console.log(result)
+                        $('#Bankcard').attr('src', result); //图片链接（base64）
+                    });
+                }
+            });
+
+
+            // 手持证件照
             upload.render({
                 elem: '#handleUpload',
                 auto: false,
@@ -554,8 +604,101 @@
                 choose: function (obj) {
                     obj.preview(function (index, file, result) {
                         // console.log(result)
-                        $('#demoList').attr('src', result); //图片链接（base64）
-                        vm.imgShow = true;
+                        $('#handle').attr('src', result); //图片链接（base64）
+                        vm.handleShow = true;
+                    });
+                }
+            });
+
+            // 商户logo照
+            upload.render({
+                elem: '#logoUpload',
+                auto: false,
+                accept: 'file',
+                choose: function (obj) {
+                    obj.preview(function (index, file, result) {
+                        // console.log(result)
+                        $('#logo').attr('src', result); //图片链接（base64）
+                        vm.logoShow = true;
+                    });
+                }
+            });
+            // 特殊行业许可证
+            upload.render({
+                elem: '#SpecialUpload',
+                auto: false,
+                accept: 'file',
+                choose: function (obj) {
+                    obj.preview(function (index, file, result) {
+                        // console.log(result)
+                        $('#Special').attr('src', result); //图片链接（base64）
+                        vm.SpecialShow = true;
+                    });
+                }
+            });
+            // 门头照
+            upload.render({
+                elem: '#DoorphotoUpload',
+                auto: false,
+                accept: 'file',
+                choose: function (obj) {
+                    obj.preview(function (index, file, result) {
+                        // console.log(result)
+                        $('#Doorphoto').attr('src', result); //图片链接（base64）
+                        vm.DoorphotoShow = true;
+                    });
+                }
+            });
+            // 内景照1
+            upload.render({
+                elem: '#InteriorFirstUpload',
+                auto: false,
+                accept: 'file',
+                choose: function (obj) {
+                    obj.preview(function (index, file, result) {
+                        // console.log(result)
+                        $('#InteriorFirst').attr('src', result); //图片链接（base64）
+                        vm.InteriorFirstShow = true;
+                    });
+                }
+            });
+            // 内景照2
+            upload.render({
+                elem: '#InteriorSecondUpload',
+                auto: false,
+                accept: 'file',
+                choose: function (obj) {
+                    obj.preview(function (index, file, result) {
+                        // console.log(result)
+                        $('#InteriorSecond').attr('src', result); //图片链接（base64）
+                        vm.InteriorSecondShow = true;
+                    });
+                }
+            });
+            // 内景照3
+            upload.render({
+                elem: '#InteriorThirdUpload',
+                auto: false,
+                accept: 'file',
+                choose: function (obj) {
+                    obj.preview(function (index, file, result) {
+                        // console.log(result)
+                        $('#InteriorThird').attr('src', result); //图片链接（base64）
+                        vm.InteriorThirdShow = true;
+                    });
+                }
+            });
+
+            // 开户许可证
+            upload.render({
+                elem: '#AccountUpload',
+                auto: false,
+                accept: 'file',
+                choose: function (obj) {
+                    obj.preview(function (index, file, result) {
+                        // console.log(result)
+                        $('#Account').attr('src', result); //图片链接（base64）
+                        vm.AccountShow = true;
                     });
                 }
             });
@@ -604,10 +747,26 @@
         var vm = new Vue({
             el: "#vm",
             data: {
+                // 手持证件照
+                handleShow: false,
+                // 商户logo照
+                logoShow: false,
+                // 特殊行业许可证
+                SpecialShow: false,
+                // 门头照
+                DoorphotoShow: false,
+                // 内景照1
+                InteriorFirstShow: false,
+                // 内景照2
+                InteriorSecondShow: false,
+                // 内景照2
+                InteriorThirdShow: false,
+                // 开户许可证
+                AccountShow: false,
                 imgShow: false
             },
             methods: {},
-            created() {}
+            created() { }
         });
     </script>
 </body>

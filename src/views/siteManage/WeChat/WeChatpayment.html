@@ -63,9 +63,7 @@
                         <div class="layui-input-inline">
                             <input type="text" name="appid" class="layui-input" placeholder="服务商Appid" />
                         </div>
-
                     </div>
-
                     <div class="layui-form-item">
                         <label for="bitian" class="layui-form-label">
                             服务商AppSecret
@@ -74,11 +72,7 @@
                         <div class="layui-input-inline">
                             <input type="text" name="appsecret" class="layui-input" placeholder="服务商AppSecret" />
                         </div>
-
                     </div>
-
-
-
                     <div class="layui-form-item">
                         <label for="bitian" class="layui-form-label">
                             服务商商户号
@@ -87,9 +81,7 @@
                         <div class="layui-input-inline">
                             <input type="text" name="partnerid" class="layui-input" placeholder="服务商商户号" />
                         </div>
-
                     </div>
-
                     <div class="layui-form-item">
                         <label for="bitian" class="layui-form-label">
                             商户api密钥
@@ -108,7 +100,6 @@
                         <div class="layui-input-inline">
                             <input type="text" name="apiv3Key" class="layui-input" placeholder="商户apiv3密钥" />
                         </div>
-
                     </div>
                     <div class="layui-form-item">
                         <label for="bitian" class="layui-form-label">
@@ -137,7 +128,6 @@
                 </form>
             </div>
         </div>
-
     </div>
     <script>
         layui.config({
@@ -148,13 +138,9 @@
             var form = layui.form,
                 $ = layui.jquery;
 
-           
-
-            form.on('submit(warnForm)', function (data) {
-               
+            form.on('submit(warnForm)', function (data) {               
                 axios({
                     method: "post",
-                    // url: layui.setter.BASEURL + 'environmental_intelligent_monitoring/twarnsubscribe/save',
                     url: layui.setter.BASEURL + 'mgr/paywechatservice/save',
                     data: data.field,
                     headers: {
@@ -165,11 +151,7 @@
                         // console.log(res)
                         layer.msg('保存成功！', {
                             time: 500
-                        }, function () {
-                            window.parent.location.reload();
-                            parent.layer.close('iframe');
-                        }
-                        );
+                        });
                     } else {
                         vm.$notify.error({
                             title: '错误',
