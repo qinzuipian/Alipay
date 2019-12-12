@@ -66,7 +66,7 @@
     </div>
 
     <script src="../../../layuiadmin/layui/layui.js"></script>
-    <script src="../../../layuiadmin/plugin/vue.min.js"></script>
+    <!-- <script src="../../../layuiadmin/plugin/vue.min.js"></script> -->
     <script src="../../../layuiadmin/plugin/axios.js"></script>
     <script>
         layui.config({
@@ -81,8 +81,9 @@
             table.render({
                 elem: '#LAY-app-content-list'
                 , height: 555 //容器高度
-                , url: layui.setter.BASEURL + 'environmental_intelligent_monitoring/twarnsubscribe/list' //数据接口
+                , url: layui.setter.BASEURL + 'mgr/payreservedusers/list' //数据接口
                 , page: true
+                ,method:'post'
                 , parseData: function (res) { // 数据重新处理为layUI的数据格式
                     var msg = {
                         "code": res.code, //解析接口状态
@@ -121,13 +122,14 @@
                 var data = obj.data //获得当前行数据
                     , layEvent = obj.event; //获得 lay-event 对应的值
                 if (layEvent === 'sign') {
-                    layer.open({
-                        type: 2,
-                        title: '签约管理',
-                        area: ['600px', '550px'],//弹框大小
-                        // offset: ['50px', '300px'],
-                        content: './../myMerchant/signing.html' //这里content是一个普通的String
-                    });
+                    window.parent.document.getElementById("yincang").click();
+                    // layer.open({
+                    //     type: 2,
+                    //     title: '签约管理',
+                    //     area: ['600px', '550px'],//弹框大小
+                    //     // offset: ['50px', '300px'],
+                    //     content: './../myMerchant/signing.html' //这里content是一个普通的String
+                    // });
 
                 }
             });
