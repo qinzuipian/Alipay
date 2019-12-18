@@ -1,12 +1,114 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>升级续费</title>
+    <link rel="stylesheet" href="../../../layuiadmin/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../../layuiadmin/style/admin.css" media="all">
+    <style>
+        .btn-box {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .btn-box button {
+            /* margin-right: 30px; */
+            margin-bottom: 10px;
+        }
+
+        .layui-form {
+            padding-top: 10px;
+        }
+        .layui-card-header.layuiadmin-card-header-auto {
+            padding: 0;
+        }
+
+        .layui-input-inline {
+            width: 240px;
+        }
+        p {
+            text-align: center;
+            margin-top: 10px;
+        }
+        p span:nth-child(2) {
+            color: red;
+        }
+    </style>
 </head>
+
 <body>
-    
+    <div id="vm">
+        <p>
+            <span>账面余额：</span>
+            <span>￥2700</span>
+        </p>
+        <div class="layui-form layui-card-header layuiadmin-card-header-auto">
+            <div class="layui-inline">
+                <label class="layui-form-label">续费类型</label>
+                <div class="layui-input-inline">
+                    <select name="mchType" lay-search="">
+                        <option value="1">中级用户</option>
+                        <option value="2">高级用户</option>
+                    </select>
+                </div>
+
+                <label class="layui-form-label">年费用</label>
+                <div class="layui-input-inline">
+                    <select name="mchType" lay-search="">
+                        <option value="2400">2400</option>
+                        <option value="4800">4800</option>
+                    </select>
+                </div>
+                <label class="layui-form-label">缴费年数</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="mchId" placeholder="缴费年数" autocomplete="off" class="layui-input">
+                </div>
+                <label class="layui-form-label">实际花费</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="mchId" placeholder="实际花费" autocomplete="off" class="layui-input">
+                </div>
+                <label class="layui-form-label">备注</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="mchId" placeholder="备注" autocomplete="off" class="layui-input">
+                </div>
+                <div class="btn-box">
+                    <button class="layui-btn" lay-submit lay-filter="merchantForm">提交</button>
+                    <button type="reset" class="layui-btn layui-btn-danger" @click="cancel">取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../../layuiadmin/layui/layui.js"></script>
+    <script src="../../../layuiadmin/plugin/vue.js"></script>
+    <script src="../../../layuiadmin/plugin/axios.js"></script>
+    <script>
+        layui.config({
+            base: '../../../layuiadmin/' //静态资源所在路径
+        }).extend({
+            index: 'lib/index' //主入口模块
+        }).use(['index', 'table', 'form'], function () {
+            var table = layui.table,
+                form = layui.form
+        })
+
+
+        var vm = new Vue({
+            el: "#vm",
+            data: {
+            },
+            methods: {
+                cancel() {
+                    parent.layer.closeAll('iframe');//关闭弹窗
+                },
+            },
+            created() { }
+        });
+    </script>
+
 </body>
+
 </html>

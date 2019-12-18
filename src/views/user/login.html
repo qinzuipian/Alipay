@@ -11,6 +11,7 @@
 	<link rel="stylesheet" href="../../layuiadmin/style/admin.css" media="all">
 	<link rel="stylesheet" href="../../layuiadmin/style/login.css" media="all">
 </head>
+
 <body>
 
 	<div id="vm">
@@ -23,11 +24,11 @@
 				<div class="layadmin-user-login-box layadmin-user-login-body layui-form">
 					<div class="layui-form-item">
 						<label class="layadmin-user-login-icon layui-icon layui-icon-username" for="LAY-user-login-username"></label>
-						<input type="text" name="username" id="LAY-user-login-username" lay-verify="required" placeholder="用户名" class="layui-input">
+						<input type="text" name="username" v-model="username" lay-verify="required" placeholder="用户名" class="layui-input">
 					</div>
 					<div class="layui-form-item">
 						<label class="layadmin-user-login-icon layui-icon layui-icon-password" for="LAY-user-login-password"></label>
-						<input type="password" name="password" id="LAY-user-login-password" lay-verify="required" placeholder="密码" class="layui-input">
+						<input type="password" name="password" v-model="pwd" lay-verify="required" placeholder="密码" class="layui-input">
 					</div>
 					<!-- <div class="layui-form-item">
 								<div class="layui-row">
@@ -47,7 +48,7 @@
 								<a href="forget.html" class="layadmin-user-jump-change layadmin-link" style="margin-top: 7px;">忘记密码？</a>
 							</div> -->
 					<div class="layui-form-item">
-						<button class="layui-btn layui-btn-fluid" lay-submit lay-filter="LAY-user-login-submit">登 入</button>
+						<button class="layui-btn layui-btn-fluid" @click="login">登 入</button>
 					</div>
 					<!-- <div class="layui-trans layui-form-item layadmin-user-login-other">
 								<label>社交账号登入</label>
@@ -62,41 +63,61 @@
 		</div>
 	</div>
 	<script src="../../layuiadmin/layui/layui.js"></script>
+	<script src="../../layuiadmin/plugin/axios.js"></script>
+	<script src="../../layuiadmin/plugin/vue.js"></script>
+	<script src="../../layuiadmin/js/baseUrlConfig.js"></script>
 	<script>
-		layui.config({
-			base: '../../layuiadmin/' //静态资源所在路径
-		}).extend({
-			index: 'lib/index' //主入口模块
-		}).use(['index', 'user'], function () {
-			var $ = layui.$,
-				setter = layui.setter,
-				admin = layui.admin,
-				form = layui.form,
-				router = layui.router(),
-				search = router.search;
+		// layui.config({
+		// 	base: '../../layuiadmin/' //静态资源所在路径
+		// }).extend({
+		// 	index: 'lib/index' //主入口模块
+		// }).use(['index', 'user'], function () {
+		// 	var $ = layui.$,
+		// 		setter = layui.setter,
+		// 		admin = layui.admin,
+		// 		form = layui.form,
+		// 		router = layui.router(),
+		// 		search = router.search;
 
-			form.render();
+		// 	form.render();
 
-			//提交
-			form.on('submit(LAY-user-login-submit)', function (obj) {
-				//请求登入接口
-				admin.req({
-					url: layui.setter.base + 'json/user/login.js', //实际使用请改成服务端真实接口
-					data: obj.field,
-					done: function (res) {
-						//登入成功的提示与跳转
-						layer.msg('登入成功', {
-							offset: '15px',
-							icon: 1,
-							time: 1000
-						}, function () {
-							location.href = '../'; //后台主页
-						});
-					}
-				});
 
-			});
-		});
+		// });
+
+		var vm = new Vue({
+			el: "#vm",
+			data: {
+				username: "",
+				pwd: ""
+			},
+			methods: {
+				login() {
+					axios({
+						method: "post",
+						url: BASEURL + 'mgr/payuseragency/userLogin',
+						params: {
+							un: vm.username,
+							pwd: vm.pwd
+
+						}/* ,
+						headers: {
+							"Content-Type": "application/json;charset=UTF-8"
+						} */
+					}).then(function (res) {
+						// console.log(res);
+						if (res.data.code == 0) {
+							localStorage.setItem('un', res.data.data.un);
+							// localStorage.setItem('mchId', res.data.data.mchId);
+							window.location.href = "./../index.html";
+						}
+						else {
+							vm.$message.error(res.data.msg);
+						}
+					})
+				}
+			}
+		})
 	</script>
 </body>
+
 </html>

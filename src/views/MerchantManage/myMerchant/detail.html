@@ -48,9 +48,9 @@
                             商户类型
                         </label>
                         <div class="layui-input-inline">
-                            <select name="type" id="eventType" lay-filter="eventType" lay-verify="">
+                            <select name="mchType" id="eventType" disabled lay-filter="eventType" lay-verify="">
                                 <option value="1">个人</option>
-                                <option value="2">个体工商户</option>
+                                <option value="2">个体</option>
                                 <option value="3">企业</option>
                                 <option value="4">事业</option>
                             </select>
@@ -64,47 +64,44 @@
                             <input type="text" name="mchId" class="layui-input" placeholder="需为手机号格式" />
                         </div>
                     </div>
-                    <!-- <div class="layui-form-item">
-                                        <label for="bitian" class="layui-form-label">
-                                            商户绑定密码
-                                            <span class="red">*</span>
-                                        </label>
-                                        <div class="layui-input-inline">
-                                            <input type="text" name="pwd" class="layui-input" placeholder="商户绑定密码" />
-                                        </div>
-                                    </div> -->
                     <div class="layui-form-item">
                         <label for="bitian" class="layui-form-label">
                             商户全称
                         </label>
                         <div class="layui-input-inline">
-                            <input type="text" name="name" class="layui-input" placeholder="请输入营业执照上的全称 " />
+                            <input type="text" name="mchName" class="layui-input" placeholder="请输入营业执照上的全称" />
                         </div>
                     </div>
                     <div class="layui-form-item">
                         <label for="bitian" class="layui-form-label">
-                            请求私钥
+                            商户绑定密码
                         </label>
                         <div class="layui-input-inline">
-                            <input type="text" name="reqKey" class="layui-input" placeholder="请求私钥" />
+                            <input type="text" name="pwd" class="layui-input" placeholder="商户绑定密码" />
                         </div>
                     </div>
                     <div class="layui-form-item">
                         <label for="bitian" class="layui-form-label">
-                            响应私钥
+                            商户简称
                         </label>
                         <div class="layui-input-inline">
-                            <input type="text" name="resKey" class="layui-input" placeholder="响应私钥" />
+                            <input type="text" name="mchNameShort" class="layui-input" placeholder="商户简称" />
                         </div>
                     </div>
                     <div class="layui-form-item">
                         <label for="bitian" class="layui-form-label">
-                            是否启用
+                            客服电话
                         </label>
                         <div class="layui-input-inline">
-                            <input type="text" name="state" class="layui-input" />
-                            <!-- <input type="radio" value="1" name="state" title="启用" />
-                            <input type="radio" value="0" name="state" title="禁用" /> -->
+                            <input type="text" name="kfMobile" class="layui-input" placeholder="客服电话" />
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="bitian" class="layui-form-label">
+                            邮箱
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="email" class="layui-input" placeholder="邮箱" />
                         </div>
                     </div>
                     <div class="btn-box">
@@ -125,15 +122,30 @@
                 $ = layui.jquery;
 
             // 单个信息数据展示
-            form.val('editMerchant', {
-                "type": parent.data.type,
-                "mchId": parent.data.mchId,
-                "name": parent.data.name,
-                "reqKey": parent.data.reqKey,
-                "resKey": parent.data.resKey,
-                "state": parent.data.state === 1 ? '启用' : parent.data.state === 0 ? '禁用' : '无'
+            axios({
+                method: "get",
+                url: BASEURL + "mgr/payusermerchant/info/" + parent.id,
+            })
+                .then(res => {
+                    if (res.data.code == 0) {
+                        var list = res.data.payUserMerchant;
+                        form.val('editMerchant', {
+                            'mchType': list.mchType,
+                            'mchId': list.mchId,
+                            'mchName': list.mchName,
+                            'pwd': list.pwd,
+                            'mchNameShort': list.mchNameShort,
+                            'kfMobile': list.kfMobile,
+                            'email': list.email,
+                            'id': list.id
+                        });
+                    } else {
 
-            });
+                    }
+                })
+                .catch(error => {
+
+                });
         })
         var vm = new Vue({
             el: "#vm",

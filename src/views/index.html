@@ -63,7 +63,7 @@
 						</li>
 						<li class="layui-nav-item" lay-unselect style="margin-right: 20px;">
 							<a href="javascript:;">
-								<cite>管理员</cite>
+								<cite v-text="username"></cite>
 							</a>
 							<dl class="layui-nav-child">
 								<!-- 	<dd><a lay-href="set/user/info.html">基本资料</a></dd>
@@ -359,21 +359,25 @@
 
 		var vm = new Vue({
 			el: "#vm",
-			data: {},
+			data: {
+				username: localStorage.getItem('un')
+			},
 			methods: {
 				pageInit: function () {
-					var userId = window.localStorage.getItem("userId");
-					var token = window.localStorage.getItem("token");
-					if (!userId || !token) {
+					var userId = window.localStorage.getItem("un");
+					// var token = window.localStorage.getItem("token");
+					if (!userId) {
 						window.location.href = "./user/login.html"
 					}
 				},
 				logout: function () {
+					window.location.href = "./user/login.html";
+					localStorage.removeItem("un");
 					// console.log('ok');
 				}
 			},
 			created() {
-				// this.pageInit();
+				this.pageInit();
 				// document.title = 'hello world!'
 			}
 		});

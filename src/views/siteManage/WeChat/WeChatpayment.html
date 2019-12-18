@@ -107,9 +107,9 @@
                             <span class="red">*</span>
                         </label>
                         <div class="layui-input-inline">
-                            <input type="text" name="certPem" class="layui-input" placeholder="商户apiv3密钥" />
+                            <button type="button" class="layui-btn" id="certUpload">上传</button>
+                            <!-- <input type="text" name="certPem" class="layui-input" placeholder="商户apiv3密钥" /> -->
                         </div>
-
                     </div>
                     <div class="layui-form-item">
                         <label for="bitian" class="layui-form-label">
@@ -117,9 +117,9 @@
                             <span class="red">*</span>
                         </label>
                         <div class="layui-input-inline">
-                            <input type="text" name="keyPem" class="layui-input" placeholder="商户apiv3密钥" />
+                            <button type="button" class="layui-btn" id="keyUpload">上传</button>
+                            <!-- <input type="text" name="keyPem" class="layui-input" placeholder="商户apiv3密钥" /> -->
                         </div>
-
                     </div>
                     <div class="btn-box">
                         <button class="layui-btn" lay-submit lay-filter="warnForm">提交</button>
@@ -134,11 +134,36 @@
             base: '../../../layuiadmin/' //静态资源所在路径
         }).extend({
             index: 'lib/index' //主入口模块
-        }).use(['index', "jquery", 'form'], function () {
+        }).use(['index', "jquery", 'form', 'upload'], function () {
             var form = layui.form,
-                $ = layui.jquery;
+                $ = layui.jquery,
+                upload = layui.upload;
 
-            form.on('submit(warnForm)', function (data) {               
+            // 商户证书cert.pem
+            upload.render({
+                elem: '#certUpload',
+                auto: false,
+                accept: 'file',
+                exts: 'pem', //显示上传文件后缀类型
+                choose: function (obj) {
+                    obj.preview(function (index, file, result) {
+                        console.log(index, file, result);
+                    });
+                }
+            });
+            // 商户证书key.pem
+            upload.render({
+                elem: '#keyUpload',
+                auto: false,
+                accept: 'file',
+                exts: 'pem', //显示上传文件后缀类型
+                choose: function (obj) {
+                    obj.preview(function (index, file, result) {
+                        console.log(index, file, result);
+                    });
+                }
+            });
+            form.on('submit(warnForm)', function (data) {
                 axios({
                     method: "post",
                     url: layui.setter.BASEURL + 'mgr/paywechatservice/save',
@@ -167,11 +192,12 @@
         var vm = new Vue({
             el: "#vm",
             data: {
-             
+                
             },
             methods: {
             },
-
+            created() {}
+            
         });
     </script>
 </body>
