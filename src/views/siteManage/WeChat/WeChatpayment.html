@@ -9,9 +9,11 @@
     <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi"
     />
     <link rel="stylesheet" href="../../../layuiadmin/layui/css/layui.css">
+    <link rel="stylesheet" href="../../../layuiadmin/plugin/element.css">
     <script type="text/javascript" src="../../../layuiadmin/layui/layui.js" charset="utf-8"></script>
     <!-- 引入vue -->
     <script type="text/javascript" src="../../../layuiadmin/plugin/vue.js"></script>
+    <script src="../../../layuiadmin/plugin/element.js"></script>
     <script type="text/javascript" src="../../../layuiadmin/plugin/axios.js"></script>
     <script src="../../../layuiadmin/js/baseUrlConfig.js"></script>
     <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
@@ -47,6 +49,13 @@
         .layui-form {
             padding-top: 20px;
         }
+
+        .el-autocomplete {
+            display: inline;
+        }
+        .textFlag {
+            color: #f00;
+        }
     </style>
 </head>
 
@@ -64,7 +73,7 @@
                             <input type="text" name="appid" class="layui-input" placeholder="服务商Appid" />
                         </div>
                     </div>
-                    <div class="layui-form-item">
+                    <!-- <div class="layui-form-item">
                         <label for="bitian" class="layui-form-label">
                             服务商AppSecret
                             <span class="red">*</span>
@@ -72,7 +81,7 @@
                         <div class="layui-input-inline">
                             <input type="text" name="appsecret" class="layui-input" placeholder="服务商AppSecret" />
                         </div>
-                    </div>
+                    </div> -->
                     <div class="layui-form-item">
                         <label for="bitian" class="layui-form-label">
                             服务商商户号
@@ -88,17 +97,29 @@
                             <span class="red">*</span>
                         </label>
                         <div class="layui-input-inline">
-                            <input type="text" name="certPem" class="layui-input" placeholder="商户api密钥" />
+                            <input type="text" name="partnerkey" class="layui-input" placeholder="商户api密钥" />
                         </div>
 
                     </div>
-                    <div class="layui-form-item">
+                    <!-- <div class="layui-form-item">
                         <label for="bitian" class="layui-form-label">
                             商户apiv3密钥
                             <span class="red">*</span>
                         </label>
                         <div class="layui-input-inline">
                             <input type="text" name="apiv3Key" class="layui-input" placeholder="商户apiv3密钥" />
+                        </div>
+                    </div> -->
+                    <div class="layui-form-item">
+                        <label for="bitian" class="layui-form-label">
+                            选择商户
+                            <span class="red">*</span>
+                        </label>
+                        <div class="layui-input-inline">
+                            <el-autocomplete v-model="mchName" :fetch-suggestions="querySearchAsync" @select="handleSelect" placeholder="请选择商户"></el-autocomplete>
+                            <!-- <select lay-search name="mchName" id="MerchantList" lay-verify="required">
+                                    <option value=""></option>
+                                </select> -->
                         </div>
                     </div>
                     <div class="layui-form-item">
@@ -108,22 +129,22 @@
                         </label>
                         <div class="layui-input-inline">
                             <button type="button" class="layui-btn" id="certUpload">上传</button>
+                            <span v-text="textFlag" class="textFlag"></span>
                             <!-- <input type="text" name="certPem" class="layui-input" placeholder="商户apiv3密钥" /> -->
                         </div>
                     </div>
-                    <div class="layui-form-item">
+                    <!-- <div class="layui-form-item">
                         <label for="bitian" class="layui-form-label">
                             商户证书key.pem
                             <span class="red">*</span>
                         </label>
                         <div class="layui-input-inline">
                             <button type="button" class="layui-btn" id="keyUpload">上传</button>
-                            <!-- <input type="text" name="keyPem" class="layui-input" placeholder="商户apiv3密钥" /> -->
                         </div>
-                    </div>
+                    </div> -->
                     <div class="btn-box">
                         <button class="layui-btn" lay-submit lay-filter="warnForm">提交</button>
-                        <button type="reset" class="layui-btn layui-btn-danger">取消</button>
+                        <button type="reset" class="layui-btn layui-btn-danger">重置</button>
                     </div>
                 </form>
             </div>
@@ -144,29 +165,42 @@
                 elem: '#certUpload',
                 auto: false,
                 accept: 'file',
-                exts: 'pem', //显示上传文件后缀类型
+                exts: 'p12', //显示上传文件后缀类型
                 choose: function (obj) {
                     obj.preview(function (index, file, result) {
-                        console.log(index, file, result);
+                        console.log(result);
+                        vm.cermFile = result;
+                        vm.textFlag = '已上传';
                     });
+                },
+                done: function (res, index, upload) {
+                    console.log(res)
+                },
+                //上传错误回调
+                error: function (index, upload) {
+                    layer.alert('上传失败！' + index);
                 }
+
             });
             // 商户证书key.pem
-            upload.render({
-                elem: '#keyUpload',
-                auto: false,
-                accept: 'file',
-                exts: 'pem', //显示上传文件后缀类型
-                choose: function (obj) {
-                    obj.preview(function (index, file, result) {
-                        console.log(index, file, result);
-                    });
-                }
-            });
+            // upload.render({
+            //     elem: '#keyUpload',
+            //     auto: false,
+            //     accept: 'file',
+            //     exts: 'pem', //显示上传文件后缀类型
+            //     choose: function (obj) {
+            //         obj.preview(function (index, file, result) {
+            //             console.log(index, file, result);
+            //         });
+            //     }
+            // });
             form.on('submit(warnForm)', function (data) {
+                data.field.mid = vm.mid;
+                data.field.file = vm.cermFile;
+                console.log(data.field)
                 axios({
                     method: "post",
-                    url: layui.setter.BASEURL + 'mgr/paywechatservice/save',
+                    url: layui.setter.BASEURL + 'mgr/payweixinconfig/saveConfig',
                     data: data.field,
                     headers: {
                         "Content-Type": "application/json;charset=UTF-8"
@@ -192,12 +226,44 @@
         var vm = new Vue({
             el: "#vm",
             data: {
-                
+                mid: "",
+                mchName: "",
+                cermFile: "",
+                textFlag:""
             },
             methods: {
+                querySearchAsync(queryString, callback) {
+                    // console.log(queryString);
+                    var list = [{}];
+                    axios({
+                        method: "post",
+                        url: BASEURL + 'mgr/payusermerchant/queryMerchantList',
+                        params: {
+                            mchName: queryString
+                        }
+                    }).then(function (res) {
+                        if (res.data.code == 0) {
+                            var datalist = res.data.data;
+                            for (let i of datalist) {
+                                i.value = i.mchName; //将想要展示的数据作为value
+                                // console.log(i.value)
+                            }
+                            list = datalist;
+                            callback(list);
+                        } else {
+
+                        }
+                    }).catch(function (err) {
+                        // console.log(err);
+                    });
+                },
+                handleSelect(item) {
+                    vm.mid = item.id;
+
+                }
             },
-            created() {}
-            
+            created() { }
+
         });
     </script>
 </body>

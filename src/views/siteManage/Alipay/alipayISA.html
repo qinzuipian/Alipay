@@ -9,9 +9,11 @@
     <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi"
     />
     <link rel="stylesheet" href="../../../layuiadmin/layui/css/layui.css">
+    <link rel="stylesheet" href="../../../layuiadmin/plugin/element.css">
     <script type="text/javascript" src="../../../layuiadmin/layui/layui.js" charset="utf-8"></script>
     <!-- 引入vue -->
     <script type="text/javascript" src="../../../layuiadmin/plugin/vue.js"></script>
+    <script src="../../../layuiadmin/plugin/element.js"></script>
     <script type="text/javascript" src="../../../layuiadmin/plugin/axios.js"></script>
     <script src="../../../layuiadmin/js/baseUrlConfig.js"></script>
     <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
@@ -47,6 +49,10 @@
         .layui-form {
             padding-top: 20px;
         }
+
+        .el-autocomplete {
+            display: inline;
+        }
     </style>
 </head>
 
@@ -63,17 +69,27 @@
                         <div class="layui-input-inline">
                             <input type="text" name="servicepid" class="layui-input" placeholder="服务商PID" />
                         </div>
-
                     </div>
                     <div class="layui-form-item">
                         <label for="bitian" class="layui-form-label">
-                            服务商AppId
+                            商户AppId
                             <span class="red">*</span>
                         </label>
                         <div class="layui-input-inline">
-                            <input type="text" name="serviceappid" class="layui-input" placeholder="服务商AppId" />
+                            <input type="text" name="appid" class="layui-input" placeholder="服务商AppId" />
                         </div>
-
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="bitian" class="layui-form-label">
+                            选择商户
+                            <span class="red">*</span>
+                        </label>
+                        <div class="layui-input-inline">
+                            <el-autocomplete v-model="mchName" :fetch-suggestions="querySearchAsync" @select="handleSelect" placeholder="请选择商户"></el-autocomplete>
+                            <!-- <select lay-search name="mchName" id="MerchantList" lay-verify="required">
+                                <option value=""></option>
+                            </select> -->
+                        </div>
                     </div>
                     <div class="layui-form-item">
                         <label for="bitian" class="layui-form-label">
@@ -97,7 +113,7 @@
                     </div>
                     <div class="btn-box">
                         <button class="layui-btn" lay-submit lay-filter="warnForm">提交</button>
-                        <button type="reset" class="layui-btn layui-btn-danger">取消</button>
+                        <button type="reset" class="layui-btn layui-btn-danger">重置</button>
                     </div>
                 </form>
             </div>
@@ -112,10 +128,38 @@
         }).use(['index', "jquery", 'form'], function () {
             var form = layui.form,
                 $ = layui.jquery;
+
+
+            // select填充
+            // axios({
+            //     method: "post",
+            //     url: BASEURL + 'mgr/payusermerchant/queryMerchantList',
+            //     params: {
+            //         // pId: window.localStorage.getItem("userMchid")
+            //     }
+            // }).then(function (res) {
+            //     if (res.data.code == 0) {
+            //         // // console.log(res)
+            //         $.each(res.data.data, function (index, item) {
+            //             // console.log(index, item)
+            //             $('#MerchantList').append(new Option(item.mchName, item.mchName));// 下拉菜单里添加元素
+            //         });
+            //         layui.form.render("select");
+
+            //     } else {
+
+            //     }
+            // }).catch(function (err) {
+            //     // console.log(err);
+            // });
             form.on('submit(warnForm)', function (data) {
+                data.field.mchName = vm.mchName;
+                data.field.mid = vm.mid;
+                console.log(data.field)
                 axios({
                     method: "post",
-                    url: layui.setter.BASEURL + 'mgr/payalipayservice/save',
+                    // url: layui.setter.BASEURL + 'mgr/payalipayservice/save',
+                    url: layui.setter.BASEURL + 'mgr/payalipayconfig/save',
                     data: data.field,
                     headers: {
                         "Content-Type": "application/json;charset=UTF-8"
@@ -138,9 +182,41 @@
         var vm = new Vue({
             el: "#vm",
             data: {
-
+                mchName: "",
+                mid:""
             },
             methods: {
+                // 商户列表远程搜索框
+                querySearchAsync(queryString, callback) {
+                    // console.log(queryString);
+                    var list = [{}];
+                    axios({
+                        method: "post",
+                        url: BASEURL + 'mgr/payusermerchant/queryMerchantList',
+                        params: {
+                            mchName: queryString
+                        }
+                    }).then(function (res) {
+                        if (res.data.code == 0) {
+                            var datalist = res.data.data;
+                            for (let i of datalist) {
+                                i.value = i.mchName; //将想要展示的数据作为value
+                                // console.log(i.value)
+                            }
+                            list = datalist;
+                            callback(list);
+                        } else {
+
+                        }
+                    }).catch(function (err) {
+                        // console.log(err);
+                    });
+                },
+                handleSelect(item) {
+                    console.log(item);
+                    vm.mid = item.id;
+
+                }
 
             },
 

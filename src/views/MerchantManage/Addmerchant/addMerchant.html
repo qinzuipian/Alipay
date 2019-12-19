@@ -107,6 +107,15 @@
                     </div>
                     <div class="layui-form-item">
                         <label for="bitian" class="layui-form-label">
+                            分期类型
+                            <!-- <span class="red">*</span> -->
+                        </label>
+                        <div class="layui-input-inline" id="stagesType">
+
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="bitian" class="layui-form-label">
                             客服电话
                             <span class="red">*</span>
                         </label>
@@ -141,9 +150,58 @@
             var form = layui.form,
                 $ = layui.jquery;
 
+            // checkbox事件类型数据填充
+            axios({
+                method: "post",
+                url: BASEURL + 'mgr/tstagtab/queryUserStagList',
+            }).then(function (res) {
+                if (res.data.code == 0) {
+                    $.each(res.data.data, function (index, item) {
+                        $('#stagesType').append('<input type="checkbox" name="stagArray"  value="' + item.id + '" title="' + item.stagname + '" lay-skin="primary">');
+                    });
+                    form.render();
+
+                } else {
+
+                }
+            }).catch(function (err) {
+                // console.log(err);
+            });
+
+
+            // form.on('checkbox(stagesType)', function (data) {
+            //     console.log(data.elem.checked);
+            //     if (data.elem.checked === true) {
+            //         var obj = {
+            //             spid: data.value - 0
+            //         }
+            //         vm.stagesTypeIdList.push(obj);
+
+            //     } else {
+            //     }
+            //     console.log(vm.stagesTypeIdList)
+            //     // console.log(data.elem[data.elem.checkedIndex].text);
+            //     // console.log(data.othis[0].innerText);
+            //     // vm.eventTypeList.push(data.othis[0].innerText);
+
+            //     form.render();
+            // })
             form.on('submit(merchantForm)', function (data) {
                 console.log(data)
+                vm.stagesTypeIdList = [];
+                $("input:checkbox[name='stagArray']:checked").each(function (item) {
+                    // console.log(item);
+                    // console.log($(this).val());
+                    var obj = {
+                        spid: $(this).val() - 0
+                    }
+                    vm.stagesTypeIdList.push(obj);
+
+                })
+
                 data.field.pid = 1;
+                data.field.stagArray = vm.stagesTypeIdList;
+                console.log(data.field)
                 axios({
                     method: "post",
                     url: layui.setter.BASEURL + 'mgr/payusermerchant/save',
@@ -175,6 +233,7 @@
         var vm = new Vue({
             el: "#vm",
             data: {
+                stagesTypeIdList: []
             },
             methods: {
                 cancel() {

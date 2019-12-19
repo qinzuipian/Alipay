@@ -96,7 +96,7 @@
                     return msg;
                 }
                 , cols: [[
-                    { checkbox: true },
+                    // { checkbox: true },
                     { title: '支付单号', minWidth: 100, field: 'payOrderId' },
                     { title: '商户ID', field: 'mchId', minWidth: 100 },
                     { title: '渠道ID', field: 'channelId', minWidth: 100 },
@@ -117,6 +117,8 @@
                             $(this).text("支付成功")
                         } else if ($(this).text() == '3') {
                             $(this).text("处理完成")
+                        } else {
+                            $(this).text("未知")
                         }
                     })
                 }

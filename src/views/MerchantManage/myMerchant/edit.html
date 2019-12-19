@@ -101,6 +101,15 @@
                     </div>
                     <div class="layui-form-item">
                         <label for="bitian" class="layui-form-label">
+                            分期类型
+                            <!-- <span class="red">*</span> -->
+                        </label>
+                        <div class="layui-input-inline" id="stagesType">
+
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="bitian" class="layui-form-label">
                             客服电话
                             <span class="red">*</span>
                         </label>
@@ -141,34 +150,75 @@
                 console.log(data);
                 vm.valueState = data.value;
             })
-            // 单个信息数据展示
+
+            // checkbox事件类型数据填充
             axios({
-                method: "get",
-                url: BASEURL + "mgr/payusermerchant/info/" + parent.id,
-            })
-                .then(res => {
-                    if (res.data.code == 0) {
-                        var list = res.data.payUserMerchant;
-                        form.val('editMerchant', {
-                            'mchType': list.mchType,
-                            'mchId': list.mchId,
-                            'mchName': list.mchName,
-                            'pwd': list.pwd,
-                            'mchNameShort': list.mchNameShort,
-                            'kfMobile': list.kfMobile,
-                            'email': list.email,
-                            'id': list.id
+                method: "post",
+                url: BASEURL + 'mgr/tstagtab/queryUserStagList',
+            }).then(function (res) {
+                if (res.data.code == 0) {
+                    $.each(res.data.data, function (index, item) {
+                        $('#stagesType').append('<input type="checkbox" name="stagArray"  value="' + item.id + '" title="' + item.stagname + '" lay-skin="primary">');
+                    });
+
+                    // 单个信息数据展示
+                    axios({
+                        method: "get",
+                        url: BASEURL + "mgr/payusermerchant/info/" + parent.id,
+                    })
+                        .then(res => {
+                            if (res.data.code == 0) {
+                                var list = res.data.payUserMerchant;
+                                form.val('editMerchant', {
+                                    'mchType': list.mchType,
+                                    'mchId': list.mchId,
+                                    'mchName': list.mchName,
+                                    'pwd': list.pwd,
+                                    'mchNameShort': list.mchNameShort,
+                                    'kfMobile': list.kfMobile,
+                                    'email': list.email,
+                                    'id': list.id
+                                });
+                                var idList = list.tSpidlist;
+                                for (i = 0; i < idList.length; i++) {
+                                    var Checkbox = $("input[type=checkbox]");
+                                    console.log(Checkbox)
+                                    for (j = 0; j < Checkbox.length; j++) {
+                                        if (Checkbox[j].value == idList[i]) {
+                                            console.log(Checkbox[j].value)
+                                            Checkbox[j].checked = true;  //设置选中
+                                        }
+                                    }
+                                }
+                                form.render();
+                            } else {
+
+                            }
+                        })
+                        .catch(error => {
+
                         });
-                    } else {
+                  
 
-                    }
-                })
-                .catch(error => {
+                } else {
 
-                });
+                }
+            }).catch(function (err) {
+                // console.log(err);
+            });
+
 
 
             form.on('submit(merchantForm)', function (data) {
+                vm.stagesTypeIdList = [];
+                $("input:checkbox[name='stagArray']:checked").each(function (item) {
+                    var obj = {
+                        spid: $(this).val() - 0
+                    }
+                    vm.stagesTypeIdList.push(obj);
+
+                })
+                data.field.stagArray = vm.stagesTypeIdList;
                 axios({
                     method: "post",
                     url: layui.setter.BASEURL + 'mgr/payusermerchant/update',
@@ -200,7 +250,8 @@
         var vm = new Vue({
             el: "#vm",
             data: {
-                valueState: ""
+                valueState: "",
+                stagesTypeIdList:[]
             },
             methods: {
                 cancel() {

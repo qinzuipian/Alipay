@@ -97,7 +97,7 @@
                     return msg;
                 }
                 , cols: [[
-                    { checkbox: true },
+                    // { checkbox: true },
                     { title: '转账单号', minWidth: 100, field: 'transOrderId' },
                     { title: '商户ID', field: 'mchId', minWidth: 100 },
                     { title: '渠道ID', field: 'channelId', minWidth: 100 },
@@ -193,7 +193,6 @@
                             obj.SendType = checkData[i].sendType;
                             idList.push(obj)
                         }
-
                         if (checkData.length === 0) {
                             return layer.msg('请选择数据');
                         }
