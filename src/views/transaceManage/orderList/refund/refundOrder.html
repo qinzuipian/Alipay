@@ -20,28 +20,25 @@
                     <div class="layui-inline">
                         <label class="layui-form-label">退款单号</label>
                         <div class="layui-input-inline">
-                            <input type="text" class="layui-input" name="refundOrderId" placeholder="退款单号">
+                            <input type="text" class="layui-input" name="refundorderid" placeholder="退款单号">
                         </div>
                     </div>
                     <div class="layui-inline">
                         <label class="layui-form-label">商户ID</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="mchId" placeholder="商户ID" autocomplete="off" class="layui-input">
-                        </div>
-                    </div>
-                    <div class="layui-inline">
-                        <label class="layui-form-label">订单状态</label>
-                        <div class="layui-input-inline">
-                            <select name="status" id="status" lay-search="">
-                                <option value="-99">所有状态</option>
-                                <option value="0">订单生成</option>
-                                <option value="1">退款中</option>
-                                <option value="2">退款成功</option>
-                                <option value="3">退款失败</option>
-                                <option value="4">处理完成</option>
+                            <select name="mid" id="ecPolluteType">
+                                <option value=""></option>
                             </select>
+                            <!-- <input type="text" name="mchId" placeholder="商户ID" autocomplete="off" class="layui-input"> -->
                         </div>
                     </div>
+                  
+                    <div class="layui-inline">
+                            <label class="layui-form-label">创建日期</label>
+                            <div class="layui-input-inline">
+                                <input type="text" class="layui-input" id="startDate" name="createtime" placeholder="请输入开始日期">
+                            </div>
+                        </div>
                     <div class="layui-inline">
                         <button class="layui-btn layuiadmin-btn-list" lay-submit lay-filter="LAY-app-contlist-search">
                             <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
@@ -67,6 +64,7 @@
     <script src="../../../../layuiadmin/layui/layui.js"></script>
     <script src="../../../../layuiadmin/plugin/vue.js"></script>
     <script src="../../../../layuiadmin/plugin/axios.js"></script>
+    <script src="../../../../layuiadmin/js/baseUrlConfig.js"></script>
     <script>
         layui.config({
             base: '../../../../layuiadmin/' //静态资源所在路径
@@ -76,35 +74,59 @@
             var table = layui.table,
                 form = layui.form,
                 laydate = layui.laydate
+            //时间日期
+            laydate.render({
+                elem: '#startDate',
+                format: 'yyyy-MM-dd'
+
+            });
+
+
+            // 第一层填充
+            axios({
+                method: "post",
+                url: BASEURL + 'mgr/payusermerchant/queryMerchantList',
+                params: {
+                }
+            }).then(function (res) {
+                if (res.data.code == 0) {
+                    // // console.log(res)
+                    $.each(res.data.data, function (index, item) {
+                        // // console.log(index, item)
+                        $('#ecPolluteType').append(new Option(item.mchName, item.id));// 下拉菜单里添加元素
+                    });
+                    layui.form.render("select");
+
+                } else {
+
+                }
+            }).catch(function (err) {
+                // console.log(err);
+            });
 
             table.render({
                 elem: '#LAY-app-content-list'
                 , height: 555 //容器高度
-                , url: layui.setter.BASEURL + 'refund_order/list' //数据接口
-                , page: true,
-                request: {
-                    pageName: 'pageIndex',
-                    limitName: 'pageSize'
-                }
+                , url: layui.setter.BASEURL + 'dal/trefundorder/list' //数据接口
+                , page: true
                 , parseData: function (res) { // 数据重新处理为layUI的数据格式
-                    // console.log(JSON.parse(res))
                     var msg = {
                         "code": res.code, //解析接口状态
                         "msg": res.msg, //解析提示文本
-                        "count": res.data.count, //解析数据长度
-                        "data": res.data.list //解析数据列表
+                        "count": res.page.totalCount, //解析数据长度
+                        "data": res.page.list //解析数据列表
                     };
                     return msg;
                 }
                 , cols: [[
                     // { checkbox: true },
-                    { title: '退款单号', minWidth: 100, field: 'refundOrderId' },
-                    { title: '商户ID', field: 'mchId', minWidth: 100 },
-                    { title: '渠道ID', field: 'channelId', minWidth: 100 },
-                    { title: '金额(元)', field: 'amount', minWidth: 100 },
+                    { title: '退款单号', minWidth: 100, field: 'refundorderid' },
+                    { title: '商户ID', field: 'mchid', minWidth: 100 },
+                    { title: '渠道ID', field: 'channelid', minWidth: 100 },
+                    { title: '退款金额(元)', field: 'refundamount', minWidth: 100 },
                     { title: '状态', field: 'status', minWidth: 100 },
                     { title: '退款结果', field: 'result', minWidth: 100 },
-                    { title: '创建时间', field: 'createTime', minWidth: 100 },
+                    { title: '创建时间', field: 'createtime', minWidth: 100 },
                     { fixed: 'right', title: '操作', toolbar: '#barDemo', width: 160 }
                 ]] //设置表头
                 , limit: 10
@@ -134,6 +156,14 @@
                             $(this).text("确认成功")
                         } else if ($(this).text() == '3') {
                             $(this).text("确认失败")
+                        }
+                    })
+
+                    $("[data-field='channelid']").children().each(function () {
+                        if ($(this).text() == '1') {
+                            $(this).text("支付宝")
+                        } else if ($(this).text() == '2') {
+                            $(this).text("微信")
                         }
                     })
                 }

@@ -48,7 +48,7 @@
                                 退款单号
                         </label>
                         <div class="layui-input-inline">
-                            <input type="text" name="refundOrderId" class="layui-input" />
+                            <input type="text" name="refundorderid" class="layui-input" />
                         </div>
                     </div>
                     <div class="layui-form-item">
@@ -56,7 +56,7 @@
                                 支付单号
                         </label>
                         <div class="layui-input-inline">
-                            <input type="text" name="payOrderId" class="layui-input" />
+                            <input type="text" name="payorderid" class="layui-input" />
                         </div>
                     </div>
                     <div class="layui-form-item">
@@ -64,7 +64,7 @@
                             商户ID
                         </label>
                         <div class="layui-input-inline">
-                            <input type="text" name="mchId" class="layui-input" placeholder="商户ID" />
+                            <input type="text" name="mchid" class="layui-input" placeholder="商户ID" />
                         </div>
                     </div>
                     <div class="layui-form-item">
@@ -72,15 +72,15 @@
                             商户单号
                         </label>
                         <div class="layui-input-inline">
-                            <input type="text" name="mchRefundNo" class="layui-input" placeholder="" />
+                            <input type="text" name="mchrefundno" class="layui-input" placeholder="" />
                         </div>
                     </div>
                     <div class="layui-form-item">
                         <label for="bitian" class="layui-form-label">
-                            金额(元)
+                            退款金额(元)
                         </label>
                         <div class="layui-input-inline">
-                            <input type="text" name="amount" class="layui-input" placeholder="" />
+                            <input type="text" name="refundamount" class="layui-input" placeholder="" />
                         </div>
                     </div>
                     <div class="layui-form-item">
@@ -118,7 +118,7 @@
                                 渠道用户
                         </label>
                         <div class="layui-input-inline">
-                            <input type="text" name="channelUser" class="layui-input" placeholder="" />
+                            <input type="text" name="channeluser" class="layui-input" placeholder="" />
 
                         </div>
                     </div>
@@ -127,7 +127,7 @@
                                 用户姓名
                         </label>
                         <div class="layui-input-inline">
-                            <input type="text" name="userName" class="layui-input" />
+                            <input type="text" name="username" class="layui-input" />
                         </div>
 
                     </div>
@@ -136,7 +136,7 @@
                                 渠道商户ID
                         </label>
                         <div class="layui-input-inline">
-                            <input type="text" name="channelMchId" class="layui-input" />
+                            <input type="text" name="channelmchid" class="layui-input" />
                         </div>
 
                     </div>
@@ -145,7 +145,7 @@
                             渠道单号
                         </label>
                         <div class="layui-input-inline">
-                            <input type="text" name="channelOrderNo" class="layui-input" />
+                            <input type="text" name="channelorderno" class="layui-input" />
                         </div>
 
                     </div>
@@ -155,7 +155,7 @@
                             错误码
                         </label>
                         <div class="layui-input-inline">
-                            <input type="text" name="channelErrCode" class="layui-input" />
+                            <input type="text" name="channelerrcode" class="layui-input" />
                         </div>
 
                     </div>
@@ -164,7 +164,7 @@
                             错误消息
                         </label>
                         <div class="layui-input-inline">
-                            <input type="text" name="channelErrMsg" class="layui-input" />
+                            <input type="text" name="channelerrmsg" class="layui-input" />
                         </div>
 
                     </div>
@@ -200,7 +200,7 @@
                             通知地址
                         </label>
                         <div class="layui-input-inline">
-                            <input type="text" name="notifyUrl" class="layui-input" />
+                            <input type="text" name="notifyurl" class="layui-input" />
                         </div>
 
                     </div>
@@ -209,7 +209,7 @@
                             失效时间
                         </label>
                         <div class="layui-input-inline">
-                            <input type="text" name="expireTime" class="layui-input" />
+                            <input type="text" name="expiretime" class="layui-input" />
                         </div>
 
                     </div>
@@ -218,7 +218,7 @@
                             成功时间
                         </label>
                         <div class="layui-input-inline">
-                            <input type="text" name="refundSuccTime" class="layui-input" />
+                            <input type="text" name="refundsucctime" class="layui-input" />
                         </div>
 
                     </div>
@@ -227,7 +227,7 @@
                             创建时间
                         </label>
                         <div class="layui-input-inline">
-                            <input type="text" name="createTime" class="layui-input" />
+                            <input type="text" name="createtime" class="layui-input" />
                         </div>
 
                     </div>
@@ -236,7 +236,7 @@
                             更新时间
                         </label>
                         <div class="layui-input-inline">
-                            <input type="text" name="updateTime" class="layui-input" />
+                            <input type="text" name="updatetime" class="layui-input" />
                         </div>
 
                     </div>
@@ -259,28 +259,28 @@
 
             // 单个信息数据展示
             form.val('editMerchant', {
-                "updateTime": parent.data.updateTime,
-                "createTime": parent.data.createTime,
-                "refundSuccTime": parent.data.refundSuccTime,
-                "expireTime": parent.data.expireTime,
-                "notifyUrl": parent.data.notifyUrl,
+                "updatetime": parent.data.updatetime,
+                "createtime": parent.data.createtime,
+                "refundsucctime": parent.data.refundsucctime,
+                "expiretime": parent.data.expiretime,
+                "notifyurl": parent.data.notifyurl,
                 "param2": parent.data.param2,
                 "param1": parent.data.param1,
                 "extra": parent.data.extra,
-                "channelErrCode": parent.data.channelErrCode,
-                "channelErrMsg": parent.data.channelErrMsg,
-                "channelOrderNo": parent.data.channelOrderNo,
-                "channelMchId": parent.data.channelMchId,
-                "userName": parent.data.userName,
-                "channelUser": parent.data.channelUser,
+                "channelerrcode": parent.data.channelerrcode,
+                "channelerrmsg": parent.data.channelerrmsg,
+                "channelorderno": parent.data.channelorderno,
+                "channelmchid": parent.data.channelmchid,
+                "username": parent.data.username,
+                "channeluser": parent.data.channeluser,
                 "status": parent.data.status===0?'订单生成':(parent.data.status===1?'退款中':(parent.data.status===2?'退款成功':(parent.data.status===3?'退款失败':'处理完成'))),
                 "result": parent.data.result===0?'不确认结果':(parent.data.result===1?'等待手动处理':(parent.data.result===2?'确认成功':(parent.data.result===3?'确认失败':'无'))),
                 "currency": parent.data.currency,
-                "amount": parent.data.amount,
-                "mchRefundNo": parent.data.mchRefundNo,
-                "mchId": parent.data.mchId,
-                "payOrderId": parent.data.payOrderId,
-                "refundOrderId": parent.data.refundOrderId
+                "refundamount": parent.data.refundamount,
+                "mchrefundno": parent.data.mchrefundno,
+                "mchid": parent.data.mchid,
+                "payorderid": parent.data.payorderid,
+                "refundorderid": parent.data.refundorderid
             });
         })
         var vm = new Vue({

@@ -48,7 +48,7 @@
                             支付单号
                         </label>
                         <div class="layui-input-inline">
-                            <input type="text" name="payOrderId" class="layui-input" />
+                            <input type="text" name="payorderid" class="layui-input" />
                         </div>
                     </div>
                     <div class="layui-form-item">
@@ -56,7 +56,7 @@
                             商户ID
                         </label>
                         <div class="layui-input-inline">
-                            <input type="text" name="mchId" class="layui-input" placeholder="商户ID" />
+                            <input type="text" name="mchid" class="layui-input" placeholder="商户ID" />
                         </div>
                     </div>
                     <div class="layui-form-item">
@@ -64,7 +64,7 @@
                             商户单号
                         </label>
                         <div class="layui-input-inline">
-                            <input type="text" name="mchOrderNo" class="layui-input" placeholder="" />
+                            <input type="text" name="mchorderno" class="layui-input" placeholder="" />
                         </div>
                     </div>
                     <div class="layui-form-item">
@@ -120,7 +120,7 @@
                             渠道商户ID
                         </label>
                         <div class="layui-input-inline">
-                            <input type="text" name="channelMchId" class="layui-input" />
+                            <input type="text" name="channelmchid" class="layui-input" />
                         </div>
 
                     </div>
@@ -129,7 +129,7 @@
                             渠道单号
                         </label>
                         <div class="layui-input-inline">
-                            <input type="text" name="channelOrderNo" class="layui-input" />
+                            <input type="text" name="channelorderno" class="layui-input" />
                         </div>
 
                     </div>
@@ -139,7 +139,7 @@
                             错误码
                         </label>
                         <div class="layui-input-inline">
-                            <input type="text" name="errCode" class="layui-input" />
+                            <input type="text" name="errcode" class="layui-input" />
                         </div>
 
                     </div>
@@ -148,7 +148,7 @@
                             错误消息
                         </label>
                         <div class="layui-input-inline">
-                            <input type="text" name="errMsg" class="layui-input" />
+                            <input type="text" name="errmsg" class="layui-input" />
                         </div>
 
                     </div>
@@ -184,7 +184,7 @@
                             通知地址
                         </label>
                         <div class="layui-input-inline">
-                            <input type="text" name="notifyUrl" class="layui-input" />
+                            <input type="text" name="notifyurl" class="layui-input" />
                         </div>
 
                     </div>
@@ -193,7 +193,7 @@
                             失效时间
                         </label>
                         <div class="layui-input-inline">
-                            <input type="text" name="expireTime" class="layui-input" />
+                            <input type="text" name="expiretime" class="layui-input" />
                         </div>
 
                     </div>
@@ -202,7 +202,7 @@
                             成功时间
                         </label>
                         <div class="layui-input-inline">
-                            <input type="text" name="paySuccTime" class="layui-input" />
+                            <input type="text" name="paysucctime" class="layui-input" />
                         </div>
 
                     </div>
@@ -211,7 +211,7 @@
                             创建时间
                         </label>
                         <div class="layui-input-inline">
-                            <input type="text" name="createTime" class="layui-input" />
+                            <input type="text" name="createtime" class="layui-input" />
                         </div>
 
                     </div>
@@ -220,7 +220,7 @@
                             更新时间
                         </label>
                         <div class="layui-input-inline">
-                            <input type="text" name="updateTime" class="layui-input" />
+                            <input type="text" name="updatetime" class="layui-input" />
                         </div>
 
                     </div>
@@ -243,26 +243,26 @@
 
             // 单个信息数据展示
             form.val('editMerchant', {
-                "updateTime": parent.data.updateTime,
-                "createTime": parent.data.createTime,
-                "paySuccTime": parent.data.paySuccTime,
-                "expireTime": parent.data.expireTime,
-                "notifyUrl": parent.data.notifyUrl,
+                "updatetime": parent.data.updatetime,
+                "createtime": parent.data.createtime,
+                "paysucctime": parent.data.paysucctime,
+                "expiretime": parent.data.expiretime,
+                "notifyurl": parent.data.notifyurl,
                 "param2": parent.data.param2,
                 "param1": parent.data.param1,
                 "extra": parent.data.extra,
-                "errMsg": parent.data.errMsg,
-                "errCode": parent.data.errCode,
-                "channelOrderNo": parent.data.channelOrderNo,
-                "channelMchId": parent.data.channelMchId,
+                "errmsg": parent.data.errmsg,
+                "errcode": parent.data.errcode,
+                "channelorderno": parent.data.channelorderno,
+                "channelmchid": parent.data.channelmchid,
                 "body": parent.data.body,
                 "subject": parent.data.subject,
                 "status": parent.data.status===0?'订单生成':(parent.data.status===1?'支付中':(parent.data.status===2?'支付成功':(parent.data.status===3?'业务处理完成':'无'))),
                 "currency": parent.data.currency,
                 "amount": parent.data.amount,
-                "mchOrderNo": parent.data.mchOrderNo,
-                "mchId": parent.data.mchId,
-                "payOrderId": parent.data.payOrderId
+                "mchorderno": parent.data.mchorderno,
+                "mchid": parent.data.mchid,
+                "payorderid": parent.data.payorderid
             });
         })
         var vm = new Vue({

@@ -53,6 +53,7 @@
         .el-autocomplete {
             display: inline;
         }
+
         .textFlag {
             color: #f00;
         }
@@ -155,10 +156,12 @@
             base: '../../../layuiadmin/' //静态资源所在路径
         }).extend({
             index: 'lib/index' //主入口模块
-        }).use(['index', "jquery", 'form', 'upload'], function () {
+        }).use(['index','element', "jquery", 'form', 'upload'], function () {
             var form = layui.form,
                 $ = layui.jquery,
-                upload = layui.upload;
+                upload = layui.upload,
+                element = layui.element;
+                element.init();
 
             // 商户证书cert.pem
             upload.render({
@@ -172,13 +175,6 @@
                         vm.cermFile = result;
                         vm.textFlag = '已上传';
                     });
-                },
-                done: function (res, index, upload) {
-                    console.log(res)
-                },
-                //上传错误回调
-                error: function (index, upload) {
-                    layer.alert('上传失败！' + index);
                 }
 
             });
@@ -229,7 +225,7 @@
                 mid: "",
                 mchName: "",
                 cermFile: "",
-                textFlag:""
+                textFlag: ""
             },
             methods: {
                 querySearchAsync(queryString, callback) {
