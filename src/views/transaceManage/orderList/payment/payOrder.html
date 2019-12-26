@@ -52,8 +52,17 @@
                 </div> -->
                 <table id="LAY-app-content-list" lay-filter="LAY-app-content-list"></table>
                 <script type="text/html" id="barDemo">
-                    <!-- <a class="layui-btn layui-btn-danger layui-btn-xs layui-icon layui-icon-survey" lay-event="edit">发起退款</a> -->
-                    <a class="layui-btn layui-btn-danger layui-btn-xs layui-icon layui-icon-survey" lay-event="detail">订单详情</a>
+                    {{#  if(d.reStatus =="0"){ }}
+                    <a class="layui-btn layui-btn-xs layui-icon layui-icon-survey" id="Refund" lay-event="refund">发起退款</a>
+                    <a class="layui-btn layui-btn-danger layui-btn-xs layui-icon layui-icon-survey" lay-event="detail">订单详情</a>  
+                    {{#  } }}
+                    {{#  if(d.reStatus =="1"){ }}            
+                    <a class="layui-btn layui-btn-warm layui-btn-xs layui-icon layui-icon-survey">退款成功</a>
+                    <a class="layui-btn layui-btn-danger layui-btn-xs layui-icon layui-icon-survey" lay-event="detail">订单详情</a>  
+                    {{#  } }}
+  
+                    <!-- <a class="layui-btn layui-btn-xs layui-icon layui-icon-survey" id="Refund" lay-event="refund">发起退款</a> -->
+                    <!-- <a class="layui-btn layui-btn-danger layui-btn-xs layui-icon layui-icon-survey" lay-event="detail">订单详情</a>            -->
                 </script>
             </div>
         </div>
@@ -123,8 +132,9 @@
                     { title: '渠道ID', field: 'channelid', minWidth: 100 },
                     { title: '金额(元)', field: 'amount', minWidth: 100 },
                     { title: '状态', field: 'status', minWidth: 100 },
+                    { title: '退款状态', field: 'reStatus', minWidth: 100 },
                     { title: '创建时间', field: 'createtime', minWidth: 100 },
-                    { fixed: 'right', title: '操作', toolbar: '#barDemo', width: 160 }
+                    { fixed: 'right', title: '操作', toolbar: '#barDemo', width: 220 }
                 ]] //设置表头
                 , limit: 10
                 , limits: [10, 30, 50, 100, 200]
@@ -147,6 +157,13 @@
                             $(this).text("微信")
                         }
                     })
+                    $("[data-field='reStatus']").children().each(function () {
+                        if ($(this).text() == '0') {
+                            $(this).text("无退款")
+                        } else if ($(this).text() == '1') {
+                            $(this).text("已退款")
+                        }
+                    })
                 }
             });
 
@@ -155,15 +172,47 @@
                 console.log(obj)
                 var data = obj.data //获得当前行数据
                     , layEvent = obj.event; //获得 lay-event 对应的值
-                if (layEvent === 'edit') {
-                    window.data = data;
-                    layer.open({
-                        type: 2,
-                        title: '修改渠道',
-                        area: ['600px', '450px'],//弹框大小
-                        // offset: ['50px', '300px'],
-                        content: 'channelEdit.html' //这里content是一个普通的String
+                if (layEvent === 'refund') {
+                    // 退款操作
+                    layer.confirm('确定退款吗？', function (index) {
+                        $("#Refund").addClass('layui-disabled').prop('disabled', true);
+                        //执行 axios 后重载
+
+                        var Payurl;
+                        if (data.channelid == "1") {
+                            Payurl = 'pay/refundPayOrder'
+                        } else if (data.channelid == "2") {
+                            Payurl = 'pay/wxReverseOrder'
+                        }
+                        axios({
+                            method: "post",
+                            url: payOrder + Payurl,
+                            data: {
+                                bizNo: data.mchorderno,
+                                mid: data.mchid
+                            },
+                            headers: {
+                                "Content-Type": "application/json;charset=UTF-8"
+                            }
+                        }).then(function (res) {
+                            if (res.data.code == 0) {
+                                // console.log(res)
+                                layer.msg('已退款');
+                            } else {
+                                layer.msg('退款失败');
+                                // vm.$notify.error({
+                                //     title: '错误',
+                                //     message: '删除失败'
+                                // });
+                            }
+                            table.reload('LAY-app-content-list');
+                        }).catch(function (err) {
+                            // console.log(err);
+                        });
+
                     });
+
+
 
                 } else if (layEvent === 'detail') {
                     window.data = data;

@@ -38,7 +38,7 @@
         }
 
         .layui-form-item .layui-input-inline {
-            width: 460px;
+            width: 300px;
         }
 
         .red {
@@ -64,7 +64,8 @@
     <div id="vm">
         <div class="layui-fluid">
             <div class="layui-row">
-                <form class="layui-form">
+                <form class="layui-form" lay-filter="editWechat">
+                    <input type="hidden" name="mid">
                     <div class="layui-form-item">
                         <label for="bitian" class="layui-form-label">
                             服务商Appid
@@ -113,11 +114,12 @@
                     </div> -->
                     <div class="layui-form-item">
                         <label for="bitian" class="layui-form-label">
-                            选择商户
+                            商户名称
                             <span class="red">*</span>
                         </label>
                         <div class="layui-input-inline">
-                            <el-autocomplete v-model="mchName" :fetch-suggestions="querySearchAsync" @select="handleSelect" placeholder="请选择商户"></el-autocomplete>
+                            <input type="text" name="mchName" class="layui-input" />
+                            <!-- <el-autocomplete v-model="mchName" :fetch-suggestions="querySearchAsync" @select="handleSelect" placeholder="请选择商户"></el-autocomplete> -->
                             <!-- <select lay-search name="mchName" id="MerchantList" lay-verify="required">
                                     <option value=""></option>
                                 </select> -->
@@ -145,7 +147,7 @@
                     </div> -->
                     <div class="btn-box">
                         <button class="layui-btn" lay-submit lay-filter="warnForm">提交</button>
-                        <button type="reset" class="layui-btn layui-btn-danger">重置</button>
+                        <button type="reset" class="layui-btn layui-btn-danger" @click="Cancel">取消</button>
                     </div>
                 </form>
             </div>
@@ -156,12 +158,12 @@
             base: '../../../layuiadmin/' //静态资源所在路径
         }).extend({
             index: 'lib/index' //主入口模块
-        }).use(['index','element', "jquery", 'form', 'upload'], function () {
+        }).use(['index', 'element', "jquery", 'form', 'upload'], function () {
             var form = layui.form,
                 $ = layui.jquery,
                 upload = layui.upload,
                 element = layui.element;
-                element.init();
+            element.init();
 
             // 商户证书cert.pem
             upload.render({
@@ -178,20 +180,47 @@
                 }
 
             });
-            // 商户证书key.pem
-            // upload.render({
-            //     elem: '#keyUpload',
-            //     auto: false,
-            //     accept: 'file',
-            //     exts: 'pem', //显示上传文件后缀类型
-            //     choose: function (obj) {
-            //         obj.preview(function (index, file, result) {
-            //             console.log(index, file, result);
-            //         });
-            //     }
-            // });
+            // 单个信息数据展示
+            form.val('editWechat', {
+                "mid": parent.data.id
+                , "mchName": parent.data.mchName
+            });
+            axios({
+                method: "get",
+                url: BASEURL + "mgr/payweixinconfig/info/" + parent.data.id,
+                // params: {
+                //     mid: parent.data.id
+                // }
+            })
+                .then(res => {
+                    if (res.data.code == 0) {
+                        var Devicedata = res.data.payWeixinConfig;
+                        form.val('editWechat', {
+                            // "mid": parent.data.id
+                            // , "mchName": parent.data.mchName// "name": "value"
+                            "appid": Devicedata.appid
+                            , "partnerid": Devicedata.partnerid
+                            , "partnerkey": Devicedata.partnerkey
+                        });
+
+                        if (Devicedata.cert.length != 0) {
+                            // $("#certUpload").addClass('layui-disabled').prop('disabled', true);
+                            vm.textFlag = Devicedata.cert;
+                        } else {
+
+                        }
+                    } else {
+                        vm.$notify.error({
+                            title: '错误',
+                            message: res.data.msg
+                        });
+
+                    }
+                })
+                .catch(error => {
+
+                });
             form.on('submit(warnForm)', function (data) {
-                data.field.mid = vm.mid;
                 data.field.file = vm.cermFile;
                 console.log(data.field)
                 axios({
@@ -209,10 +238,10 @@
                         });
                     } else {
                         layer.msg('保存失败！')
-                     /*    vm.$notify.error({
-                            title: '错误',
-                            message: '保存失败'
-                        }); */
+                        /*    vm.$notify.error({
+                               title: '错误',
+                               message: '保存失败'
+                           }); */
                     }
                 }).catch(function (err) {
                     // console.log(err);
@@ -229,6 +258,9 @@
                 textFlag: ""
             },
             methods: {
+                Cancel() {
+                    parent.layer.closeAll('iframe');//关闭弹窗
+                },
                 querySearchAsync(queryString, callback) {
                     // console.log(queryString);
                     var list = [{}];
@@ -259,7 +291,9 @@
 
                 }
             },
-            created() { }
+            created() {
+                console.log(parent.data.id)
+            }
 
         });
     </script>

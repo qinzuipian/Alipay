@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>微信支付服务商</title>
+    <title>支付宝服务商</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi"
@@ -38,7 +38,7 @@
         }
 
         .layui-form-item .layui-input-inline {
-            width: 460px;
+            width: 300px;
         }
 
         .red {
@@ -53,10 +53,6 @@
         .el-autocomplete {
             display: inline;
         }
-
-        .textFlag {
-            color: #f00;
-        }
     </style>
 </head>
 
@@ -64,155 +60,129 @@
     <div id="vm">
         <div class="layui-fluid">
             <div class="layui-row">
-                <form class="layui-form">
-                    <div class="layui-form-item">
-                        <label for="bitian" class="layui-form-label">
-                            服务商Appid
-                            <span class="red">*</span>
-                        </label>
-                        <div class="layui-input-inline">
-                            <input type="text" name="appid" class="layui-input" placeholder="服务商Appid" />
-                        </div>
-                    </div>
+                <form class="layui-form" lay-filter="editAlipay">
                     <!-- <div class="layui-form-item">
                         <label for="bitian" class="layui-form-label">
-                            服务商AppSecret
+                            服务商PID
                             <span class="red">*</span>
                         </label>
                         <div class="layui-input-inline">
-                            <input type="text" name="appsecret" class="layui-input" placeholder="服务商AppSecret" />
+                            <input type="text" name="servicepid" class="layui-input" placeholder="服务商PID" />
                         </div>
                     </div> -->
+                    <input type="hidden" name="mid">
                     <div class="layui-form-item">
                         <label for="bitian" class="layui-form-label">
-                            服务商商户号
+                            商户AppId
                             <span class="red">*</span>
                         </label>
                         <div class="layui-input-inline">
-                            <input type="text" name="partnerid" class="layui-input" placeholder="服务商商户号" />
+                            <input type="text" name="appid" class="layui-input" placeholder="服务商AppId" />
                         </div>
                     </div>
                     <div class="layui-form-item">
                         <label for="bitian" class="layui-form-label">
-                            商户api密钥
+                            商户名称
                             <span class="red">*</span>
                         </label>
                         <div class="layui-input-inline">
-                            <input type="text" name="partnerkey" class="layui-input" placeholder="商户api密钥" />
+                            <input type="text" name="mchName" class="layui-input" placeholder="服务商AppId" />
+                            <!-- <el-autocomplete v-model="mchName" :fetch-suggestions="querySearchAsync" @select="handleSelect" placeholder="请选择商户"></el-autocomplete> -->
+                            <!-- <select lay-search name="mchName" id="MerchantList" lay-verify="required">
+                                <option value=""></option>
+                            </select> -->
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="bitian" class="layui-form-label">
+                            支付宝公钥
+                            <span class="red">*</span>
+                        </label>
+                        <div class="layui-input-inline">
+                            <textarea placeholder="请输入内容" class="layui-textarea" name="publickey"></textarea>
                         </div>
 
                     </div>
-                    <!-- <div class="layui-form-item">
-                        <label for="bitian" class="layui-form-label">
-                            商户apiv3密钥
-                            <span class="red">*</span>
-                        </label>
-                        <div class="layui-input-inline">
-                            <input type="text" name="apiv3Key" class="layui-input" placeholder="商户apiv3密钥" />
-                        </div>
-                    </div> -->
                     <div class="layui-form-item">
                         <label for="bitian" class="layui-form-label">
-                            选择商户
+                            应用私钥
                             <span class="red">*</span>
                         </label>
                         <div class="layui-input-inline">
-                            <el-autocomplete v-model="mchName" :fetch-suggestions="querySearchAsync" @select="handleSelect" placeholder="请选择商户"></el-autocomplete>
-                            <!-- <select lay-search name="mchName" id="MerchantList" lay-verify="required">
-                                    <option value=""></option>
-                                </select> -->
+                            <textarea placeholder="请输入内容" class="layui-textarea" name="privatekey"></textarea>
                         </div>
+
                     </div>
-                    <div class="layui-form-item">
-                        <label for="bitian" class="layui-form-label">
-                            商户证书cert.pem
-                            <span class="red">*</span>
-                        </label>
-                        <div class="layui-input-inline">
-                            <button type="button" class="layui-btn" id="certUpload">上传</button>
-                            <span v-text="textFlag" class="textFlag"></span>
-                            <!-- <input type="text" name="certPem" class="layui-input" placeholder="商户apiv3密钥" /> -->
-                        </div>
-                    </div>
-                    <!-- <div class="layui-form-item">
-                        <label for="bitian" class="layui-form-label">
-                            商户证书key.pem
-                            <span class="red">*</span>
-                        </label>
-                        <div class="layui-input-inline">
-                            <button type="button" class="layui-btn" id="keyUpload">上传</button>
-                        </div>
-                    </div> -->
                     <div class="btn-box">
                         <button class="layui-btn" lay-submit lay-filter="warnForm">提交</button>
-                        <button type="reset" class="layui-btn layui-btn-danger">重置</button>
+                        <button type="reset" class="layui-btn layui-btn-danger" @click="Cancel">取消</button>
                     </div>
                 </form>
             </div>
         </div>
+
     </div>
     <script>
         layui.config({
             base: '../../../layuiadmin/' //静态资源所在路径
         }).extend({
             index: 'lib/index' //主入口模块
-        }).use(['index','element', "jquery", 'form', 'upload'], function () {
+        }).use(['index', "jquery", 'form'], function () {
             var form = layui.form,
-                $ = layui.jquery,
-                upload = layui.upload,
-                element = layui.element;
-                element.init();
+                $ = layui.jquery;
 
-            // 商户证书cert.pem
-            upload.render({
-                elem: '#certUpload',
-                auto: false,
-                accept: 'file',
-                exts: 'p12', //显示上传文件后缀类型
-                choose: function (obj) {
-                    obj.preview(function (index, file, result) {
-                        console.log(result);
-                        vm.cermFile = result;
-                        vm.textFlag = '已上传';
-                    });
-                }
 
+            // 单个信息数据展示
+            form.val('editAlipay', {
+                "mid": parent.data.id
+                , "mchName": parent.data.mchName
             });
-            // 商户证书key.pem
-            // upload.render({
-            //     elem: '#keyUpload',
-            //     auto: false,
-            //     accept: 'file',
-            //     exts: 'pem', //显示上传文件后缀类型
-            //     choose: function (obj) {
-            //         obj.preview(function (index, file, result) {
-            //             console.log(index, file, result);
-            //         });
-            //     }
-            // });
+            axios({
+                method: "get",
+                url: BASEURL + "mgr/payalipayconfig/queryMechKey",
+                params: {
+                    mid: parent.data.id
+                }
+            })
+                .then(res => {
+                    if (res.data.code == 0) {
+                        var Devicedata = res.data.data;
+                        form.val('editAlipay', {
+                            // "mid": parent.data.id
+                            // , "mchName": parent.data.mchName// "name": "value"
+                            "appid": Devicedata.appid
+                            , "publickey": Devicedata.publickey
+                            , "privatekey": Devicedata.privatekey
+                        });
+                    } else {
+                        vm.$notify.error({
+                            title: '错误',
+                            message: res.data.msg
+                        });
+
+                    }
+                })
+                .catch(error => {
+
+                });
             form.on('submit(warnForm)', function (data) {
-                data.field.mid = vm.mid;
-                data.field.file = vm.cermFile;
-                console.log(data.field)
                 axios({
                     method: "post",
-                    url: layui.setter.BASEURL + 'mgr/payweixinconfig/saveConfig',
+                    // url: layui.setter.BASEURL + 'mgr/payalipayservice/save',
+                    url: layui.setter.BASEURL + 'mgr/payalipayconfig/save',
                     data: data.field,
                     headers: {
                         "Content-Type": "application/json;charset=UTF-8"
                     }
                 }).then(function (res) {
                     if (res.data.code == 0) {
-                        // console.log(res)
-                        layer.msg('保存成功！', {
-                            time: 500
-                        });
+                        layer.msg('保存成功！');
                     } else {
-                        layer.msg('保存失败！')
-                     /*    vm.$notify.error({
-                            title: '错误',
-                            message: '保存失败'
-                        }); */
+                        layer.msg('保存失败');
+                        // vm.$notify.error({
+                        //     title: '错误',
+                        //     message: '保存失败'
+                        // });
                     }
                 }).catch(function (err) {
                     // console.log(err);
@@ -223,12 +193,14 @@
         var vm = new Vue({
             el: "#vm",
             data: {
-                mid: "",
                 mchName: "",
-                cermFile: "",
-                textFlag: ""
+                mid: ""
             },
             methods: {
+                Cancel() {
+                    parent.layer.closeAll('iframe');//关闭弹窗
+                },
+                // 商户列表远程搜索框
                 querySearchAsync(queryString, callback) {
                     // console.log(queryString);
                     var list = [{}];
@@ -255,11 +227,15 @@
                     });
                 },
                 handleSelect(item) {
+                    console.log(item);
                     vm.mid = item.id;
 
                 }
+
             },
-            created() { }
+            created() {
+                // console.log(parent.data)
+            }
 
         });
     </script>

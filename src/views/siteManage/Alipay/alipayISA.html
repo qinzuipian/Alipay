@@ -168,10 +168,11 @@
                     if (res.data.code == 0) {
                         layer.msg('保存成功！');
                     } else {
-                        vm.$notify.error({
-                            title: '错误',
-                            message: '保存失败'
-                        });
+                        layer.msg('保存失败');
+                        // vm.$notify.error({
+                        //     title: '错误',
+                        //     message: '保存失败'
+                        // });
                     }
                 }).catch(function (err) {
                     // console.log(err);
