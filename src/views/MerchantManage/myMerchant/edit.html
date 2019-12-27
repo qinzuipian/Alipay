@@ -69,7 +69,7 @@
                             <span class="red">*</span>
                         </label>
                         <div class="layui-input-inline">
-                            <input type="text" name="mchId" class="layui-input" placeholder="需为手机号格式" />
+                            <input type="text" disabled name="mchId" class="layui-input layui-disabled" placeholder="需为手机号格式" />
                         </div>
                     </div>
                     <div class="layui-form-item">
@@ -87,7 +87,16 @@
                             <span class="red">*</span>
                         </label>
                         <div class="layui-input-inline">
-                            <input type="text" name="pwd" class="layui-input" placeholder="商户绑定密码" />
+                            <input type="password" id="passOne" name="pwd" class="layui-input" placeholder="商户绑定密码" />
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="bitian" class="layui-form-label">
+                            确认密码
+                            <span class="red">*</span>
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="password" lay-verify="repass" class="layui-input" placeholder="商户确认密码" />
                         </div>
                     </div>
                     <div class="layui-form-item">
@@ -114,7 +123,7 @@
                             <span class="red">*</span>
                         </label>
                         <div class="layui-input-inline">
-                            <input type="text" name="kfMobile" class="layui-input" placeholder="客服电话" />
+                            <input type="text" lay-verify="phone" name="kfMobile" class="layui-input" placeholder="客服电话" />
                         </div>
                     </div>
                     <div class="layui-form-item">
@@ -123,7 +132,7 @@
                             <span class="red">*</span>
                         </label>
                         <div class="layui-input-inline">
-                            <input type="text" name="email" class="layui-input" placeholder="邮箱" />
+                            <input type="text" lay-verify="email" name="email" class="layui-input" placeholder="邮箱" />
                         </div>
                     </div>
                     <div class="btn-box">
@@ -145,7 +154,15 @@
             var form = layui.form,
                 $ = layui.jquery;
 
-
+            //自定义验证
+            form.verify({
+                //确认密码
+                repass: function (value) {
+                    if (value !== $('#passOne').val()) {
+                        return '两次密码输入不一致';
+                    }
+                }
+            });
             form.on('radio(State)', function (data) {
                 console.log(data);
                 vm.valueState = data.value;
@@ -198,7 +215,7 @@
                         .catch(error => {
 
                         });
-                  
+
 
                 } else {
 
@@ -251,7 +268,7 @@
             el: "#vm",
             data: {
                 valueState: "",
-                stagesTypeIdList:[]
+                stagesTypeIdList: []
             },
             methods: {
                 cancel() {

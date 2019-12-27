@@ -80,71 +80,29 @@
             table.render({
                 elem: '#LAY-app-content-list'
                 , height: 555 //容器高度
-                , url: layui.setter.BASEURL + 'trans_order/list' //数据接口
+                , url: layui.setter.BASEURL + 'dal/tpayorder/queryTranOrderInfo' //数据接口
                 , page: true,
-                request: {
-                    pageName: 'pageIndex',
-                    limitName: 'pageSize'
-                }
+                , method: 'post'
                 , parseData: function (res) { // 数据重新处理为layUI的数据格式
-                    // console.log(JSON.parse(res))
                     var msg = {
                         "code": res.code, //解析接口状态
                         "msg": res.msg, //解析提示文本
-                        "count": res.data.count, //解析数据长度
-                        "data": res.data.list //解析数据列表
+                        "count": res.page.totalCount, //解析数据长度
+                        "data": res.page.list //解析数据列表
                     };
                     return msg;
                 }
                 , cols: [[
-                    // { checkbox: true },
-                    { title: '转账单号', minWidth: 100, field: 'transOrderId' },
-                    { title: '商户ID', field: 'mchId', minWidth: 100 },
-                    { title: '渠道ID', field: 'channelId', minWidth: 100 },
-                    { title: '金额(元)', field: 'amount', minWidth: 100 },
-                    { title: '状态', field: 'status', minWidth: 100 },
-                    { title: '转账结果', field: 'result', minWidth: 100 },
-                    { title: '创建时间', field: 'createTime', minWidth: 100 },
+                    { title: '门店名称', field: 'mchName', minWidth: 100 },
+                    { title: '门店成功交易笔数', field: 'amountNum', minWidth: 100 },
+                    { title: '门店成功交易金额', field: 'amountAll', minWidth: 100 },
+                    { title: '门店退款笔数', field: 'RefundamountNum', minWidth: 100 },
+                    { title: '门店退款金额', field: 'RefundAmountAll', minWidth: 100 }
                     { fixed: 'right', title: '操作', toolbar: '#barDemo', width: 160 }
                 ]] //设置表头
                 , limit: 10
                 , limits: [10, 30, 50, 100, 200]
-                , done: function (res, page, count) {
-                    $("[data-field='status']").children().each(function () {
-                        if ($(this).text() == '0') {
-                            $(this).text("订单生成")
-                        } else if ($(this).text() == '1') {
-                            $(this).text("转账中")
-                        } else if ($(this).text() == '2') {
-                            $(this).text("转账成功")
-                        } else if ($(this).text() == '3') {
-                            $(this).text("转账失败")
-                        } else if ($(this).text() == '4') {
-                            $(this).text("处理完成")
-                        }
-                    })
-
-
-                    $("[data-field='result']").children().each(function () {
-                        if ($(this).text() == '0') {
-                            $(this).text("不确定结果")
-                        } else if ($(this).text() == '1') {
-                            $(this).text("等待手动处理")
-                        } else if ($(this).text() == '2') {
-                            $(this).text("确认成功")
-                        } else if ($(this).text() == '3') {
-                            $(this).text("确认失败")
-                        }
-                    })
-
-                     $("[data-field='channelId']").children().each(function () {
-                        if ($(this).text() == '1') {
-                            $(this).text("支付宝")
-                        } else if ($(this).text() == '2') {
-                            $(this).text("微信")
-                        }
-                    })
-                }
+              
             });
 
             //监听工具条
