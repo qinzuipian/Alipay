@@ -24,7 +24,7 @@
                         </div>
                     </div>
                     <div class="layui-inline">
-                        <label class="layui-form-label">商户ID</label>
+                        <label class="layui-form-label">选择商户</label>
                         <div class="layui-input-inline">
                             <select name="mid" id="ecPolluteType">
                                 <option value=""></option>
@@ -52,17 +52,17 @@
                 </div> -->
                 <table id="LAY-app-content-list" lay-filter="LAY-app-content-list"></table>
                 <script type="text/html" id="barDemo">
-                    {{#  if(d.reStatus =="0"){ }}
+                 <!--    {{#  if(d.reStatus =="0"){ }}
                     <a class="layui-btn layui-btn-xs layui-icon layui-icon-survey" id="Refund" lay-event="refund">发起退款</a>
                     <a class="layui-btn layui-btn-danger layui-btn-xs layui-icon layui-icon-survey" lay-event="detail">订单详情</a>  
                     {{#  } }}
                     {{#  if(d.reStatus =="1"){ }}            
                     <a class="layui-btn layui-btn-warm layui-btn-xs layui-icon layui-icon-survey">退款成功</a>
                     <a class="layui-btn layui-btn-danger layui-btn-xs layui-icon layui-icon-survey" lay-event="detail">订单详情</a>  
-                    {{#  } }}
+                    {{#  } }} -->
   
                     <!-- <a class="layui-btn layui-btn-xs layui-icon layui-icon-survey" id="Refund" lay-event="refund">发起退款</a> -->
-                    <!-- <a class="layui-btn layui-btn-danger layui-btn-xs layui-icon layui-icon-survey" lay-event="detail">订单详情</a>            -->
+                    <a class="layui-btn layui-btn-danger layui-btn-xs layui-icon layui-icon-survey" lay-event="detail">订单详情</a>           
                 </script>
             </div>
         </div>
@@ -128,13 +128,13 @@
                 , cols: [[
                     // { checkbox: true },
                     { title: '支付单号', minWidth: 100, field: 'payorderid' },
-                    { title: '商户ID', field: 'mchid', minWidth: 100 },
+                    // { title: '商户ID', field: 'mchid', minWidth: 100 },
                     { title: '渠道ID', field: 'channelid', minWidth: 100 },
                     { title: '金额(元)', field: 'amount', minWidth: 100 },
                     { title: '状态', field: 'status', minWidth: 100 },
                     { title: '退款状态', field: 'reStatus', minWidth: 100 },
                     { title: '创建时间', field: 'createtime', minWidth: 100 },
-                    { fixed: 'right', title: '操作', toolbar: '#barDemo', width: 220 }
+                    { fixed: 'right', title: '操作', toolbar: '#barDemo', width: 160 }
                 ]] //设置表头
                 , limit: 10
                 , limits: [10, 30, 50, 100, 200]

@@ -235,6 +235,9 @@
                         // console.log(res)
                         layer.msg('保存成功！', {
                             time: 500
+                        }, function () {
+                            window.parent.location.reload();
+                            parent.layer.close('iframe');
                         });
                     } else {
                         layer.msg('保存失败！')
