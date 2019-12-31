@@ -183,11 +183,12 @@
                             parent.layer.close('iframe');
                         });
                     } else {
-                        layer.msg('保存失败');
-                        // vm.$notify.error({
-                        //     title: '错误',
-                        //     message: '保存失败'
-                        // });
+                         layer.msg(res.data.msg, {
+                           time: 500
+                       }, function () {
+                           window.parent.location.reload();
+                           parent.layer.close('iframe');
+                       });
                     }
                 }).catch(function (err) {
                     // console.log(err);

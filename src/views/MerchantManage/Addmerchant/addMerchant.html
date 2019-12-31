@@ -238,7 +238,7 @@
                             parent.layer.close('iframe');
                         });
                     } else {
-                        layer.msg('保存失败！', {
+                        layer.msg(res.data.msg, {
                             time: 500
                         }, function () {
                             parent.layer.close('iframe');
