@@ -110,6 +110,7 @@
 								if (res.data.code == 0) {
 									localStorage.setItem('un', res.data.data.un);
 									// localStorage.setItem('mchId', res.data.data.mchId);
+									localStorage.setItem('agencyId', res.data.data.id);
 									window.location.href = "./../index.html";
 								} else {
 									vm.$message.error(res.data.msg);

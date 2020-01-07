@@ -89,6 +89,9 @@
                 , url: layui.setter.BASEURL + 'mgr/payusermerchant/list' //数据接口
                 , page: true,
                 method: 'post',
+                where:{
+                    agencyId: localStorage.getItem('agencyId')
+                },
                 parseData: function (res) { // 数据重新处理为layUI的数据格式
                     var msg = {
                         "code": res.code, //解析接口状态

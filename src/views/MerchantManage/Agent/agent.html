@@ -3,42 +3,40 @@
 
 <head>
     <meta charset="utf-8">
-    <title>转账订单</title>
+    <title>我的商户</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <link rel="stylesheet" href="../../../../layuiadmin/layui/css/layui.css" media="all">
-    <link rel="stylesheet" href="../../../../layuiadmin/style/admin.css" media="all">
+    <link rel="stylesheet" href="../../../layuiadmin/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../../layuiadmin/style/admin.css" media="all">
 </head>
 
 <body>
-
     <div class="layui-fluid">
         <div class="layui-card">
-            <div class="layui-form layui-card-header layuiadmin-card-header-auto">
+           <!--  <div class="layui-form layui-card-header layuiadmin-card-header-auto">
                 <div class="layui-form-item">
                     <div class="layui-inline">
-                        <label class="layui-form-label">转账单号</label>
+                        <label class="layui-form-label">商户名称</label>
                         <div class="layui-input-inline">
-                            <input type="text" class="layui-input" name="transOrderId" placeholder="转账单号">
+                            <input type="text" class="layui-input" name="mchName" placeholder="商户名称">
                         </div>
                     </div>
                     <div class="layui-inline">
-                        <label class="layui-form-label">商户ID</label>
+                        <label class="layui-form-label">商户账户</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="mchId" placeholder="商户ID" autocomplete="off" class="layui-input">
+                            <input type="text" name="mchId" placeholder="商户账户" autocomplete="off" class="layui-input">
                         </div>
                     </div>
                     <div class="layui-inline">
-                        <label class="layui-form-label">订单状态</label>
+                        <label class="layui-form-label">商户类型</label>
                         <div class="layui-input-inline">
-                            <select name="status" id="status" lay-search="">
-                                <option value="-99">所有状态</option>
-                                <option value="0">订单生成</option>
-                                <option value="1">转账中</option>
-                                <option value="2">转账成功</option>
-                                <option value="3">转账失败</option>
-                                <option value="4">处理完成</option>
+                            <select name="mchType" id="type" lay-search="">
+                                <option value="">所有类型</option>
+                                <option value="1">个人</option>
+                                <option value="2">个体</option>
+                                <option value="3">企业</option>
+                                <option value="4">事业</option>
                             </select>
                         </div>
                     </div>
@@ -48,28 +46,36 @@
                         </button>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
             <div class="layui-card-body">
-                <!-- <div style="padding-bottom: 10px;">
+                <div style="padding-bottom: 10px;">
                     <button class="layui-btn layuiadmin-btn-list layui-bg-green" data-type="add">
                         <i class="layui-icon">&#xe654;</i>添加</button>
-                </div> -->
+                    <!--   <button class="layui-btn layuiadmin-btn-list layui-bg-blue" data-type="edit">
+                        <i class="layui-icon">&#xe642;</i>编辑</button>
+                    <button class="layui-btn layuiadmin-btn-list layui-bg-red" data-type="batchdel">
+                        <i class="layui-icon">&#xe640;</i>删除</button> -->
+                </div>
                 <table id="LAY-app-content-list" lay-filter="LAY-app-content-list"></table>
                 <script type="text/html" id="barDemo">
-                    <!-- <a class="layui-btn layui-btn-danger layui-btn-xs layui-icon layui-icon-survey" lay-event="edit">重新转账</a> -->
-                    <a class="layui-btn layui-btn-danger layui-btn-xs layui-icon layui-icon-survey" lay-event="detail">订单详情</a>
+                    <!-- <a class="layui-btn layui-btn-warm layui-btn-xs layui-icon layui-icon-survey" lay-event="sign">签约管理</a>
+                    <a class="layui-btn layui-btn-xs layui-icon layui-icon-cellphone" lay-event="alipay">支付宝</a>
+                    <a class="layui-btn layui-btn-warm layui-btn-xs layui-icon layui-icon-login-wechat" lay-event="wechat">微信</a> -->
+					
+                    <a class="layui-btn layui-btn-normal layui-btn-xs layui-icon layui-icon-survey" lay-event="edit">编辑</a>
+                    <a class="layui-btn layui-btn-danger layui-btn-xs layui-icon layui-icon-survey" lay-event="detail">查看</a>
                 </script>
             </div>
         </div>
     </div>
 
-    <script src="../../../../layuiadmin/layui/layui.js"></script>
-    <script src="../../../../layuiadmin/plugin/vue.js"></script>
-    <script src="../../../../layuiadmin/plugin/axios.js"></script>
+    <script src="../../../layuiadmin/layui/layui.js"></script>
+    <script src="../../../layuiadmin/plugin/vue.js"></script>
+    <script src="../../../layuiadmin/plugin/axios.js"></script>
     <script>
         layui.config({
-            base: '../../../../layuiadmin/' //静态资源所在路径
+            base: '../../../layuiadmin/' //静态资源所在路径
         }).extend({
             index: 'lib/index' //主入口模块
         }).use(['index', 'table', 'laydate'], function () {
@@ -79,11 +85,11 @@
 
             table.render({
                 elem: '#LAY-app-content-list'
-                , height: 555 //容器高度
-                , url: layui.setter.BASEURL + 'dal/tpayorder/queryTranOrderInfo' //数据接口
-                , page: true
-                , method: 'post'
-                , parseData: function (res) { // 数据重新处理为layUI的数据格式
+                , height: 480 //容器高度
+                , url: layui.setter.BASEURL + 'mgr/payusermerchant/list' //数据接口
+                , page: true,
+                method: 'post',
+                parseData: function (res) { // 数据重新处理为layUI的数据格式
                     var msg = {
                         "code": res.code, //解析接口状态
                         "msg": res.msg, //解析提示文本
@@ -93,16 +99,30 @@
                     return msg;
                 }
                 , cols: [[
-                    { title: '门店名称', field: 'mchName', minWidth: 100 },
-                    { title: '门店成功交易笔数', field: 'amountNum', minWidth: 100 },
-                    { title: '门店成功交易金额', field: 'amountAll', minWidth: 100 },
-                    { title: '门店退款笔数', field: 'RefundamountNum', minWidth: 100 },
-                    { title: '门店退款金额', field: 'RefundAmountAll', minWidth: 100 },
-                    { fixed: 'right', title: '操作', toolbar: '#barDemo', width: 160 }
+                    { title: '商户账号', minWidth: 100, field: 'mchId' },
+                    { title: '商户全称', field: 'mchName', minWidth: 100 },
+                    { title: '商户类型', field: 'mchType', minWidth: 100 },
+                    // { title: '商户级别', field: 'levelId', minWidth: 100 },
+                    // { title: '到期时间', field: 'mendtime', minWidth: 100 },
+                    { title: '所属代理', field: 'pid', minWidth: 100 },
+                    { fixed: 'right', title: '操作', toolbar: '#barDemo', width: 230 }
                 ]] //设置表头
                 , limit: 10
                 , limits: [10, 30, 50, 100, 200]
-              
+                , done: function (res, page, count) {
+                    $("[data-field='mchType']").children().each(function () {
+                        if ($(this).text() == '1') {
+                            $(this).text("个人")
+                        } else if ($(this).text() == '2') {
+                            $(this).text("个体")
+                        } else if ($(this).text() == '3') {
+                            $(this).text("企业")
+                        } else if ($(this).text() == '4') {
+                            $(this).text("事业")
+                        }
+                    })
+
+                }
             });
 
             //监听工具条
@@ -111,24 +131,23 @@
                 var data = obj.data //获得当前行数据
                     , layEvent = obj.event; //获得 lay-event 对应的值
                 if (layEvent === 'edit') {
-                    window.data = data;
+                    window.id = data.id;
                     layer.open({
                         type: 2,
-                        title: '修改渠道',
-                        area: ['600px', '450px'],//弹框大小
+                        title: '修改代理商',
+                        area: ['600px', '500px'],//弹框大小
                         // offset: ['50px', '300px'],
-                        content: 'channelEdit.html' //这里content是一个普通的String
+                        content: './editAgent.html' //这里content是一个普通的String
                     });
 
                 } else if (layEvent === 'detail') {
-                    window.data = data;
+                    window.id = data.id;
                     layer.open({
                         type: 2,
-                        title: '查看转账订单',
-                        area: ['600px', '450px'],//弹框大小
-                        content: 'transferDetail.html' //这里content是一个普通的String
+                        title: '查看代理商',
+                        area: ['600px', '500px'],//弹框大小
+                        content: './agentDetail.html' //这里content是一个普通的String
                     });
-
                 }
             });
 
@@ -159,6 +178,7 @@
                             obj.SendType = checkData[i].sendType;
                             idList.push(obj)
                         }
+
                         if (checkData.length === 0) {
                             return layer.msg('请选择数据');
                         }
@@ -197,12 +217,33 @@
                     add: function () {
                         layer.open({
                             type: 2,
-                            title: '添加渠道',
-                            content: 'channelAdd.html',
+                            title: '添加代理商',
+                            content: './addAgent.html',
                             maxmin: true,
                             area: ['600px', '500px']
 
                         });
+                    },
+                    edit: function () {
+                        var checkStatus = table.checkStatus('LAY-app-content-list'),
+                            checkData = checkStatus.data; //得到选中的数据
+                        // console.log(checkData)
+                        if (checkData.length === 0) {
+                            return layer.msg('请选择需要修改的数据');
+                        } else if (checkData.length > 1) {
+                            return layer.msg('只能选择单条数据进行编辑');
+                        }
+                        // 获取行数据的id传值至弹窗页面
+                        // window.id = checkData[0].id;
+                        window.data = checkData;
+                        layer.open({
+                            type: 2,
+                            title: '编辑异常订阅',
+                            content: 'warnsubEdit.html',
+                            maxmin: true,
+                            area: ['600px', '500px']
+                        });
+
                     }
                 };
 

@@ -110,6 +110,17 @@
                     </div>
                     <div class="layui-form-item">
                         <label for="bitian" class="layui-form-label">
+                            代理商
+                            <span class="red">*</span>
+                        </label>
+                        <div class="layui-input-inline">
+                            <select name="pid" id="agentType" lay-filter="agentType" lay-verify="">
+                                <option value=""></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="bitian" class="layui-form-label">
                             分期类型
                             <!-- <span class="red">*</span> -->
                         </label>
@@ -167,6 +178,49 @@
                 console.log(data);
                 vm.valueState = data.value;
             })
+            // 代理商select填充
+            axios({
+                method: "post",
+                url: BASEURL + 'mgr/payuseragency/queryAgencyList',
+                /*  params: {
+                     pId: window.localStorage.getItem("userMchid")
+                 } */
+            }).then(function (res) {
+                if (res.data.code == 0) {
+                    // // console.log(res)
+                    $.each(res.data.maplist, function (index, item) {
+                        // // console.log(index, item)
+                        $('#agentType').append(new Option(item.name, item.id));// 下拉菜单里添加元素
+                    });
+                    layui.form.render("select");
+                    // 单个信息数据展示
+                    axios({
+                        method: "get",
+                        url: BASEURL + "mgr/payusermerchant/info/" + parent.id,
+                    })
+                        .then(res => {
+                            if (res.data.code == 0) {
+                                var list = res.data.payUserMerchant;
+                                form.val('editMerchant', {
+                                    'pid': list.pid,
+                                });
+
+
+                            } else {
+
+                            }
+                        })
+                        .catch(error => {
+
+                        });
+
+
+                } else {
+
+                }
+            }).catch(function (err) {
+                // console.log(err);
+            });
 
             // checkbox事件类型数据填充
             axios({

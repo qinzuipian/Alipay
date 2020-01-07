@@ -24,7 +24,7 @@
                         </div>
                     </div>
                     <div class="layui-inline">
-                        <label class="layui-form-label">商户ID</label>
+                        <label class="layui-form-label">商户选择</label>
                         <div class="layui-input-inline">
                             <select name="mid" id="ecPolluteType">
                                 <option value=""></option>
@@ -32,13 +32,13 @@
                             <!-- <input type="text" name="mchId" placeholder="商户ID" autocomplete="off" class="layui-input"> -->
                         </div>
                     </div>
-                  
+
                     <div class="layui-inline">
-                            <label class="layui-form-label">创建日期</label>
-                            <div class="layui-input-inline">
-                                <input type="text" class="layui-input" id="startDate" name="createtime" placeholder="请输入开始日期">
-                            </div>
+                        <label class="layui-form-label">创建日期</label>
+                        <div class="layui-input-inline">
+                            <input type="text" class="layui-input" id="startDate" name="createtime" placeholder="请输入开始日期">
                         </div>
+                    </div>
                     <div class="layui-inline">
                         <button class="layui-btn layuiadmin-btn-list" lay-submit lay-filter="LAY-app-contlist-search">
                             <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
@@ -87,6 +87,7 @@
                 method: "post",
                 url: BASEURL + 'mgr/payusermerchant/queryMerchantList',
                 params: {
+                    agencyId: localStorage.getItem('agencyId')
                 }
             }).then(function (res) {
                 if (res.data.code == 0) {
@@ -108,8 +109,13 @@
                 elem: '#LAY-app-content-list'
                 , height: 555 //容器高度
                 , url: layui.setter.BASEURL + 'dal/trefundorder/list' //数据接口
-                , page: true
-                , parseData: function (res) { // 数据重新处理为layUI的数据格式
+                , page: true,
+                method: 'post',
+                contentType: 'application/json'
+                , where: {
+                    agencyId: localStorage.getItem('agencyId')
+                },
+                parseData: function (res) { // 数据重新处理为layUI的数据格式
                     var msg = {
                         "code": res.code, //解析接口状态
                         "msg": res.msg, //解析提示文本
@@ -199,7 +205,6 @@
             //监听搜索
             form.on('submit(LAY-app-contlist-search)', function (data) {
                 var field = data.field;
-
                 //执行重载
                 table.reload('LAY-app-content-list', {
                     where: field,

@@ -137,12 +137,14 @@
                 , url: layui.setter.BASEURL + 'dal/tpayorder/queryTranOrderInfo' //数据接口
                 // , page: true
                 , where: {
-                    mid: parent.id,
+                    mid: parent.id.toString(),
                     flag:"1",
                     startTime: new Date().format("yyyy-MM-dd"),
-                    endTime: new Date().format("yyyy-MM-dd")
+                    endTime: new Date().format("yyyy-MM-dd"),
+                    agencyId: localStorage.getItem('agencyId')
                 }
                 , method: 'post'
+                ,  contentType: 'application/json'
                 , parseData: function (res) { // 数据重新处理为layUI的数据格式
                     var msg = {
                         "code": res.code, //解析接口状态

@@ -110,7 +110,8 @@
                 , height: 555 //容器高度
                 , url: layui.setter.BASEURL + 'dal/tpayorder/queryTranOrderInfo' //数据接口
                 // , page: true
-                , method: 'post'
+                , method: 'post',
+                contentType: 'application/json'
                 , parseData: function (res) { // 数据重新处理为layUI的数据格式
                     var msg = {
                         "code": res.code, //解析接口状态
@@ -120,10 +121,11 @@
                     };
                     return msg;
                 },
-                where:{
-                     startTime:new Date().format("yyyy-MM-dd"),
-                     endTime:new Date().format("yyyy-MM-dd"),
-                     flag:"0"
+                where: {
+                    startTime: new Date().format("yyyy-MM-dd"),
+                    endTime: new Date().format("yyyy-MM-dd"),
+                    flag: "0",
+                    agencyId: localStorage.getItem('agencyId')
                 }
                 , cols: [[
                     { title: '商户名称', field: 'mchName', minWidth: 100 },
